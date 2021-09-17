@@ -1,0 +1,66 @@
+-Cliente
+	id_cliente
+	nombre_cliente
+	apellidoPat_cliente
+	apellidoMat_cliente
+	telefono_cliente
+	correo_cliente
+	DNI_cliente
+		
+-Dirección
+	id_dirección
+	id_cliente
+	nombre_dirección
+
+-Reserva
+	id_cliente
+	id_hotel
+	fechaInicio_reserva
+	fechaFin_reserva
+	descripc_reserva
+
+-Habitación
+	idHab_hotel
+	Nivel de la habitación
+	tipo_habitacion
+	descripcion_habitacion
+
+-Boleta
+	id_venta
+	id_usuario
+	fecha_hora_venta
+	ruc_boleta
+	tipoPago_boleta
+
+
+
+-DetalleBoleta
+	id_venta
+	id_usuario
+	id_cliente
+	idHab_hotel
+	precioHab_detalleBoleta
+	precioExtra_detalleBoleta
+	
+
+-Empleado 
+	id empleado
+	usuario empleado
+	contarseña empleado
+	nombre empleado
+	apellido del empleado
+	DNI empleado
+	
+
+-Rol
+	id_rol
+	nombre_rol
+	descripcion_rol
+	id_empleado
+
+-Login 
+	id_empleado
+	id_rol
+	
+
+
