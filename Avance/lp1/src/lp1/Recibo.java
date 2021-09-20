@@ -45,7 +45,7 @@ public class Recibo extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("ID CLIENTE");
+		JLabel lblNewLabel = new JLabel("ID CLIENTES");
 		lblNewLabel.setBounds(104, 46, 77, 14);
 		contentPane.add(lblNewLabel);
 		
