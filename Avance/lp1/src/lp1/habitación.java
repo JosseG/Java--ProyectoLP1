@@ -46,7 +46,7 @@ public class habitación extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("BUSCAR");
+		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.setBounds(53, 31, 89, 23);
 		contentPane.add(btnNewButton);
 		
