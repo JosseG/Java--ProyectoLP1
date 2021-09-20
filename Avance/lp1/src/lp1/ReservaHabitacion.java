@@ -133,5 +133,5 @@ public class ReservaHabitacion extends JFrame {
 		comboBox_4.setBounds(251, 298, 119, 21);
 		contentPane.add(comboBox_4);
 	}
-	//probando java
+	//probando java, cambia los gui
 }
