@@ -86,6 +86,10 @@ public class habitación extends JFrame {
 				"COD-CLIENTE", "N\u00B0DIAS", "CARACTERISTICAS", "PISO", "TIPO DE HABITACION", "ESTADO", "PRECIO"
 			}
 		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			Class[] columnTypes = new Class[] {
 				String.class, String.class, String.class, String.class, String.class, String.class, String.class
 			};
