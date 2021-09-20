@@ -111,6 +111,8 @@ public class MenuPrincipal extends JFrame {
              
              super.paint(g);
     	}
+    	//xd
     }
+    }
+
     
-}
