@@ -1,0 +1,39 @@
+package util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class Conexion {
+
+	private static Conexion conexion;
+	private Connection connection;
+	
+	private Conexion() {
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection=DriverManager.getConnection("");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public static synchronized Conexion obtenerCone() {
+		if(conexion==null) {
+			conexion=new Conexion();
+		}
+		return conexion;
+	}
+	
+	public Connection conectBd() {
+		return connection;
+	}
+	
+	public void cerrarConexion() {
+		conexion=null;
+	}
+	
+}

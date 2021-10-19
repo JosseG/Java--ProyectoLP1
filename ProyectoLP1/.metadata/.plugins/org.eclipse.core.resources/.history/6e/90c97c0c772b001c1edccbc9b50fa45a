@@ -1,0 +1,35 @@
+package lp1;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+
+public class CRegistroClientev2 extends JInternalFrame {
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CRegistroClientev2 frame = new CRegistroClientev2();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CRegistroClientev2() {
+		setBackground(new Color(128, 128, 128));
+		setBounds(100, 100, 720, 491);
+
+	}
+
+}

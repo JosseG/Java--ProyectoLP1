@@ -1,0 +1,77 @@
+package lp1;
+
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+
+public class EConsultaHabitacionv2 extends JInternalFrame {
+	private JButton btnNewButton;
+	private JLabel lblNewLabel;
+	private JTextField textField;
+	private JButton btnReporte_1;
+	private JScrollPane scrollPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					EConsultaHabitacionv2 frame = new EConsultaHabitacionv2();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public EConsultaHabitacionv2() {
+		setTitle("Consulta Habitaci\u00F3n");
+		setBounds(100, 100, 720, 491);
+		getContentPane().setLayout(null);
+		//Color fondo
+		getContentPane().setBackground(new Color(245, 198, 165));
+		
+		btnNewButton = new JButton("Buscar");
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnNewButton.setBackground(new Color(162, 65, 107));
+		btnNewButton.setBounds(89, 62, 110, 43);
+		getContentPane().add(btnNewButton);
+		
+		lblNewLabel = new JLabel("BUSCAR");
+		lblNewLabel.setForeground(new Color(133, 39, 71));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(162, 151, 79, 14);
+		getContentPane().add(lblNewLabel);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBackground(new Color(204, 204, 204));
+		textField.setBounds(251, 148, 200, 22);
+		getContentPane().add(textField);
+		
+		btnReporte_1 = new JButton("Eliminar");
+		btnReporte_1.setForeground(Color.WHITE);
+		btnReporte_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnReporte_1.setBackground(new Color(162, 65, 107));
+		btnReporte_1.setBounds(490, 62, 110, 43);
+		getContentPane().add(btnReporte_1);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(68, 241, 575, 147);
+		getContentPane().add(scrollPane);
+
+	}
+}

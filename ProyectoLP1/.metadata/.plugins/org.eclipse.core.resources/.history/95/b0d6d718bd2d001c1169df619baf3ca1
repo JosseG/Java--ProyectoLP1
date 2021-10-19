@@ -1,0 +1,89 @@
+package lp1;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JScrollPane;
+
+public class FConsultaRecibo extends JFrame {
+	private static final long serialVersionUID = 1L;
+	
+	private JPanel contentPane;
+	private JLabel lblIdCliente;
+	private JTextField textField_1;
+	private DefaultTableModel modelo;
+	private JScrollPane scrollPane;
+	private JTable tblTabla;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FConsultaRecibo frame = new FConsultaRecibo();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FConsultaRecibo() {
+		setTitle("Reporte Recibo");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 720, 491);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(245, 198, 165));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		lblIdCliente = new JLabel("ID Cliente");
+		lblIdCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblIdCliente.setForeground(new Color(133, 39, 71));
+		lblIdCliente.setBounds(172, 126, 79, 14);
+		contentPane.add(lblIdCliente);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBackground(new Color(204, 204, 204));
+		textField_1.setBounds(315, 125, 200, 22);
+		contentPane.add(textField_1);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(45, 193, 606, 228);
+		contentPane.add(scrollPane);
+		
+		tblTabla = new JTable();
+		tblTabla.setFillsViewportHeight(true);
+		scrollPane.setViewportView(tblTabla);
+		
+		modelo = new DefaultTableModel();
+		modelo.addColumn("COD-CLIENTE");
+		modelo.addColumn("N°DIAS");
+		modelo.addColumn("CARACTERISTICAS");
+		modelo.addColumn("PISO");
+		modelo.addColumn("TIPO DE HABITACIÓN");
+		modelo.addColumn("ESTADO");
+		modelo.addColumn("PRECIO X D");
+		tblTabla.setModel(modelo);
+		
+		modelo.setRowCount(0);
+		Object[] fila = { "C002", 2, "CABLE", 1, "VIP", "DISPONIBLE", 80.00 };
+		modelo.addRow(fila);
+	}
+}

@@ -1,0 +1,45 @@
+package lp1;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JButton;
+
+public class HDatosHabitaciones extends JInternalFrame {
+	private JButton btnConsultar;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HDatosHabitaciones frame = new HDatosHabitaciones();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public HDatosHabitaciones() {
+		setBounds(100, 100, 720, 491);
+		getContentPane().setLayout(null);
+		setTitle("Datos de las Habitaciones");
+		//Color fondo
+		getContentPane().setBackground(new Color( 32, 18, 58 ));
+		
+		btnConsultar = new JButton("Consultar");
+		btnConsultar.setBounds(556, 74, 85, 21);
+		getContentPane().add(btnConsultar);
+		
+
+	}
+
+}
