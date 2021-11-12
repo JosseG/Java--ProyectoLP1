@@ -1,7 +1,0 @@
-package modelDAO;
-
-public class HabitacionDAO {
-
-	public static final String SQL_CONSULTAR="";
-	
-}
