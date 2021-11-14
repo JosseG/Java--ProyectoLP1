@@ -11,7 +11,8 @@ public class Conexion {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/reservahotel", "root", "user");
+			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/reservahotel", "root", "mysql");
+			//connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/reservahotel", "root", "user");
 			System.out.println("Exitoso");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
