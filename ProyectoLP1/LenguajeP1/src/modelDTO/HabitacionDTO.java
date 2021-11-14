@@ -1,11 +1,21 @@
 package modelDTO;
 
+import java.util.List;
+
+import modelDAO.HabitacionDAO;
+
 public class HabitacionDTO {
 
 	public String id_hab;
 	public char disp_hab;
 	public String descripcion_hab;
 	public String tipo_hab;
+	
+	public HabitacionDAO dao=new HabitacionDAO();
+	
+	public HabitacionDTO() {
+		
+	}
 	
 	public HabitacionDTO(String id_hab, char disp_hab, String descripcion_hab, String tipo_hab) {
 		super();
@@ -45,6 +55,10 @@ public class HabitacionDTO {
 	
 	public void setTipo_hab(String tipo_hab) {
 		this.tipo_hab = tipo_hab;
+	}
+	
+	public List<HabitacionDTO> listar(){
+		return dao.listar();
 	}
 	
 }

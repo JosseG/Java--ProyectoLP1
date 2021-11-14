@@ -160,12 +160,10 @@ public class BReservaHabitacion extends JInternalFrame implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		
 		if (arg0.getSource() == btnAnadir) {
 			actionPerformedBtnNuevo(arg0);
 		}
-		// TODO Auto-generated method stub
-		
-		
 		
 	}
 	protected void actionPerformedBtnNuevo(ActionEvent arg0) {

@@ -277,5 +277,7 @@ end @@
 delimiter ;
 call EliminarEmpleado('103');
 
+select * from empleado;
+
 
 

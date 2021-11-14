@@ -9,8 +9,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.ImageIcon;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -52,24 +50,7 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-					
-					//-------------------Diseño del S.O Windows----------------
-					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-					//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
-					AMenuPrincipal frame = new AMenuPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	//Creando el fondo
 		FondoPanel fondo1=new FondoPanel();
@@ -239,9 +220,9 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 	}
 	
 	protected void actionPerformedMntmConsultaRecibo(ActionEvent e) {
-		/*FConsultaBoleta Con22 = new FConsultaBoleta();		
+		FConsultaBoleta Con22 = new FConsultaBoleta();		
 		fondo1.add(Con22);
-		Con22.setVisible(true);	*/
+		Con22.setVisible(true);	
 	}
 	
 	protected void actionPerformedMntmDatosCliente(ActionEvent e) {

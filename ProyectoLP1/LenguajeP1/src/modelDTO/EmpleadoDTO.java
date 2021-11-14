@@ -1,18 +1,23 @@
 package modelDTO;
 
 import java.sql.Date;
+import java.util.List;
+
+import modelDAO.EmpleadoDAO;
 
 public class EmpleadoDTO {
 
 	private String id,idRol,di,nombre,apellidos,telefono,correo;
-	private Date fechaIngreso;
+
+	
+	private EmpleadoDAO empdao=new EmpleadoDAO();
 	
 	public EmpleadoDTO() {
 		
 	}
 	
 	public EmpleadoDTO(String id, String idRol, String di, String nombre, String apellidos, String telefono,
-			String correo, Date fechaIngreso) {
+			String correo) {
 		super();
 		this.id = id;
 		this.idRol = idRol;
@@ -21,7 +26,7 @@ public class EmpleadoDTO {
 		this.apellidos = apellidos;
 		this.telefono = telefono;
 		this.correo = correo;
-		this.fechaIngreso = fechaIngreso;
+		
 	}
 	public String getId() {
 		return id;
@@ -65,13 +70,12 @@ public class EmpleadoDTO {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public Date getFechaIngreso() {
-		return fechaIngreso;
-	}
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
+
 	
+	
+	public List<EmpleadoDTO> listar(){
+		return empdao.listar();
+	}
 	
 	
 	

@@ -11,11 +11,13 @@
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="modelDAO.HabitacionDAO"/>
-    <fullyQualifiedTypeName name="modelDTO.HabitacionDTO"/>
     <fullyQualifiedTypeName name="java.awt.event.WindowListener"/>
     <fullyQualifiedTypeName name="java.awt.event.AdjustmentListener"/>
     <fullyQualifiedTypeName name="java.awt.event.WindowStateListener"/>
     <fullyQualifiedTypeName name="javax.swing.event.ChangeListener"/>
     <fullyQualifiedTypeName name="java.awt.event.ComponentListener"/>
+    <fullyQualifiedTypeName name="modelDAO.HabitacionDAO"/>
+    <fullyQualifiedTypeName name="modelDTO.HabitacionDTO"/>
+    <fullyQualifiedTypeName name="modelDTO.EmpleadoDTO"/>
+    <fullyQualifiedTypeName name="modelDAO.EmpleadoDAO"/>
 </qualifiedTypeNameHistroy>

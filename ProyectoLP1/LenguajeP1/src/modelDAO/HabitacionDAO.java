@@ -22,7 +22,7 @@ public class HabitacionDAO {
 		try {
 			ps=conexion.conectBd().prepareStatement(SQL_CONSULTAR);
 			rs=ps.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				inventario.add(new HabitacionDTO(rs.getString(1),rs.getString(2).charAt(0),rs.getString(3),rs.getString(4)));
 			}
 			return inventario;

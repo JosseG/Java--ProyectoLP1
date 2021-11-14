@@ -12,9 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import modelDAO.HabitacionDAO;
 import modelDTO.HabitacionDTO;
+import util.GestionEncabezadoTabla;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -89,6 +91,11 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		miTabla = new JTable();
 		miTabla.setFillsViewportHeight(true);
 		scrollPane.setViewportView(miTabla);
+		
+		JTableHeader header=miTabla.getTableHeader();
+		header.setDefaultRenderer(new GestionEncabezadoTabla(new Color(55,55,0)));
+		
+		miTabla.setTableHeader(header);
 		
 		CargarTabla();
 
