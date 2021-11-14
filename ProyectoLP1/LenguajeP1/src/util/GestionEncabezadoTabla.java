@@ -26,7 +26,7 @@ public class GestionEncabezadoTabla  implements TableCellRenderer {
         if( value instanceof String ) {
             jcomponent = new JLabel((String) value);
             ((JLabel)jcomponent).setHorizontalAlignment( SwingConstants.CENTER );
-            ((JLabel)jcomponent).setSize( 18, jcomponent.getWidth() );   
+            ((JLabel)jcomponent).setSize( 20, jcomponent.getWidth() );   
             ((JLabel)jcomponent).setPreferredSize( new Dimension(6, jcomponent.getWidth())  );
         }         
    
@@ -34,7 +34,7 @@ public class GestionEncabezadoTabla  implements TableCellRenderer {
         jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(255, 255, 255)));
         jcomponent.setOpaque(true);
         //jcomponent.setBackground( new Color(236,234,219) );
-        jcomponent.setFont(new Font("Segoe UI Semibold",2,14));
+        jcomponent.setFont(new Font("Segoe UI Semibold",2,12));
         jcomponent.setBackground( color );
         jcomponent.setToolTipText("Tabla");
         jcomponent.setForeground(Color.white);
