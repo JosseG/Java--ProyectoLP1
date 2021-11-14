@@ -239,9 +239,9 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 	}
 	
 	protected void actionPerformedMntmConsultaRecibo(ActionEvent e) {
-		FConsultaBoleta Con22 = new FConsultaBoleta();		
+		/*FConsultaBoleta Con22 = new FConsultaBoleta();		
 		fondo1.add(Con22);
-		Con22.setVisible(true);	
+		Con22.setVisible(true);	*/
 	}
 	
 	protected void actionPerformedMntmDatosCliente(ActionEvent e) {
