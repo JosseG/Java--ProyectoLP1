@@ -6,7 +6,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -55,6 +58,7 @@ public class FConsultaBoleta extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public FConsultaBoleta() {
+	
 		setTitle("Consulta Boleta");
 		setClosable(true);
 		setBounds(100, 100, 720, 491);
@@ -93,6 +97,7 @@ public class FConsultaBoleta extends JInternalFrame {
 		
 		
 		
+		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -110,7 +115,14 @@ public class FConsultaBoleta extends JInternalFrame {
 		
 		for(int i=0;i<7;i++) {
 			miTabla.getColumnModel().getColumn(i).setPreferredWidth(tamanio[i]);
-			
+			miTabla.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer(){
+				public Component getTableCellRendererComponent() {
+					System.out.println("render");
+					this.setFont(new Font("Verdana",2,30));
+					return this;
+				};
+				
+			});
 		}
 		
 		

@@ -6,11 +6,13 @@ import java.awt.event.*;
 import javax.swing.JInternalFrame;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -141,7 +143,13 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		
 		for(int i=0;i<7;i++) {
 			miTabla.getColumnModel().getColumn(i).setPreferredWidth(tamanio[i]);
-			
+			miTabla.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer(){
+				public Component getTableCellRendererComponent() {
+					this.setFont(new Font("Verdana",2,30));
+					return this;
+				};
+				
+			});
 		}
 		
 		
