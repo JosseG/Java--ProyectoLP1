@@ -279,5 +279,48 @@ call EliminarEmpleado('103');
 
 select * from empleado;
 
+-- -----------------------------------------------------------------------------
+-- CONSULTA BUSCAR HABITACION
+-- ------------------------------------------------------------------------------
+drop procedure if exists ConsultaBuscarHabitacion;
+delimiter @@
+create procedure ConsultaBuscarHabitacion (id char(4))
+begin
+	select c.id_cliente as 'Cod_Ciente',
+		     h.NumDias_hab as 'N°Dias',
+             h.descripcion_hab as 'Descripción',
+             h.tipo_hab as 'Tipo de Habitación',
+             db.precioHab_dBoleta as 'Precio X Dia'
+    from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
+					  JOIN habitacion AS h ON h.id_hab = db.id_hab 
+    where h.id_hab = id ;
+end @@
+delimiter ;
+call ConsultaBuscarHabitacion('1112');
+
+-- -----------------------------------------------------------------------------
+-- CONSULTA BUSCAR BOLETA
+-- ------------------------------------------------------------------------------
+drop procedure if exists ConsultaBuscarBoleta;
+delimiter @@
+create procedure ConsultaBuscarBoleta (cliente int)
+begin
+	select b.id_boleta as 'Cod_Boleta',
+		     CONCAT (e.nombre_emp, ' ' , e.apellido_emp) AS 'Nombre Empleado',
+             CONCAT (c.nombre_cliente, ' ' , c.apellido_cliente) AS 'Nombre Cliente',
+             b.fecha_boleta as 'Fecha Boleta',
+             b.ruc_boleta as 'Ruc Boleta',
+             b.tipoPago_boleta as 'Tipo de pago',
+             h.NumDias_hab as 'N°Dias',
+             db.precioHab_dBoleta as 'Precio X Dia',
+             (h.NumDias_hab * db.precioHab_dBoleta) as 'Precio Total'
+    from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
+					  JOIN habitacion AS h ON h.id_hab = db.id_hab 
+                      JOIN boleta AS b ON b.id_boleta = db.id_boleta
+                      JOIN empleado AS e ON e.id_emp = b.id_emp
+    where c.id_cliente = cliente ;
+end @@
+delimiter ;
+call ConsultaBuscarBoleta(2);
 
 
