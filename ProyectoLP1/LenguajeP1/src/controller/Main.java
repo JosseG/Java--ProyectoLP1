@@ -20,14 +20,14 @@ public class Main {
 					
 					//-------------------Diseño del S.O Windows----------------
 					
-					HabitacionDTO habDTO=new HabitacionDTO();
+					/*HabitacionDTO habDTO=new HabitacionDTO();
 					EmpleadoDTO empDTO=new EmpleadoDTO();
 					for(HabitacionDTO h:habDTO.listar()) {
 						System.out.println(h.getId_hab()+"\t"+h.getTipo_hab()+"\t"+ h.getDisp_hab()+"\t"+ h.getDescripcion_hab());
 					}
 					for(EmpleadoDTO e:empDTO.listar()) {
 						System.out.println(e.getId()+" \t| "+e.getNombre()+" \t| "+e.getApellidos()+" \t| "+ e.getCorreo()+" \t| "+ e.getDi()+" \t| "+e.getIdRol());
-					}
+					}*/
 					
 					
 					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");

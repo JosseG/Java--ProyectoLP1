@@ -89,6 +89,10 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		getContentPane().add(scrollPane);
 		
 		miTabla = new JTable();
+		miTabla.setDefaultEditor(Object.class, null);
+		miTabla.setRowHeight(30);
+		miTabla.getTableHeader().setReorderingAllowed(false);
+		miTabla.getTableHeader().setResizingAllowed(false);
 		miTabla.setFillsViewportHeight(true);
 		scrollPane.setViewportView(miTabla);
 		
@@ -97,18 +101,18 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		
 		miTabla.setTableHeader(header);
 		
+		
 		CargarTabla();
+		tamanoColumnas();
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnBuscar) {
-			
+
 			listar();
-			
-			
-			
+
 		}
 		
 	}
@@ -126,25 +130,23 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 					
 								};
 			tabla.addRow(o);
-			
-			
+
 		}
 		
 	}
+	
+	private void tamanoColumnas() {
+		
+		int [] tamanio= {20,15,60,5,80,10,20};
+		
+		for(int i=0;i<7;i++) {
+			miTabla.getColumnModel().getColumn(i).setPreferredWidth(tamanio[i]);
+			
+		}
+		
+		
+	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }

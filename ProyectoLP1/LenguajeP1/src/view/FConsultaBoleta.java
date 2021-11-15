@@ -8,6 +8,10 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import util.GestionEncabezadoTabla;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -21,7 +25,7 @@ public class FConsultaBoleta extends JInternalFrame {
 	private JScrollPane scrollPane;
 	private JTable miTabla;
 	private DefaultTableModel tabla;
-	private String Columnas[] = {"COD-CLIENTE","N°DIAS","CARACTERISTICAS","PISO","TIPO DE HABITACION","ESTADO", "PRECIO X D"};
+	private String Columnas[] = {"ID","NOMBRE-EMPLEADO","FECHA","RUC","TIPO DE PAGO","NOMBRE-CLIENTE", "ID-HABITACION","PRECIO-HABITACION"};
 	private JButton btnBuscar;
 	
 	//Cargar tabla
@@ -75,8 +79,19 @@ public class FConsultaBoleta extends JInternalFrame {
 		getContentPane().add(scrollPane);
 		
 		miTabla = new JTable();
+		miTabla.setDefaultEditor(Object.class, null);
+		miTabla.setRowHeight(30);
+		miTabla.getTableHeader().setReorderingAllowed(false);
+		miTabla.getTableHeader().setResizingAllowed(false);
 		miTabla.setFillsViewportHeight(true);
+		
+		JTableHeader header=miTabla.getTableHeader();
+		header.setDefaultRenderer(new GestionEncabezadoTabla(new Color(30,30,30)));
+		miTabla.setTableHeader(header);
 		scrollPane.setViewportView(miTabla);
+		
+		
+		
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.setForeground(Color.WHITE);
@@ -86,5 +101,19 @@ public class FConsultaBoleta extends JInternalFrame {
 		getContentPane().add(btnBuscar);
 		
 		CargarTabla();
+		tamanoColumnas();
+	}
+	
+	private void tamanoColumnas() {
+		
+		int [] tamanio= {5,50,20,20,80,90,50};
+		
+		for(int i=0;i<7;i++) {
+			miTabla.getColumnModel().getColumn(i).setPreferredWidth(tamanio[i]);
+			
+		}
+		
+		
 	}
 }
+
