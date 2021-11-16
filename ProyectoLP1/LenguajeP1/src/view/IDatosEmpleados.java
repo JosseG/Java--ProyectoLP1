@@ -7,6 +7,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import modelDTO.EmpleadoDTO;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 
@@ -54,6 +57,22 @@ public class IDatosEmpleados extends JInternalFrame {
 		lblDatosDeLas.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblDatosDeLas.setBounds(30, 32, 339, 25);
 		getContentPane().add(lblDatosDeLas);
+		
+		mostrarDatos();
+		
+	}
+	
+	public void mostrarDatos() {
+		EmpleadoDTO emp=new EmpleadoDTO();
+		txtS.setFont(new Font("JetBrains Mono",3,15));
+		txtS.setText("\t\t\tDATOS \n\n");
+		for(EmpleadoDTO e:emp.listar() ) {
+			txtS.append(e.getNombre()+" ");
+			txtS.append(e.getApellidos()+" ");
+			txtS.append(e.getCorreo()+" ");
+			txtS.append(e.getDi()+" ");
+			txtS.append("\n");
+		}
 		
 	}
 }

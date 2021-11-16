@@ -91,12 +91,14 @@ public class BReservaHabitacion extends JInternalFrame implements ActionListener
 		getContentPane().add(btnAnadir);
 		
 		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(this);
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setBackground(new Color(130, 73, 229));
 		btnModificar.setBounds(159, 363, 89, 23);
 		getContentPane().add(btnModificar);
 		
 		btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(this);
 		btnConsultar.setForeground(Color.WHITE);
 		btnConsultar.setBackground(new Color(130, 73, 229));
 		btnConsultar.setBounds(283, 362, 89, 23);
@@ -139,6 +141,7 @@ public class BReservaHabitacion extends JInternalFrame implements ActionListener
 		getContentPane().add(txtNumeroDias);
 		
 		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(this);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setBorder(new LineBorder(new Color(252, 80, 156), 1, true));
 		btnEliminar.setBackground(new Color(130, 73, 229));
@@ -160,6 +163,15 @@ public class BReservaHabitacion extends JInternalFrame implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnEliminar) {
+			actionPerformedBtnEliminar(arg0);
+		}
+		if (arg0.getSource() == btnConsultar) {
+			actionPerformedBtnConsultar(arg0);
+		}
+		if (arg0.getSource() == btnModificar) {
+			actionPerformedBtnModificar(arg0);
+		}
 		
 		if (arg0.getSource() == btnAnadir) {
 			actionPerformedBtnNuevo(arg0);
@@ -168,5 +180,11 @@ public class BReservaHabitacion extends JInternalFrame implements ActionListener
 	}
 	protected void actionPerformedBtnNuevo(ActionEvent arg0) {
 		
+	}
+	protected void actionPerformedBtnModificar(ActionEvent arg0) {
+	}
+	protected void actionPerformedBtnConsultar(ActionEvent arg0) {
+	}
+	protected void actionPerformedBtnEliminar(ActionEvent arg0) {
 	}
 }

@@ -18,6 +18,7 @@ import javax.swing.table.JTableHeader;
 
 import modelDAO.HabitacionDAO;
 import modelDTO.HabitacionDTO;
+import util.GestionCeldas;
 import util.GestionEncabezadoTabla;
 
 import javax.swing.JScrollPane;
@@ -30,7 +31,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 	private JScrollPane scrollPane;
 	private JTable miTabla;
 	private DefaultTableModel tabla;
-	private String Columnas[] = {"COD-CLIENTE","N°DIAS","CARACTERISTICAS","PISO","TIPO DE HABITACION","ESTADO", "PRECIO X D"};
+	private String Columnas[] = {"COD-CLIENTE","N°DIAS","DESCRIPCION","TIPO DE HABITACION", "PRECIO X D"};
 	
 	//Cargar tabla
 		private void CargarTabla() {
@@ -96,16 +97,17 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		miTabla.getTableHeader().setReorderingAllowed(false);
 		miTabla.getTableHeader().setResizingAllowed(false);
 		miTabla.setFillsViewportHeight(true);
-		scrollPane.setViewportView(miTabla);
+		
 		
 		JTableHeader header=miTabla.getTableHeader();
 		header.setDefaultRenderer(new GestionEncabezadoTabla(new Color(55,55,0)));
 		
 		miTabla.setTableHeader(header);
-		
+		scrollPane.setViewportView(miTabla);
 		
 		CargarTabla();
 		tamanoColumnas();
+
 
 	}
 
@@ -139,17 +141,12 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 	
 	private void tamanoColumnas() {
 		
-		int [] tamanio= {20,15,60,5,80,10,20};
+		int [] tamanio= {20,5,30,80,80};
 		
-		for(int i=0;i<7;i++) {
+		for(int i=0;i<5;i++) {
+			miTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
 			miTabla.getColumnModel().getColumn(i).setPreferredWidth(tamanio[i]);
-			miTabla.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer(){
-				public Component getTableCellRendererComponent() {
-					this.setFont(new Font("Verdana",2,30));
-					return this;
-				};
-				
-			});
+			
 		}
 		
 		

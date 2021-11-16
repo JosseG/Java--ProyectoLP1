@@ -6,12 +6,21 @@ import javax.swing.JInternalFrame;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+
+import modelDTO.EmpleadoDTO;
+import modelDTO.LoginDTO;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-public class DRegistroEmpleado extends JInternalFrame {
+public class DRegistroEmpleado extends JInternalFrame implements ActionListener {
 	private JButton btnanadir;
 	private JButton btnModificar;
 	private JButton btnConsultar;
@@ -64,6 +73,7 @@ public class DRegistroEmpleado extends JInternalFrame {
 		btnanadir.setForeground(Color.WHITE);
 		btnanadir.setBackground(new Color(130, 73, 229));
 		btnanadir.setBounds(39, 81, 89, 23);
+		btnanadir.addActionListener(this);
 		getContentPane().add(btnanadir);
 		
 		btnModificar = new JButton("Modificar");
@@ -187,4 +197,40 @@ public class DRegistroEmpleado extends JInternalFrame {
 		getContentPane().add(lblDocIdentidad);
 
 	}
+
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnanadir)
+			actionPerformedBtnAnadir(e);
+		
+	}
+	
+	public void actionPerformedBtnAnadir(ActionEvent e) {
+		EmpleadoDTO emp=new EmpleadoDTO();
+		LoginDTO login=new LoginDTO();
+		try {
+			
+			
+			emp.setId(txtIdEmpleado.getText());
+			emp.setIdRol(JOptionPane.showInputDialog("Ingrese un dato"));
+			emp.setDi(txtDocIdentidad.getText());
+			emp.setNombre(txtNombres.getText());
+			emp.setApellidos(txtApellidos.getText());
+			emp.setCorreo(txtCorreoElectronico.getText());
+			emp.setTelefono(txtCelular.getText());
+			
+			login.setUsername(txtUsuario.getText());
+			login.setPassword(txtContrasena.getText());
+			login.setIdEmp(emp.getId());
+			
+			emp.insert(emp);
+			
+			System.out.println("Exitoso");
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null,"Muestre nuevamente");
+		}
+		
+		
+	}
+	
 }

@@ -5,6 +5,10 @@ public class LoginDTO {
 	private int id;
 	private String idEmp,username,password;
 	
+	public LoginDTO() {
+		
+	}
+	
 	public LoginDTO(int id, String idEmp, String username, String password) {
 		super();
 		this.id = id;

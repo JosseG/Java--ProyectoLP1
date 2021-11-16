@@ -10,8 +10,10 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 import javax.swing.JTextPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class CRegistroCliente extends JInternalFrame {
+public class CRegistroCliente extends JInternalFrame implements ActionListener {
 	private JTextField txtNombres;
 	private JTextField txtApellidos;
 	private JTextField txtDocIdentidad;
@@ -82,6 +84,7 @@ public class CRegistroCliente extends JInternalFrame {
 		getContentPane().add(txtDocIdentidad);
 		
 		btnanadir = new JButton("A\u00F1adir");
+		btnanadir.addActionListener(this);
 		btnanadir.setForeground(Color.WHITE);
 		btnanadir.setBackground(new Color(130, 73, 229));
 		btnanadir.setBounds(576, 49, 89, 23);
@@ -106,18 +109,21 @@ public class CRegistroCliente extends JInternalFrame {
 		getContentPane().add(lblDocIdentidad);
 		
 		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(this);
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setBackground(new Color(130, 73, 229));
 		btnModificar.setBounds(576, 102, 89, 23);
 		getContentPane().add(btnModificar);
 		
 		btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(this);
 		btnConsultar.setForeground(Color.WHITE);
 		btnConsultar.setBackground(new Color(130, 73, 229));
 		btnConsultar.setBounds(576, 155, 89, 23);
 		getContentPane().add(btnConsultar);
 		
 		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(this);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setBorder(new LineBorder(new Color(252, 80, 156), 1, true));
 		btnEliminar.setBackground(new Color(130, 73, 229));
@@ -201,5 +207,29 @@ public class CRegistroCliente extends JInternalFrame {
 		txtPais.setBounds(177, 252, 170, 16);
 		getContentPane().add(txtPais);
 
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnanadir) {
+			actionPerformedBtnanadir(e);
+		}
+		if (e.getSource() == btnModificar) {
+			actionPerformedBtnModificar(e);
+		}
+		
+		if (e.getSource() == btnConsultar) {
+			actionPerformedBtnConsultar(e);
+		}
+		
+		if (e.getSource() == btnEliminar) {
+			actionPerformedBtnEliminar(e);
+		}
+	}
+	protected void actionPerformedBtnEliminar(ActionEvent e) {
+	}
+	protected void actionPerformedBtnConsultar(ActionEvent e) {
+	}
+	protected void actionPerformedBtnModificar(ActionEvent e) {
+	}
+	protected void actionPerformedBtnanadir(ActionEvent e) {
 	}
 }

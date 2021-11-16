@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import util.GestionCeldas;
 import util.GestionEncabezadoTabla;
 
 import javax.swing.JScrollPane;
@@ -28,7 +29,7 @@ public class FConsultaBoleta extends JInternalFrame {
 	private JScrollPane scrollPane;
 	private JTable miTabla;
 	private DefaultTableModel tabla;
-	private String Columnas[] = {"ID","NOMBRE-EMPLEADO","FECHA","RUC","TIPO DE PAGO","NOMBRE-CLIENTE", "ID-HABITACION","PRECIO-HABITACION"};
+	private String Columnas[] = {"ID","NOMBRE-EMPLEADO","NOMBRE-CLIENTE","FECHA","RUC","TIPO DE PAGO","N° DIAS","PRECIO-HABITACION","PRECIO TOTAL"};
 	private JButton btnBuscar;
 	
 	//Cargar tabla
@@ -92,6 +93,8 @@ public class FConsultaBoleta extends JInternalFrame {
 		JTableHeader header=miTabla.getTableHeader();
 		header.setDefaultRenderer(new GestionEncabezadoTabla(new Color(30,30,30)));
 		miTabla.setTableHeader(header);
+		CargarTabla();
+		tamanoColumnas();
 		scrollPane.setViewportView(miTabla);
 		
 		
@@ -105,24 +108,16 @@ public class FConsultaBoleta extends JInternalFrame {
 		btnBuscar.setBounds(296, 24, 110, 43);
 		getContentPane().add(btnBuscar);
 		
-		CargarTabla();
-		tamanoColumnas();
+		
 	}
 	
 	private void tamanoColumnas() {
 		
 		int [] tamanio= {5,50,20,20,80,90,50};
 		
-		for(int i=0;i<7;i++) {
+		for(int i=0;i<tamanio.length;i++) {
 			miTabla.getColumnModel().getColumn(i).setPreferredWidth(tamanio[i]);
-			miTabla.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer(){
-				public Component getTableCellRendererComponent() {
-					System.out.println("render");
-					this.setFont(new Font("Verdana",2,30));
-					return this;
-				};
-				
-			});
+			miTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas());
 		}
 		
 		
