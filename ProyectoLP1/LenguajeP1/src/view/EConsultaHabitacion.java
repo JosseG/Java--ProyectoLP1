@@ -2,6 +2,7 @@ package view;
 
 import java.awt.EventQueue;
 import java.awt.event.*;
+import java.util.List;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JButton;
@@ -124,15 +125,18 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		tabla.setRowCount(0);
 		System.out.println("Llego");
 		HabitacionDAO hab=new HabitacionDAO();
-		for(HabitacionDTO b:hab.listar()) {
-
+		
+		List<HabitacionDTO> habit=hab.listar();
+		System.out.println(habit.get(0).getFecha_reserva());
+		for(HabitacionDTO b:habit) {
+			System.out.println(b.getFecha_reserva()+"");
 			Object [] o= {
-					b.id_hab,
-					b.disp_hab,
-					b.descripcion_hab,
-					b.tipo_hab
-					
-								};
+					b.getId_hab(),
+					b.getNum_dias(),
+					b.getDescripcion_hab(),
+					b.getTipo_hab(),
+					b.getFecha_reserva()
+					};
 			tabla.addRow(o);
 
 		}
