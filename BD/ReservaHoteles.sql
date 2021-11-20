@@ -154,15 +154,27 @@ end @@
 delimiter ;
 call ModificarHabitacion('1112','2', '2021-03-29',3 ,'tv con cable');
 
--- ConsultarHabitacion
-drop procedure if exists ConsultarHabitacion;
+-- ConsultarHabitacionId
+drop procedure if exists ConsultarHabitacionId;
 delimiter @@
-create procedure ConsultarHabitacion(id char(4))
+create procedure ConsultarHabitacionId(id char(4))
 begin
-	select * from Habitacion where id_hab = id;
+	select * from Habitacion where id_hab like (Concat(concat('%',id),'%'));
 end @@
 delimiter ;
-call ConsultarHabitacion('1113');
+call ConsultarHabitacionId('1');
+
+-- ConsultarHabitacionId
+drop procedure if exists ConsultarHabitacionTipo;
+delimiter @@
+create procedure ConsultarHabitacionTipo(tipo char(4))
+begin
+	select * from Habitacion where tipo_hab like (Concat(concat('%',tipo),'%'));
+end @@
+delimiter ;
+call ConsultarHabitacionTipo('2');
+
+
 
 -- EliminarHabitacion
 drop procedure if exists EliminarHabitacion;

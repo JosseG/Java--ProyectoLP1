@@ -11,7 +11,7 @@ public class HabitacionDTO {
 	public Date fecha_reserva;
 	public int num_dias;
 	public String descripcion_hab;
-	public String tipo_hab;
+	public char tipo_hab;
 	
 	public HabitacionDAO dao=new HabitacionDAO();
 	
@@ -19,7 +19,7 @@ public class HabitacionDTO {
 		
 	}
 	
-	public HabitacionDTO(String id_hab,String tipo_hab,Date fecha_reserva, int num_dias, String descripcion_hab) {
+	public HabitacionDTO(String id_hab,char tipo_hab,Date fecha_reserva, int num_dias, String descripcion_hab) {
 		super();
 		this.id_hab = id_hab;
 		this.tipo_hab = tipo_hab;
@@ -61,11 +61,11 @@ public class HabitacionDTO {
 		this.descripcion_hab = descripcion_hab;
 	}
 	
-	public String getTipo_hab() {
+	public char getTipo_hab() {
 		return tipo_hab;
 	}
 	
-	public void setTipo_hab(String tipo_hab) {
+	public void setTipo_hab(char tipo_hab) {
 		this.tipo_hab = tipo_hab;
 	}
 	
