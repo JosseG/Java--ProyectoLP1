@@ -28,7 +28,7 @@ public class GestionCeldas extends DefaultTableCellRenderer{
 	
 
 	private Font normal = new Font( "Verdana",Font.PLAIN ,12 );
-	private Font bold = new Font( "JetBrains Mono Bold",Font.BOLD ,12 );
+	private Font bold = new Font( "JetBrains Mono",Font.BOLD ,12 );
 	//etiqueta que almacenará el icono a mostrar
 	private JLabel label = new JLabel();
 	//iconos disponibles para ser mostrados en la etiqueta dependiendo de la columna que lo contenga

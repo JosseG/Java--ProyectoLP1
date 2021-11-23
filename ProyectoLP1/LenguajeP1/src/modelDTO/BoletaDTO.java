@@ -61,6 +61,10 @@ public class BoletaDTO {
 		this.tipoPago = tipoPago;
 	}
 	
-
+	@Override
+	public String toString() {
+		return getId()+";"+getIdEmp()+";"+getFecha()+";"+getRuc()+";"+getTipoPago();
+	}
+	
 
 }

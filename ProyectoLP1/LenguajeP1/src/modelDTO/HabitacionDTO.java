@@ -73,4 +73,9 @@ public class HabitacionDTO {
 		return dao.listar();
 	}
 	
+	@Override
+	public String toString() {
+		return getId_hab()+";"+getNum_dias()+";"+getDescripcion_hab()+";"+getTipo_hab()+";"+getFecha_reserva();
+	}
+	
 }

@@ -67,7 +67,7 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		addComponentListener(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setSize(850,600);
+		setSize(1200,800);
 		setLocationRelativeTo(null);
 				
 		fondo1.repaint();
@@ -221,7 +221,7 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 	
 	FConsultaBoleta Con22 = new FConsultaBoleta();
 	protected void actionPerformedMntmConsultaRecibo(ActionEvent e) {
-		Con22.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
+		Con22.setLocation((contentPane.getWidth()-1100)/2,(contentPane.getHeight()-700)/2);
 		fondo1.add(Con22);
 		Con22.setVisible(true);	
 	}
@@ -260,7 +260,7 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 	public void componentResized(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
 		Con21.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
-		Con22.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
+		Con22.setLocation((contentPane.getWidth()-1100)/2,(contentPane.getHeight()-700)/2);
 	}
 
 	@Override

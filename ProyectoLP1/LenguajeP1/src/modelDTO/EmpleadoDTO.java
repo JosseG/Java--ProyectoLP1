@@ -82,6 +82,12 @@ public class EmpleadoDTO {
 	public boolean insert(EmpleadoDTO emp) {
 		return empdao.insertar(emp);
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "";
+	}
 
 	
 }

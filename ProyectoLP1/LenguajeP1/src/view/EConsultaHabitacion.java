@@ -18,7 +18,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import modelDAO.ConsultaHabitacionDAO;
 import modelDAO.HabitacionDAO;
+import modelDTO.ConsultaHabitacionDTO;
 import modelDTO.HabitacionDTO;
 import util.GestionCeldas;
 import util.GestionEncabezadoTabla;
@@ -165,10 +167,15 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 	}
 
 	public void keyReleasedTxtBusqueda(KeyEvent e) {
-		if(rdbtnId.isSelected()) {
-			filtrarId(txtBusqueda.getText());
-		} else if(rdbtnTipo.isSelected()) {
-			filtrarTipo(txtBusqueda.getText());
+		
+		if(txtBusqueda.getText().isEmpty()) {
+			listar();
+		}else {
+			if(rdbtnId.isSelected()) {
+				filtrarId(txtBusqueda.getText());
+			} else if(rdbtnTipo.isSelected()) {
+				filtrarTipo(txtBusqueda.getText());
+			}
 		}
 		
 	}
@@ -179,44 +186,40 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 	
 	protected void filtrarId(String f) {
 		tabla.setRowCount(0);
-		HabitacionDAO hab=new HabitacionDAO();
-		List<HabitacionDTO> habit=hab.filtrarId(f);
+		ConsultaHabitacionDAO hab=new ConsultaHabitacionDAO();
+		List<ConsultaHabitacionDTO> habit=hab.filtrarId(f);
+		
 		recorrerList(habit);
 	}
 	
 	protected void filtrarTipo(String f) {
 		tabla.setRowCount(0);
-		HabitacionDAO hab=new HabitacionDAO();
-		List<HabitacionDTO> habit=hab.filtrarTipo(f);
+		ConsultaHabitacionDAO hab=new ConsultaHabitacionDAO();
+		List<ConsultaHabitacionDTO> habit=hab.filtrarTipo(f);
 		recorrerList(habit);
 	}
 	
 	protected void listar() {
 		tabla.setRowCount(0);
-		HabitacionDAO hab=new HabitacionDAO();
-		List<HabitacionDTO> habit=hab.listar();
+		ConsultaHabitacionDAO hab=new ConsultaHabitacionDAO();
+		List<ConsultaHabitacionDTO> habit=hab.listar();
 		recorrerList(habit);
 		
 	}
 	
 	private void limpiar() {
-		// TODO Auto-generated method stub
 		txtBusqueda.setText("");
 		txtBusqueda.requestFocus();
 	}
 
 	
-	private void recorrerList(List<HabitacionDTO> a) {
+	private void recorrerList(List<ConsultaHabitacionDTO> a) {
 		
-		for(HabitacionDTO b:a) {
-			Object [] o= {
-					b.getId_hab(),
-					b.getNum_dias(),
-					b.getDescripcion_hab(),
-					b.getTipo_hab(),
-					b.getFecha_reserva()
-					};
+		for(ConsultaHabitacionDTO b:a) {
+			
+			Object [] o = b.toString().split(";");
 			tabla.addRow(o);
+			
 		}
 		
 	}
