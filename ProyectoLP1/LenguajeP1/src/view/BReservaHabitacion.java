@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
 
+import modelDAO.HabitacionDAO;
+
 public class BReservaHabitacion extends JInternalFrame implements ActionListener {
 	private JLabel lblTipoHabitacin;
 	private JLabel lblFechaReserva;
@@ -127,8 +129,11 @@ public class BReservaHabitacion extends JInternalFrame implements ActionListener
 		
 		txtCodigoHabitacion = new JTextField();
 		txtCodigoHabitacion.setBounds(253, 53, 96, 19);
-		getContentPane().add(txtCodigoHabitacion);
 		txtCodigoHabitacion.setColumns(10);
+		txtCodigoHabitacion.setText(new HabitacionDAO().generarCodigo());
+		txtCodigoHabitacion.setEditable(false);
+		getContentPane().add(txtCodigoHabitacion);
+		
 		
 		txtFechaReserva = new JTextField();
 		txtFechaReserva.setColumns(10);
@@ -182,9 +187,12 @@ public class BReservaHabitacion extends JInternalFrame implements ActionListener
 		
 	}
 	protected void actionPerformedBtnModificar(ActionEvent arg0) {
+		
 	}
 	protected void actionPerformedBtnConsultar(ActionEvent arg0) {
+		
 	}
 	protected void actionPerformedBtnEliminar(ActionEvent arg0) {
+		
 	}
 }

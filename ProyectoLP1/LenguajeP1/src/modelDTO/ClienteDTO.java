@@ -5,6 +5,10 @@ public class ClienteDTO {
 	private int id;
 	private String di,nombre,apellidos,telefono,correo,idDireccion;
 	
+	public ClienteDTO() {
+		
+	}
+	
 	public ClienteDTO(int id, String di, String nombre, String apellidos, String telefono, String correo,
 			String idDireccion) {
 		super();
@@ -73,6 +77,10 @@ public class ClienteDTO {
 		this.idDireccion = idDireccion;
 	}
 	
+	@Override
+	public String toString() {
+		return getId()+";"+getDi()+";"+getNombre()+";"+getApellidos()+";"+getTelefono()+";"+getCorreo()+";"+getIdDireccion();
+	}
 	
 	
 }

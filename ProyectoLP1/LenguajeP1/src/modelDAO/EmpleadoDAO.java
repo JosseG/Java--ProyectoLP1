@@ -13,7 +13,7 @@ import util.Conexion;
 
 public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
 	
-	//public static final String SQL_CONSULTAR="SELECT * FROM Habitacion";
+	private static final String GENERAR_CODIGO="call GenerarCodigoEmp()";
 
 	public static Conexion conexion=Conexion.obtenerCone();
 	
@@ -52,13 +52,14 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
 			ps.setString(6, emp.getTelefono());
 			ps.setString(7, emp.getCorreo());
 			if(ps.execute()){
-				System.out.println("Exitoso agregado");
+				
 			}
 			
 			return true;
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
+			System.out.println("Se cerro");
 			conexion.cerrarConexion();
 		}
 
@@ -77,6 +78,31 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
 		return false;
 	}
 
+	public String generarCodigo() {
+		String nuevoCod="";
+		CallableStatement cs;
+		ResultSet rs;
+		
+		try {
+			cs=conexion.conectBd().prepareCall(GENERAR_CODIGO);
+			rs=cs.executeQuery();
+			
+			if(rs.next()) {
+				nuevoCod=rs.getString(1);
+			}
+	
+		} catch(Exception e) {
+			
+			System.out.println(e.getMessage());
+			
+		} finally {
+			conexion.cerrarConexion();
+		}
+		
+		return nuevoCod;
+		
+	}
+	
 
 	
 	

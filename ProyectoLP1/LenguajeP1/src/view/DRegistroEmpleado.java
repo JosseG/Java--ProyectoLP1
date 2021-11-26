@@ -6,7 +6,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyledDocument;
 
+import modelDAO.EmpleadoDAO;
 import modelDTO.EmpleadoDTO;
 import modelDTO.LoginDTO;
 
@@ -77,18 +80,21 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		getContentPane().add(btnanadir);
 		
 		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(this);
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setBackground(new Color(130, 73, 229));
 		btnModificar.setBounds(39, 125, 89, 23);
 		getContentPane().add(btnModificar);
 		
 		btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(this);
 		btnConsultar.setForeground(Color.WHITE);
 		btnConsultar.setBackground(new Color(130, 73, 229));
 		btnConsultar.setBounds(39, 171, 89, 23);
 		getContentPane().add(btnConsultar);
 		
 		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(this);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setBorder(new LineBorder(new Color(252, 80, 156), 1, true));
 		btnEliminar.setBackground(new Color(130, 73, 229));
@@ -159,6 +165,8 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		txtIdEmpleado.setColumns(10);
 		txtIdEmpleado.setBackground(new Color(206, 228, 190));
 		txtIdEmpleado.setBounds(335, 185, 170, 16);
+		txtIdEmpleado.setText(new EmpleadoDAO().generarCodigo());
+		txtIdEmpleado.setEditable(false);
 		getContentPane().add(txtIdEmpleado);
 		
 		lblUsuario = new JLabel("Usuario");
@@ -186,7 +194,9 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		getContentPane().add(txtContrasena);
 		
 		txts = new JTextPane();
+		txts.setContentType(TOOL_TIP_TEXT_KEY);
 		txts.setBackground(new Color(239, 238, 208));
+		
 		txts.setBounds(25, 314, 650, 109);
 		getContentPane().add(txts);
 		
@@ -200,30 +210,40 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnConsultar) {
+			actionPerformedBtnConsultar(e);
+		}
+		if (e.getSource() == btnEliminar) {
+			actionPerformedBtnEliminar(e);
+		}
+		if (e.getSource() == btnModificar) {
+			actionPerformedBtnModificar(e);
+		}
 		if(e.getSource()==btnanadir)
 			actionPerformedBtnAnadir(e);
 		
 	}
 	
 	public void actionPerformedBtnAnadir(ActionEvent e) {
-		EmpleadoDTO emp=new EmpleadoDTO();
+		EmpleadoDAO emp=new EmpleadoDAO();
+		EmpleadoDTO empdto=new EmpleadoDTO();
 		LoginDTO login=new LoginDTO();
 		try {
 			
 			
-			emp.setId(txtIdEmpleado.getText());
-			emp.setIdRol(JOptionPane.showInputDialog("Ingrese un dato"));
-			emp.setDi(txtDocIdentidad.getText());
-			emp.setNombre(txtNombres.getText());
-			emp.setApellidos(txtApellidos.getText());
-			emp.setCorreo(txtCorreoElectronico.getText());
-			emp.setTelefono(txtCelular.getText());
+			empdto.setId(txtIdEmpleado.getText());
+			empdto.setIdRol(JOptionPane.showInputDialog("Ingrese un dato"));
+			empdto.setDi(txtDocIdentidad.getText());
+			empdto.setNombre(txtNombres.getText());
+			empdto.setApellidos(txtApellidos.getText());
+			empdto.setCorreo(txtCorreoElectronico.getText());
+			empdto.setTelefono(txtCelular.getText());
 			
 			login.setUsername(txtUsuario.getText());
 			login.setPassword(txtContrasena.getText());
-			login.setIdEmp(emp.getId());
+			login.setIdEmp(empdto.getId());
 			
-			emp.insert(emp);
+			emp.insertar(empdto);
 			
 			System.out.println("Exitoso");
 		} catch(Exception ex) {
@@ -233,4 +253,42 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		
 	}
 	
+	protected void actionPerformedBtnModificar(ActionEvent e) {
+		
+		EmpleadoDAO emp=new EmpleadoDAO();
+		EmpleadoDTO empdto=new EmpleadoDTO();
+		LoginDTO login=new LoginDTO();
+		try {
+			
+			
+			empdto.setId(txtIdEmpleado.getText());
+			empdto.setIdRol(JOptionPane.showInputDialog("Ingrese un dato"));
+			empdto.setDi(txtDocIdentidad.getText());
+			empdto.setNombre(txtNombres.getText());
+			empdto.setApellidos(txtApellidos.getText());
+			empdto.setCorreo(txtCorreoElectronico.getText());
+			empdto.setTelefono(txtCelular.getText());
+			
+			login.setUsername(txtUsuario.getText());
+			login.setPassword(txtContrasena.getText());
+			login.setIdEmp(empdto.getId());
+			
+			emp.actualizar(empdto);
+			
+			System.out.println("Exitoso");
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null,"Muestre nuevamente");
+		}
+		
+	}
+	protected void actionPerformedBtnEliminar(ActionEvent e) {
+		
+		
+		
+	}
+	protected void actionPerformedBtnConsultar(ActionEvent e) {
+		
+		
+		
+	}
 }

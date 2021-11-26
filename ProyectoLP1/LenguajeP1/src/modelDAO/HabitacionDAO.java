@@ -9,6 +9,8 @@ import modelDTO.HabitacionDTO;
 import util.Conexion;
 
 public class HabitacionDAO implements ICrud<HabitacionDTO> {
+	
+	private static final String GENERAR_CODIGO="call GenerarCodigoHab()";
 
 	public static final String SQL_CONSULTAR="SELECT * FROM Habitacion";
 	
@@ -87,6 +89,7 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
 		} finally {
+			System.out.println("Se cerro");
 			conexion.cerrarConexion();
 		}
 		return false;
@@ -164,5 +167,39 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 		return null;
 	}
 
+	
+	public String generarCodigo() {
+		String nuevoCod="";
+		CallableStatement cs;
+		ResultSet rs;
+		
+		try {
+			cs=conexion.conectBd().prepareCall(GENERAR_CODIGO);
+			rs=cs.executeQuery();
+			
+			if(rs.next()) {
+				nuevoCod=rs.getString(1);
+			}
+	
+		} catch(Exception e) {
+			
+			System.out.println(e.getMessage());
+			
+		} finally {
+			conexion.cerrarConexion();
+		}
+		
+		return nuevoCod;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
