@@ -191,21 +191,28 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		}
 	}
 	
+	BReservaHabitacion Res11 = new BReservaHabitacion();
 	protected void actionPerformedMntmReservHabita(ActionEvent e) {
-		BReservaHabitacion Res11 = new BReservaHabitacion();
+		
 		Res11.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
 		fondo1.add(Res11);
 		Res11.setVisible(true);		
 	}
+
+
 	
+	CRegistroCliente Res12 = new CRegistroCliente();	
 	protected void actionPerformedMntmRegistCliente(ActionEvent e) {
-		CRegistroCliente Res12 = new CRegistroCliente();		
+			
 		fondo1.add(Res12);
 		Res12.setVisible(true);	
 	}
 	
+	
+	
+	DRegistroEmpleado Res13 = new DRegistroEmpleado();		
 	protected void actionPerformedMntmRegistEmplea(ActionEvent e) {
-		DRegistroEmpleado Res13 = new DRegistroEmpleado();		
+		
 		fondo1.add(Res13);
 		Res13.setVisible(true);	
 	}
@@ -226,20 +233,24 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		Con22.setVisible(true);	
 	}
 	
-	protected void actionPerformedMntmDatosCliente(ActionEvent e) {
-		GDatosCliente Rep31 = new GDatosCliente();		
+	GDatosCliente Rep31 = new GDatosCliente();
+	protected void actionPerformedMntmDatosCliente(ActionEvent e) {		
 		fondo1.add(Rep31);
 		Rep31.setVisible(true);
 	}
 	
+	
+	HDatosHabitaciones Rep32 = new HDatosHabitaciones();
 	protected void actionPerformedMntmDatosHabita(ActionEvent e) {
-		HDatosHabitaciones Rep32 = new HDatosHabitaciones();		
+				
 		fondo1.add(Rep32);
 		Rep32.setVisible(true);
 	}
-		
+	
+	
+	IDatosEmpleados Rep33 = new IDatosEmpleados();
 	protected void actionPerformedMntmDatosEmplea(ActionEvent e) {
-		IDatosEmpleados Rep33 = new IDatosEmpleados();		
+				
 		fondo1.add(Rep33);
 		Rep33.setVisible(true);
 	}
@@ -259,8 +270,17 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 	@Override
 	public void componentResized(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
+		
+		Res11.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
+		Res12.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
+		Res13.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
+		
 		Con21.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
 		Con22.setLocation((contentPane.getWidth()-1100)/2,(contentPane.getHeight()-700)/2);
+		
+		Rep31.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
+		Rep32.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
+		Rep33.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
 	}
 
 	@Override

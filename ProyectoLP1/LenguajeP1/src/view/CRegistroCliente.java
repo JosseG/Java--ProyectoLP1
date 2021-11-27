@@ -44,11 +44,9 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 	private JLabel lblCelular;
 	private JLabel lblCorreo;
 	private JLabel lblIdDireccion;
-	private JLabel lblIdDeCliente;
 	private JTextField txtCelular;
 	private JTextField txtCorreoElectronico;
 	private JTextField txtIdDireccion;
-	private JTextField txtIdCliente;
 	private JLabel lblDireccion;
 	private JLabel lblPais;
 	private JTextField txtDireccion;
@@ -59,6 +57,8 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 	private DefaultTableModel tabla;
 
 	private String Columnas[] = {"CODIGO","DOCUMENTO IDENTIDAD","NOMBRE","APELLIDOS", "TELEFONO", "CORREO","DIRECCION"};
+	private JTextField textField;
+	private JButton btnBuscar;
 	
 	private void CargarTabla() {
 		tabla = new DefaultTableModel();
@@ -89,7 +89,7 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 		setTitle("Registro del Cliente");
 		setClosable(true);
 		setBackground(new Color(128, 128, 128));
-		setBounds(100, 100, 720, 491);
+		setBounds(100, 100, 720, 524);
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(new Color( 32, 18, 58 ));
 		
@@ -176,12 +176,6 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 		lblIdDireccion.setBounds(29, 180, 133, 16);
 		getContentPane().add(lblIdDireccion);
 		
-		lblIdDeCliente = new JLabel("ID de cliente");
-		lblIdDeCliente.setForeground(Color.WHITE);
-		lblIdDeCliente.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 14));
-		lblIdDeCliente.setBounds(29, 206, 82, 16);
-		getContentPane().add(lblIdDeCliente);
-		
 		txtCelular = new JTextField();
 		txtCelular.setColumns(10);
 		txtCelular.setBackground(new Color(206, 228, 190));
@@ -197,48 +191,51 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 		txtIdDireccion = new JTextField();
 		txtIdDireccion.setColumns(10);
 		txtIdDireccion.setBackground(new Color(206, 228, 190));
-		txtIdDireccion.setBounds(177, 180, 340, 16);
+		txtIdDireccion.setBounds(177, 180, 170, 16);
 		txtIdDireccion.setText(new DireccionDAO().generarCodigo());
 		txtIdDireccion.setEditable(false);
 		getContentPane().add(txtIdDireccion);
 		
-		txtIdCliente = new JTextField();
-		txtIdCliente.setColumns(10);
-		txtIdCliente.setBackground(new Color(206, 228, 190));
-		txtIdCliente.setBounds(177, 206, 170, 16);
-		
-		getContentPane().add(txtIdCliente);
-		
 		lblDireccion = new JLabel("Direcci\u00F3n");
 		lblDireccion.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 14));
 		lblDireccion.setForeground(Color.WHITE);
-		lblDireccion.setBounds(29, 232, 61, 16);
+		lblDireccion.setBounds(29, 211, 61, 16);
 		getContentPane().add(lblDireccion);
 		
 		lblPais = new JLabel("Pa\u00EDs");
 		lblPais.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 14));
 		lblPais.setForeground(Color.WHITE);
-		lblPais.setBounds(27, 255, 28, 16);
+		lblPais.setBounds(29, 238, 28, 16);
 		getContentPane().add(lblPais);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setColumns(10);
 		txtDireccion.setBackground(new Color(206, 228, 190));
-		txtDireccion.setBounds(177, 229, 170, 16);
+		txtDireccion.setBounds(177, 208, 170, 16);
 		getContentPane().add(txtDireccion);
 		
 		txtPais = new JTextField();
 		txtPais.setColumns(10);
 		txtPais.setBackground(new Color(206, 228, 190));
-		txtPais.setBounds(177, 252, 170, 16);
+		txtPais.setBounds(177, 239, 170, 16);
 		getContentPane().add(txtPais);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(29, 292, 644, 147);
+		scrollPane.setBounds(29, 281, 644, 158);
 		getContentPane().add(scrollPane);
 		
 		jTabla = new JTable();
 		scrollPane.setViewportView(jTabla);
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(this);
+		btnBuscar.setBounds(452, 460, 89, 23);
+		getContentPane().add(btnBuscar);
+		
+		textField = new JTextField();
+		textField.setBounds(563, 461, 86, 20);
+		getContentPane().add(textField);
+		textField.setColumns(10);
 		CargarTabla();
 		tamanoColumnas();
 		listar();
