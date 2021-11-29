@@ -178,7 +178,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 			}
 		}
 		
-	}
+	} 
 	@Override
 	public void keyTyped(KeyEvent e) {
 	

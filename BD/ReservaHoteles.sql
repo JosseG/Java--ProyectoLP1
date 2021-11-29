@@ -419,3 +419,45 @@ delimiter ;
 call ConsultaBuscarBoletaIdBoleta('9000');
 
 
+/*Generar Codigo*/
+
+drop procedure if exists GenerarCodigoDir;
+
+delimiter @@
+create procedure GenerarCodigoDir()
+begin
+SELECT CONCAT("DIR",LPAD(CONVERT(CONVERT(RIGHT(id_direccion,5),SIGNED INTEGER)+1,CHAR),5,'0')) as codigo
+FROM direccion  ORDER BY 1 DESC LIMIT 0,1;
+end @@
+delimiter ;
+
+call GenerarCodigoDir();
+
+
+drop procedure if exists GenerarCodigoEmp;
+
+delimiter @@
+create procedure GenerarCodigoEmp()
+begin
+SELECT CONCAT("E",LPAD(CONVERT(CONVERT(RIGHT(id_emp,2),SIGNED INTEGER)+1,CHAR),2,'0')) as codigo
+FROM empleado  ORDER BY 1 DESC LIMIT 0,1;
+end @@
+delimiter ;
+
+call GenerarCodigoEmp();
+
+
+
+drop procedure if exists GenerarCodigoHab;
+
+delimiter @@
+create procedure GenerarCodigoHab()
+begin
+SELECT CONCAT("H",LPAD(CONVERT(CONVERT(RIGHT(id_hab,3),SIGNED INTEGER)+1,CHAR),3,'0')) as codigo
+FROM habitacion ORDER BY 1 DESC LIMIT 0,1;
+end @@
+delimiter ;
+
+call GenerarCodigoHab();
+
+
