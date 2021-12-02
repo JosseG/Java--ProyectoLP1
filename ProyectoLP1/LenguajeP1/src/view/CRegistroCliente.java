@@ -1,36 +1,45 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 
 import modelDAO.ClienteDAO;
+import modelDAO.ConsultaBoletaDAO;
 import modelDAO.ConsultaHabitacionDAO;
 import modelDAO.DireccionDAO;
 import modelDTO.ClienteDTO;
+import modelDTO.ConsultaBoletaDTO;
 import modelDTO.ConsultaHabitacionDTO;
 import modelDTO.DireccionDTO;
 import modelDTO.LoginDTO;
+import util.Carga;
 import util.GestionCeldas;
+import util.GestionEncabezadoTabla;
 
 import javax.swing.JTextPane;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.List;
-import java.awt.event.ActionEvent;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
+import javax.swing.JProgressBar;
 
-public class CRegistroCliente extends JInternalFrame implements ActionListener {
+public class CRegistroCliente extends JInternalFrame implements ActionListener,MouseListener {
 	private JTextField txtNombres;
 	private JTextField txtApellidos;
 	private JTextField txtDocIdentidad;
@@ -39,26 +48,24 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 	private JLabel lblApellidos;
 	private JLabel lblDocIdentidad;
 	private JButton btnModificar;
-	private JButton btnConsultar;
 	private JButton btnEliminar;
 	private JLabel lblCelular;
 	private JLabel lblCorreo;
-	private JLabel lblIdDireccion;
 	private JTextField txtCelular;
 	private JTextField txtCorreoElectronico;
-	private JTextField txtIdDireccion;
-	private JLabel lblDireccion;
 	private JLabel lblPais;
-	private JTextField txtDireccion;
 	private JTextField txtPais;
-	private StyledDocument doc;
 	private JScrollPane scrollPane;
 	private JTable jTabla;
 	private DefaultTableModel tabla;
 
-	private String Columnas[] = {"CODIGO","DOCUMENTO IDENTIDAD","NOMBRE","APELLIDOS", "TELEFONO", "CORREO","DIRECCION"};
-	private JTextField textField;
+	private String Columnas[] = {"CODIGO","NOMBRE","APELLIDOS","DOCUMENTO IDENTIDAD", "TELEFONO", "CORREO","DIRECCION"};
+	private JTextField txtBuscar;
 	private JButton btnBuscar;
+	
+	JTableHeader header;
+	private JButton btnCancel;
+	private JProgressBar pbCarga;
 	
 	private void CargarTabla() {
 		tabla = new DefaultTableModel();
@@ -112,6 +119,7 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 		getContentPane().add(txtDocIdentidad);
 		
 		btnanadir = new JButton("A\u00F1adir");
+		btnanadir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnanadir.addActionListener(this);
 		btnanadir.setForeground(Color.WHITE);
 		btnanadir.setBackground(new Color(130, 73, 229));
@@ -140,22 +148,15 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 		btnModificar.addActionListener(this);
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setBackground(new Color(130, 73, 229));
-		btnModificar.setBounds(576, 102, 89, 23);
+		btnModificar.setBounds(576, 99, 89, 23);
 		getContentPane().add(btnModificar);
-		
-		btnConsultar = new JButton("Consultar");
-		btnConsultar.addActionListener(this);
-		btnConsultar.setForeground(Color.WHITE);
-		btnConsultar.setBackground(new Color(130, 73, 229));
-		btnConsultar.setBounds(576, 155, 89, 23);
-		getContentPane().add(btnConsultar);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(this);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setBorder(new LineBorder(new Color(252, 80, 156), 1, true));
 		btnEliminar.setBackground(new Color(130, 73, 229));
-		btnEliminar.setBounds(576, 208, 89, 23);
+		btnEliminar.setBounds(576, 152, 89, 23);
 		getContentPane().add(btnEliminar);
 		
 		lblCelular = new JLabel("Celular");
@@ -170,12 +171,6 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 		lblCorreo.setBounds(29, 154, 118, 16);
 		getContentPane().add(lblCorreo);
 		
-		lblIdDireccion = new JLabel("ID direcci\u00F3n");
-		lblIdDireccion.setForeground(Color.WHITE);
-		lblIdDireccion.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 14));
-		lblIdDireccion.setBounds(29, 180, 133, 16);
-		getContentPane().add(lblIdDireccion);
-		
 		txtCelular = new JTextField();
 		txtCelular.setColumns(10);
 		txtCelular.setBackground(new Color(206, 228, 190));
@@ -188,60 +183,68 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 		txtCorreoElectronico.setBounds(177, 154, 340, 16);
 		getContentPane().add(txtCorreoElectronico);
 		
-		txtIdDireccion = new JTextField();
-		txtIdDireccion.setColumns(10);
-		txtIdDireccion.setBackground(new Color(206, 228, 190));
-		txtIdDireccion.setBounds(177, 180, 170, 16);
-		txtIdDireccion.setText(new DireccionDAO().generarCodigo());
-		txtIdDireccion.setEditable(false);
-		getContentPane().add(txtIdDireccion);
-		
-		lblDireccion = new JLabel("Direcci\u00F3n");
-		lblDireccion.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 14));
-		lblDireccion.setForeground(Color.WHITE);
-		lblDireccion.setBounds(29, 211, 61, 16);
-		getContentPane().add(lblDireccion);
-		
 		lblPais = new JLabel("Pa\u00EDs");
 		lblPais.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 14));
 		lblPais.setForeground(Color.WHITE);
-		lblPais.setBounds(29, 238, 28, 16);
+		lblPais.setBounds(29, 181, 28, 16);
 		getContentPane().add(lblPais);
-		
-		txtDireccion = new JTextField();
-		txtDireccion.setColumns(10);
-		txtDireccion.setBackground(new Color(206, 228, 190));
-		txtDireccion.setBounds(177, 208, 170, 16);
-		getContentPane().add(txtDireccion);
 		
 		txtPais = new JTextField();
 		txtPais.setColumns(10);
 		txtPais.setBackground(new Color(206, 228, 190));
-		txtPais.setBounds(177, 239, 170, 16);
+		txtPais.setBounds(177, 181, 170, 16);
 		getContentPane().add(txtPais);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(29, 281, 644, 158);
+		scrollPane.setBounds(29, 253, 644, 186);
 		getContentPane().add(scrollPane);
 		
+
+		
 		jTabla = new JTable();
+		jTabla.getTableHeader().setReorderingAllowed(false);
+		jTabla.getTableHeader().setResizingAllowed(false);
+		jTabla.addMouseListener(this);
+		jTabla.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		header=jTabla.getTableHeader();
+		header.setDefaultRenderer(new GestionEncabezadoTabla(new Color(35,200,70)));
+		jTabla.setTableHeader(header);
 		scrollPane.setViewportView(jTabla);
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(this);
+		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setBounds(452, 460, 89, 23);
 		getContentPane().add(btnBuscar);
 		
-		textField = new JTextField();
-		textField.setBounds(563, 461, 86, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		txtBuscar = new JTextField();
+		txtBuscar.setBounds(563, 461, 86, 20);
+		getContentPane().add(txtBuscar);
+		txtBuscar.setColumns(10);
+		
+		btnCancel = new JButton("Cancelar");
+		btnCancel.addActionListener(this);
+		btnCancel.setBounds(335, 460, 89, 23);
+		btnCancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		getContentPane().add(btnCancel);
+		
+		pbCarga = new JProgressBar();
+		pbCarga.setForeground(new Color(50, 205, 50));
+		pbCarga.setBounds(165, 469, 146, 14);
+		getContentPane().add(pbCarga);
 		CargarTabla();
 		tamanoColumnas();
 		listar();
+		limpiar();
+		setEnabledBtn(false);
 
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCancel) {
+			btnCancelActionPerformed(e);
+		}
+		
 		if (e.getSource() == btnanadir) {
 			actionPerformedBtnanadir(e);
 		}
@@ -249,34 +252,67 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 			actionPerformedBtnModificar(e);
 		}
 		
-		if (e.getSource() == btnConsultar) {
-			actionPerformedBtnConsultar(e);
-		}
-		
 		if (e.getSource() == btnEliminar) {
 			actionPerformedBtnEliminar(e);
 		}
+		
+		if(e.getSource() == btnBuscar) {
+			actionPerformedBtnBuscar(e);
+		}
+		
 	}
 	protected void actionPerformedBtnEliminar(ActionEvent e) {
 		
-		
-		
-	}
-	protected void actionPerformedBtnConsultar(ActionEvent e) {
-		
-		
-		
+		int row = jTabla.getSelectedRow();
+		int rpta=JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar?");
+		if(rpta==JOptionPane.OK_OPTION) {
+			ClienteDAO cldao=new ClienteDAO();
+			cldao.eliminar(tabla.getValueAt(row, 0).toString());
+			JOptionPane.showMessageDialog(null, "Correcto");
+		}else {
+			JOptionPane.showMessageDialog(null, "incorrecto");
+		}
+		limpiar();
+		listar();
 	}
 	protected void actionPerformedBtnModificar(ActionEvent e) {
+		pbCarga.setVisible(true);
+		Carga carga=new Carga(pbCarga);
 		
+		int row = jTabla.getSelectedRow();
+		ClienteDTO cldto=new ClienteDTO();
+		ClienteDAO cldao=new ClienteDAO();
 		
+		try {
+			
+			cldto.setId(Integer.parseInt(tabla.getValueAt(row, 0).toString()));
+			cldto.setNombre(txtNombres.getText());
+			cldto.setApellidos(txtApellidos.getText());
+			cldto.setDi(txtDocIdentidad.getText());
+			cldto.setTelefono(txtCelular.getText());
+			cldto.setCorreo(txtCorreoElectronico.getText());
+			cldto.setIdDireccion(tabla.getValueAt(row, 6).toString());
+			cldao.actualizar(cldto);
+			carga.start();
+			
+			
+			
+			
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Seleccione una fila");
+		}
+		
+		listar();
+		limpiar();
+		setEnabledBtn(false);
+		pbCarga.setVisible(false);
 		
 	}
 	protected void actionPerformedBtnanadir(ActionEvent e) {
+		long time_start, time_end;
+		time_start = System.currentTimeMillis();
 		ClienteDAO cldao=new ClienteDAO();
-		DireccionDAO ddao=new DireccionDAO();
 		ClienteDTO cldto=new ClienteDTO();
-		DireccionDTO ddto=new DireccionDTO();
 		try {
 			
 			cldto.setDi(txtDocIdentidad.getText());
@@ -284,18 +320,36 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 			cldto.setApellidos(txtApellidos.getText());
 			cldto.setTelefono(txtCelular.getText());
 			cldto.setCorreo(txtCorreoElectronico.getText());
-			cldto.setIdDireccion(txtDireccion.getText());
-			ddto.setId(txtIdDireccion.getText());
-			ddto.setDescripcion(txtDireccion.getText());
-			ddto.setPais(txtPais.getText());
-			
+			cldto.setIdDireccion(encontrariPais(txtPais.getText()));
 			cldao.insertar(cldto);
-			ddao.insertar(ddto);
 			
 		} catch(Exception ex) {
-			System.out.println(ex.getMessage());
+			System.out.println(ex.getMessage()+"aa");
+			ex.printStackTrace();
+		}
+		listar();
+		limpiar();
+		time_end = System.currentTimeMillis();
+		System.out.println("the task has taken "+ ( time_end - time_start ) +" milliseconds");
+	}
+	
+	protected void actionPerformedBtnBuscar(ActionEvent e) {
+		
+		if(!txtBuscar.getText().isEmpty()) {
+			filtrarId(Integer.parseInt(txtBuscar.getText()));
+		}else {
+			JOptionPane.showMessageDialog(null, "Coloque un id");
 		}
 		
+		
+	}
+	
+	protected void btnCancelActionPerformed(ActionEvent e) {
+		setEnabledBtn(false);
+		limpiar();
+		jTabla.getSelectedRow();
+		jTabla.setRowSelectionAllowed(false);
+		listar();
 	}
 	
 	void listar() {
@@ -303,6 +357,46 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 		ClienteDAO hab=new ClienteDAO();
 		List<ClienteDTO> habit=hab.listar();
 		recorrerList(habit);
+	}
+	
+	void filtrarId(int a) {
+		tabla.setRowCount(0);
+		ClienteDAO cb=new ClienteDAO();	
+		List<ClienteDTO> listCB=cb.filtrarId(a);
+		recorrerList(listCB);
+	}
+	String encontrariPais(String a) {
+		
+		String idpais=null;
+		
+		DireccionDAO ddao=new DireccionDAO();
+		List<DireccionDTO> direc=ddao.listar();
+		for(DireccionDTO c: direc) {
+			if(c.getPais().equals(a)) {
+				idpais=c.getId();
+				break;
+			}
+	
+		}
+		
+		return idpais;
+	}
+	
+	String encontrarnPais(String a) {
+		
+		String npais=null;
+		
+		DireccionDAO ddao=new DireccionDAO();
+		List<DireccionDTO> direc=ddao.listar();
+		for(DireccionDTO c: direc) {
+			if(c.getId().equals(a)) {
+				npais=c.getPais();
+				break;
+			}
+	
+		}
+		
+		return npais;
 	}
 	
 	private void recorrerList(List<ClienteDTO> a) {
@@ -313,14 +407,13 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 			
 			tabla.addRow(o);
 			
-			
 		}
 		
 	}
 	
 	private void tamanoColumnas() {
 		
-		int [] tamanio= {40,80,80,80,80,80,80};
+		int [] tamanio= {30,50,80,80,60,80,60};
 		
 		for(int i=0;i<tamanio.length;i++) {
 			jTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
@@ -328,6 +421,61 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener {
 			
 		}
 		
+	}
+	
+	private void setEnabledBtn(boolean a) {
+		btnEliminar.setEnabled(a);
+		btnModificar.setEnabled(a);
+		btnanadir.setEnabled(!a);
+		btnCancel.setVisible(a);
+		
+	}
+	
+	private void limpiar() {
+		txtApellidos.setText("");
+		txtNombres.setText("");
+		txtCelular.setText("");
+		txtCorreoElectronico.setText("");
+		txtDocIdentidad.setText("");
+		txtPais.setText("");
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		int row = jTabla.rowAtPoint(e.getPoint());
+		txtNombres.setText(tabla.getValueAt(row, 1).toString());
+		txtApellidos.setText(tabla.getValueAt(row, 2).toString());
+		txtDocIdentidad.setText(tabla.getValueAt(row, 3).toString());
+		txtCelular.setText(tabla.getValueAt(row, 4).toString());
+		txtCorreoElectronico.setText(tabla.getValueAt(row, 5).toString());
+		txtPais.setText(encontrarnPais(tabla.getValueAt(row, 6).toString()));
+		
+		setEnabledBtn(true);
+		jTabla.setRowSelectionAllowed(true);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -115,6 +116,7 @@ public class FConsultaBoleta extends JInternalFrame implements ActionListener,Ke
 		miTabla.setRowHeight(30);
 		miTabla.getTableHeader().setReorderingAllowed(false);
 		miTabla.getTableHeader().setResizingAllowed(false);
+		miTabla.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		miTabla.setFillsViewportHeight(true);
 		
 		

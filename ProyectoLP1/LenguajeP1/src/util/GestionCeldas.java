@@ -35,9 +35,9 @@ public class GestionCeldas extends DefaultTableCellRenderer{
 
 
 	
-	
 	public GestionCeldas(){
 
+		
 	}
 
 

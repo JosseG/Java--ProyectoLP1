@@ -96,9 +96,11 @@ public class ClienteDAO implements ICrud<ClienteDTO> {
 			cs.setString(5, c.getTelefono());
 			cs.setString(6, c.getCorreo());
 			cs.setString(7, c.getIdDireccion());
-			
+			System.out.println("hola");
 			if(cs.execute()) {
+				System.out.println("estoy");
 				return true;
+				
 			}
 
 		} catch(Exception e) {
@@ -152,7 +154,7 @@ public class ClienteDAO implements ICrud<ClienteDTO> {
 			}
 			
 			rs.close();
-
+			return filtrarCl;
 		} catch(Exception e) {
 			
 			System.out.println(e.getMessage());

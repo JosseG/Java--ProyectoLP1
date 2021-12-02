@@ -86,7 +86,7 @@ public class EmpleadoDTO {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "";
+		return getId() + ";" + getIdRol()+";" + getDi() + ";" + getNombre() + ";" + getApellidos() + ";" + getTelefono() + ";" +getCorreo();
 	}
 
 	

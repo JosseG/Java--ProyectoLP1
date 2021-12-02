@@ -9,6 +9,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
 
 import javax.swing.JLabel;
@@ -17,6 +18,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import com.mxrck.autocompleter.TextAutoCompleter;
 
 import modelDAO.ConsultaHabitacionDAO;
 import modelDAO.HabitacionDAO;
@@ -40,6 +43,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 	private ButtonGroup grupoRadio;
 	private JRadioButton rdbtnId;
 	private JRadioButton rdbtnTipo;
+	private TextAutoCompleter ac;
 	
 	//Cargar tabla
 		private void CargarTabla() {
@@ -91,7 +95,10 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		getContentPane().add(lblNewLabel);
 		
 		txtBusqueda = new JTextField();
-		
+		ac = new TextAutoCompleter(txtBusqueda);
+		ac.addItem("1111");
+		ac.addItem("1112");
+		ac.addItem("11115");
 		txtBusqueda.setColumns(10);
 		txtBusqueda.addKeyListener(this);
 		txtBusqueda.setBackground(new Color(204, 204, 204));
@@ -107,6 +114,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		miTabla.setRowHeight(30);
 		miTabla.getTableHeader().setReorderingAllowed(false);
 		miTabla.getTableHeader().setResizingAllowed(false);
+		miTabla.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		miTabla.setFillsViewportHeight(true);
 		
 		

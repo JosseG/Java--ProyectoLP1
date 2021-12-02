@@ -52,10 +52,10 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
 			ps.setString(6, emp.getTelefono());
 			ps.setString(7, emp.getCorreo());
 			if(ps.execute()){
-				
+				return true;
 			}
 			
-			return true;
+			
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {

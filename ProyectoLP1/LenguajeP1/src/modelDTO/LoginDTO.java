@@ -1,56 +1,54 @@
 package modelDTO;
 
+import java.sql.Date;
+
 public class LoginDTO {
 
 	private int id;
-	private String idEmp,username,password;
+	private String idCuenta;
+	private Date fecha;
 	
 	public LoginDTO() {
 		
 	}
 	
-	public LoginDTO(int id, String idEmp, String username, String password) {
+	public LoginDTO(int id, String idCuenta, Date fecha) {
 		super();
 		this.id = id;
-		this.idEmp = idEmp;
-		this.username = username;
-		this.password = password;
+		this.idCuenta = idCuenta;
+		this.fecha = fecha;
 	}
+
 
 	public int getId() {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getIdEmp() {
-		return idEmp;
+
+	public String getIdCuenta() {
+		return idCuenta;
 	}
 
-	public void setIdEmp(String idEmp) {
-		this.idEmp = idEmp;
+
+	public void setIdCuenta(String idCuenta) {
+		this.idCuenta = idCuenta;
 	}
 
-	public String getUsername() {
-		return username;
+
+	public Date getFecha() {
+		return fecha;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	
-	
 	
 	
 }

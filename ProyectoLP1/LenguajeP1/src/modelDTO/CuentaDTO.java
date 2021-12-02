@@ -3,6 +3,10 @@ package modelDTO;
 public class CuentaDTO {
 
 	private String id,idEmp,username,password;
+	
+	public CuentaDTO() {
+		
+	}
 
 	public CuentaDTO(String id, String idEmp, String username, String password) {
 		super();

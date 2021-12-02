@@ -2,16 +2,15 @@ package modelDTO;
 
 public class DireccionDTO {
 
-	private String id,descripcion,pais;
+	private String id,pais;
 	
 	public DireccionDTO() {
 		
 	}
 
-	public DireccionDTO(String id, String descripcion, String pais) {
+	public DireccionDTO(String id,  String pais) {
 		super();
 		this.id = id;
-		this.descripcion = descripcion;
 		this.pais = pais;
 	}
 
@@ -22,14 +21,6 @@ public class DireccionDTO {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
 	}
 
 	public String getPais() {

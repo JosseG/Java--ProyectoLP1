@@ -5,7 +5,6 @@ use ReservaHotel;
 
 create table direccion(
 id_direccion char(8) primary key,
-descripcion_direccion varchar(50) not null,
 pais_direccion varchar(30) not null
 );
 
@@ -60,6 +59,7 @@ fecha_login datetime not null,
 foreign key(id_cuenta) references cuenta(id_cuenta)
 );
 
+
 create table boleta(
 id_boleta char(9) primary key,
 id_emp char(3) not null,
@@ -83,40 +83,44 @@ check( precioHabExtra_dBoleta= 50 or precioHabExtra_dBoleta=70 or precioHabExtra
 );
 
 -- insert temporales
-insert into direccion values ('10000001','jr los Fusilanimes', 'Peru'),
-('10000002','jr las gabiotas', 'Brasil');
+insert into direccion values ('DIR00001', 'Peru'),
+('DIR00002', 'Brasil');
 select * from direccion;
 
-insert into cliente values (1,'Luis', 'Torres Torres', '00012345678','998875643','luis@gmail.com', '10000001'),
-(2,'Sebastian', 'Torres Cañari', '00012395678','998875223','sebastian@gmail.com', '10000001');
+insert into cliente values (1,'Luis', 'Torres Torres', '00012345678','998875643','luis@gmail.com', 'DIR00001'),
+(2,'Sebastian', 'Torres Cañari', '00012395678','998875223','sebastian@gmail.com', 'DIR00002');
 select * from cliente;
 
-insert into habitacion values ('1111','1', '2021-03-23',3 ,'tv con cable' ),
-('1112','1', '2021-03-29',3 ,'tv con cable');
+insert into habitacion values ('H001','1', '2021-03-23',3 ,'tv con cable' ),
+('H002','1', '2021-03-29',3 ,'tv con cable');
 select * from habitacion;
 
-insert into rol values ('11','recepcionista'),
-('12','Administrador');
+insert into rol values ('R1','Administrador'),
+('R2','recepcionista');
 select * from rol;
 
-insert into empleado values ('101','12', '00012395578', 'Maria', 'Castillo Parado', '987654321', 'maria@gmail.com'),
-('102','12', '00019395578', 'Jorge', 'Castillo Cerca', '987659321', 'jorge@gmail.com');
+
+
+insert into empleado values ('E01','R1', '00012395578', 'Maria', 'Castillo Parado', '987654321', 'maria@gmail.com'),
+('E02','R1', '00019395578', 'Jorge', 'Castillo Cerca', '987659321', 'jorge@gmail.com');
 select * from empleado;
 
-insert into cuenta values ('1991','101', 'Maria', 'Maria1234'),
-('1992','102', 'Milagros', 'Milagros1234');
+
+
+insert into cuenta values ('CT01','E01', 'Maria', 'Maria1234'),
+('CT02','E02', 'Milagros', 'Milagros1234');
 select * from cuenta;
 
-insert into login values ('1','1992', '2021-05-23'),
-('2','1991', '2021-05-24');
+insert into login values ('1','CT02', '2021-05-23'),
+('2','CT01', '2021-05-24');
 select * from login;
 
-insert into boleta values ('900000001','101', '2021-05-28', '2345678900', 'efectivo'),
-('900000002','102', '2021-07-28', '2345678100', 'efectivo');
+insert into boleta values ('B00000001','E01', '2021-05-28', '2345678900', 'efectivo'),
+('B00000002','E02', '2021-07-28', '2345678100', 'efectivo');
 select * from boleta;
 
-insert into detalleboleta values ('900000001',1, '1111', '123', '70'),
-('900000002',2, '1112', '234', '50');
+insert into detalleboleta values ('B00000001',1, 'H001', '123', '70'),
+('B00000001',2, 'H002', '234', '50');
 select * from detalleboleta;
 
 -- ----------------------------------------------------------------
@@ -142,7 +146,7 @@ begin
 	insert into habitacion values(id, tipo, fechareserva, numdias, descrip);
 end @@
 delimiter ;
-call AnadirHabitacion('1113','2', '2021-05-23',3 ,'agua caliente');
+/*call AnadirHabitacion('1113','2', '2021-05-23',3 ,'agua caliente');*/
 
 -- ModificarHabitacion
 drop procedure if exists ModificarHabitacion;
@@ -152,7 +156,7 @@ begin
 	update habitacion set  tipo_hab = tipo, FechaReserva_hab = fechareserva, NumDias_hab=numdias, descripcion_hab= descrip  where id_hab = id;
 end @@
 delimiter ;
-call ModificarHabitacion('1112','2', '2021-03-29',3 ,'tv con cable');
+/*call ModificarHabitacion('1112','2', '2021-03-29',3 ,'tv con cable');*/
 
 -- ConsultarHabitacionId
 drop procedure if exists ConsultarHabitacionId;
@@ -172,7 +176,7 @@ begin
 	select * from Habitacion where tipo_hab like (Concat(concat('%',tipo),'%'));
 end @@
 delimiter ;
-call ConsultarHabitacionTipo('2');
+/*call ConsultarHabitacionTipo('2');*/
 
 
 
@@ -184,7 +188,7 @@ begin
 	delete from habitacion where id_hab = id;
 end @@
 delimiter ;
-call EliminarHabitacion('1113');
+/*call EliminarHabitacion('1113');*/
 
 
 -- REGISTRO DE CLIENTE----------------------------------
@@ -206,7 +210,7 @@ begin
 	insert into cliente values(id_cli, nom_cli, ape_cli, doc_cli, celular_cli, co_cli, dir_cli);
 end @@
 delimiter ;
-call AnadirCliente(3,'sebastian', 'Torres Cañari', '00012395678','998875223','sebastian@gmail.com', '10000001');
+/*call AnadirCliente(3,'sebastian', 'Torres Cañari', '00012395678','998875223','sebastian@gmail.com', 'DIR00002');*/
 
 -- ModificarCliente
 drop procedure if exists ModificarCliente;
@@ -216,7 +220,7 @@ begin
 	update cliente set  nombre_cliente= nom_cli, apellido_cliente = ape_cli, docIndentidad_cliente=doc_cli ,celular_cliente = celular_cli, correo_cliente= co_cli, id_direccion = dir_cli where id_cliente = id_cli;
 end @@
 delimiter ;
-call ModificarCliente(3,'Juan', 'torres cañari', '00012395678','998875223','sebastian@gmail.com', '10000001');
+/*call ModificarCliente(3,'Juan', 'torres cañari', '00012395678','998875223','sebastian@gmail.com', '10000001');*/
 
 -- ConsultarCliente
 drop procedure if exists ConsultarCliente;
@@ -257,7 +261,7 @@ begin
 	insert into empleado values(id_em, id_rol, di_emp, nom_em, ape_em, celular_em, correo_em);
 end @@
 delimiter ;
-call AnadirEmpleado('103','12', '00019311578', 'Carlos', 'Martel Cerca', '987611321', 'Carlos@gmail.com');
+/*call AnadirEmpleado('103','12', '00019311578', 'Carlos', 'Martel Cerca', '987611321', 'Carlos@gmail.com');*/
 
 -- ModificarEmpleado
 drop procedure if exists ModificarEmpleado;
@@ -267,7 +271,7 @@ begin
 	update empleado set  id_rol = id_rol, docIndentidad_emp=di_emp, nombre_emp=nom_em, apellido_emp=ape_em, celular_emp= celular_em, correo_emp=correo_em where id_emp = id_em;
 end @@
 delimiter ;
-call ModificarEmpleado('103','12', '00019311578', 'Pedro', 'Martel Cerca', '987611321', 'Pedro@gmail.com');
+/*call ModificarEmpleado('103','12', '00019311578', 'Pedro', 'Martel Cerca', '987611321', 'Pedro@gmail.com');*/
 
 -- ConsultarEmpleado
 drop procedure if exists ConsultarEmpleado;
@@ -277,7 +281,7 @@ begin
 	select * from empleado where id_emp = id_em;
 end @@
 delimiter ;
-call ConsultarEmpleado('102');
+/*call ConsultarEmpleado('102');*/
 
 -- EliminarEmpleado
 drop procedure if exists EliminarEmpleado;
@@ -287,7 +291,7 @@ begin
 	delete from empleado where id_emp = id_em;
 end @@
 delimiter ;
-call EliminarEmpleado('103');
+/*call EliminarEmpleado('103');*/
 
 select * from empleado;
 
@@ -324,7 +328,7 @@ begin
     where h.id_hab like (Concat(concat('%',id),'%')) ;
 end @@
 delimiter ;
-call ConsultaBuscarHabitacionId('1112');
+/*call ConsultaBuscarHabitacionId('1112');*/
 
 
 drop procedure if exists ConsultaBuscarHabitacionTipo;
@@ -341,7 +345,7 @@ begin
     where h.tipo_hab like (Concat(concat('%',tipo),'%')) ;
 end @@
 delimiter ;
-call ConsultaBuscarHabitacionTipo('1');
+/*call ConsultaBuscarHabitacionTipo('1');*/
 
 
 
@@ -392,7 +396,7 @@ begin
     where c.id_cliente like (Concat(concat('%',cliente),'%')) ;
 end @@
 delimiter ;
-call ConsultaBuscarBoletaIdCliente(1);
+/*call ConsultaBuscarBoletaIdCliente(1);*/
 
 
 
@@ -416,7 +420,7 @@ begin
     where b.id_boleta like (Concat(concat('%',boleta),'%')) ;
 end @@
 delimiter ;
-call ConsultaBuscarBoletaIdBoleta('9000');
+/*call ConsultaBuscarBoletaIdBoleta('9000');*/
 
 
 /*Generar Codigo*/
@@ -459,5 +463,17 @@ end @@
 delimiter ;
 
 call GenerarCodigoHab();
+
+drop procedure if exists GenerarCodigoCuenta;
+
+delimiter @@
+create procedure GenerarCodigoCuenta()
+begin
+SELECT CONCAT("CT",LPAD(CONVERT(CONVERT(RIGHT(id_cuenta,2),SIGNED INTEGER)+1,CHAR),2,'0')) as codigo
+FROM cuenta ORDER BY 1 DESC LIMIT 0,1;
+end @@
+delimiter ;
+
+call GenerarCodigoCuenta();
 
 

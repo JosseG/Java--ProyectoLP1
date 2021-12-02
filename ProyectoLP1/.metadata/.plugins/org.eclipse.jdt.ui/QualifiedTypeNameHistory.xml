@@ -13,7 +13,6 @@
     <fullyQualifiedTypeName name="java.awt.event.ComponentListener"/>
     <fullyQualifiedTypeName name="modelDAO.HabitacionDAO"/>
     <fullyQualifiedTypeName name="modelDTO.HabitacionDTO"/>
-    <fullyQualifiedTypeName name="util.GestionEncabezadoTabla"/>
     <fullyQualifiedTypeName name="javax.swing.table.DefaultTableCellRenderer"/>
     <fullyQualifiedTypeName name="java.awt.Component"/>
     <fullyQualifiedTypeName name="util.GestionCeldas"/>
@@ -47,4 +46,8 @@
     <fullyQualifiedTypeName name="modelDAO.ConsultaBoletaDAO"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="modelDTO.ConsultaBoletaDTO"/>
+    <fullyQualifiedTypeName name="java.awt.Cursor"/>
+    <fullyQualifiedTypeName name="javax.swing.table.JTableHeader"/>
+    <fullyQualifiedTypeName name="util.GestionEncabezadoTabla"/>
+    <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
 </qualifiedTypeNameHistroy>
