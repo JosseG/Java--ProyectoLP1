@@ -27,6 +27,7 @@ import modelDTO.ConsultaHabitacionDTO;
 import modelDTO.DireccionDTO;
 import modelDTO.LoginDTO;
 import util.Carga;
+import util.ExpRegs;
 import util.GestionCeldas;
 import util.GestionEncabezadoTabla;
 
@@ -288,11 +289,34 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		try {
 			
 			cldto.setId(Integer.parseInt(tabla.getValueAt(row, 0).toString()));
-			cldto.setNombre(txtNombres.getText());
-			cldto.setApellidos(txtApellidos.getText());
-			cldto.setDi(txtDocIdentidad.getText());
-			cldto.setTelefono(txtCelular.getText());
-			cldto.setCorreo(txtCorreoElectronico.getText());
+			if(txtNombres.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
+				cldto.setNombre(txtNombres.getText());
+				if(txtApellidos.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
+					cldto.setApellidos(txtApellidos.getText());
+					if(txtDocIdentidad.getText().matches("")) {
+						cldto.setDi(txtDocIdentidad.getText());
+						if(txtCelular.getText().matches(ExpRegs.REGULAREXP_TELEFONO)) {
+							cldto.setTelefono(txtCelular.getText());
+							if(txtCorreoElectronico.getText().matches(ExpRegs.REGULAREXP_CORREO)) {
+								cldto.setCorreo(txtCorreoElectronico.getText());
+							}else {
+								
+							}
+						}else {
+							System.out.println("Telefono incorrecto");
+						}
+					}else {
+						System.out.println("Documento incorrecto");
+					}
+				}else {
+					System.out.println("Apellido incorrecto");
+				}
+					
+			}else {
+				System.out.println("Nombre incorrecto");
+			}
+			
+			
 			cldto.setIdDireccion(tabla.getValueAt(row, 6).toString());
 			cldao.actualizar(cldto);
 			

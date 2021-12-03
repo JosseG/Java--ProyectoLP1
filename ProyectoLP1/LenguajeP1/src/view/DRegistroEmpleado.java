@@ -15,15 +15,16 @@ import javax.swing.table.JTableHeader;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 
+import modelDAO.BoletaDAO;
 import modelDAO.ClienteDAO;
 import modelDAO.CuentaDAO;
 import modelDAO.EmpleadoDAO;
 import modelDAO.LoginDAO;
 import modelDAO.RolDAO;
-import modelDTO.ClienteDTO;
+
 import modelDTO.CuentaDTO;
 import modelDTO.EmpleadoDTO;
-import modelDTO.LoginDTO;
+
 import modelDTO.RolDTO;
 import util.GestionCeldas;
 import util.GestionEncabezadoTabla;
@@ -32,20 +33,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
 
-public class DRegistroEmpleado extends JInternalFrame implements ActionListener {
+public class DRegistroEmpleado extends JInternalFrame implements ActionListener,MouseListener {
 	private JButton btnanadir;
 	private JButton btnModificar;
-	private JButton btnConsultar;
 	private JButton btnEliminar;
 	private JLabel lblNombres;
 	private JLabel lblApellidos;
@@ -72,6 +72,7 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 	private JButton btnBuscar;
 	private JComboBox cboRol;
 	private JLabel lblRol;
+	private JButton btnCancelar;
 
 	/**
 	 * Launch the application.
@@ -104,29 +105,25 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		btnanadir.setForeground(Color.WHITE);
 		btnanadir.setBackground(new Color(130, 73, 229));
 		btnanadir.setBounds(39, 81, 89, 23);
+		btnanadir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnanadir.addActionListener(this);
 		getContentPane().add(btnanadir);
 		
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(this);
 		btnModificar.setForeground(Color.WHITE);
+		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnModificar.setBackground(new Color(130, 73, 229));
 		btnModificar.setBounds(39, 125, 89, 23);
 		getContentPane().add(btnModificar);
 		
-		btnConsultar = new JButton("Consultar");
-		btnConsultar.addActionListener(this);
-		btnConsultar.setForeground(Color.WHITE);
-		btnConsultar.setBackground(new Color(130, 73, 229));
-		btnConsultar.setBounds(39, 171, 89, 23);
-		getContentPane().add(btnConsultar);
-		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(this);
 		btnEliminar.setForeground(Color.WHITE);
+		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setBorder(new LineBorder(new Color(252, 80, 156), 1, true));
 		btnEliminar.setBackground(new Color(130, 73, 229));
-		btnEliminar.setBounds(39, 219, 89, 23);
+		btnEliminar.setBounds(39, 168, 89, 23);
 		getContentPane().add(btnEliminar);
 		
 		lblNombres = new JLabel("Nombres");
@@ -220,6 +217,7 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		dtmTabla=new DefaultTableModel(null,arreglos);
 		jtTabla = new JTable();
 		jtTabla.setModel(dtmTabla);
+		jtTabla.addMouseListener(this);
 		jtTabla.getTableHeader().setReorderingAllowed(false);
 		jtTabla.getTableHeader().setResizingAllowed(false);
 		jtTabla.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -231,6 +229,7 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(this);
+		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setBounds(470, 466, 89, 23);
 		getContentPane().add(btnBuscar);
 		
@@ -250,17 +249,22 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		cboRol.setBounds(557, 23, 118, 22);
 		cboRol.setBackground(new Color(206, 228, 190));
 		getContentPane().add(cboRol);
+		
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(this);
+		btnCancelar.setBounds(339, 466, 89, 23);
+		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		getContentPane().add(btnCancelar);
 		tamanoColumnas();
-		activarBotones(true);
+		limpiar();
 		listar();
+		setEnabledBtn(false);
 
 	}
 
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnConsultar) {
-			actionPerformedBtnConsultar(e);
-		}
 		if (e.getSource() == btnEliminar) {
 			actionPerformedBtnEliminar(e);
 		}
@@ -275,11 +279,15 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 			actionPerformedBtnBuscar(e);
 		}
 		
+		if(e.getSource()==btnCancelar) {
+			actionPerformedBtnCancelar(e);
+		}
+		
 	}
 	
 	public void actionPerformedBtnBuscar(ActionEvent e) {
 		
-		activarBotones(false);
+		
 		System.out.println("se deshabilitaron");
 		
 	}
@@ -293,20 +301,21 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 			
 			
 			empdto.setId(emp.generarCodigo());
-			empdto.setIdRol(encontrarRol(cboRol.getSelectedItem().toString()));
+			empdto.setIdRol(encontrarIdRol(cboRol.getSelectedItem().toString()));
 			empdto.setDi(txtDocIdentidad.getText());
 			empdto.setNombre(txtNombres.getText());
 			empdto.setApellidos(txtApellidos.getText());
 			empdto.setCorreo(txtCorreoElectronico.getText());
 			empdto.setTelefono(txtCelular.getText());
 			
-			cuentadto.setId(new CuentaDAO().generarCodigo());
+			cuentadto.setId(cuentadao.generarCodigo());
 			cuentadto.setUsername(txtUsuario.getText());
 			cuentadto.setPassword(txtContrasena.getText());
 			cuentadto.setIdEmp(empdto.getId());
 			
-			cuentadao.insertar(cuentadto);
 			emp.insertar(empdto);
+			cuentadao.insertar(cuentadto);
+			
 			
 			System.out.println("Exitoso");
 		} catch(Exception ex) {
@@ -314,18 +323,21 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		}
 		
 		listar();
+		limpiar();
 	}
 	
 	protected void actionPerformedBtnModificar(ActionEvent e) {
 		
 		EmpleadoDAO emp=new EmpleadoDAO();
 		EmpleadoDTO empdto=new EmpleadoDTO();
+		CuentaDTO cuentadto=new CuentaDTO();
+		CuentaDAO cuentadao=new CuentaDAO();
+		
 		
 		try {
-			
-			
-			//empdto.setId(txt.getText());
-			empdto.setIdRol(encontrarRol(cboRol.getSelectedItem().toString()));
+			System.out.println(jtTabla.getSelectedRow());
+			empdto.setId(dtmTabla.getValueAt(jtTabla.getSelectedRow(),0).toString());
+			empdto.setIdRol(encontrarIdRol(cboRol.getSelectedItem().toString()));
 			empdto.setDi(txtDocIdentidad.getText());
 			empdto.setNombre(txtNombres.getText());
 			empdto.setApellidos(txtApellidos.getText());
@@ -333,21 +345,46 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 			empdto.setTelefono(txtCelular.getText());
 			emp.actualizar(empdto);
 			
-			System.out.println("Exitoso");
+			cuentadto.setId(obtenerIdCuenta(dtmTabla.getValueAt(jtTabla.getSelectedRow(),0).toString()));
+			cuentadto.setIdEmp(empdto.getId());
+			cuentadto.setUsername(txtUsuario.getText());
+			cuentadto.setPassword(txtContrasena.getText());
+			cuentadao.actualizar(cuentadto);
+			
 		} catch(Exception ex) {
 			JOptionPane.showMessageDialog(null,"Muestre nuevamente");
 		}
-		
+		listar();
+		limpiar();
 	}
 	protected void actionPerformedBtnEliminar(ActionEvent e) {
-		
+		int row = jtTabla.getSelectedRow();
+		int rpta=JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar?");
+		if(rpta==JOptionPane.OK_OPTION) {
+			LoginDAO logindao=new LoginDAO();
+			CuentaDAO cuentadao=new CuentaDAO();
+			EmpleadoDAO cldao=new EmpleadoDAO();
+			BoletaDAO boletadao=new BoletaDAO();
+			logindao.eliminarPorCuenta(obtenerIdCuenta(dtmTabla.getValueAt(jtTabla.getSelectedRow(),0).toString()));
+			cuentadao.eliminar(obtenerIdCuenta(dtmTabla.getValueAt(jtTabla.getSelectedRow(),0).toString()));
+			boletadao.eliminarPorEmp(dtmTabla.getValueAt(row, 0).toString());
+			cldao.eliminar(dtmTabla.getValueAt(row, 0).toString());
+			JOptionPane.showMessageDialog(null, "Correcto");
+		}else {
+			JOptionPane.showMessageDialog(null, "No elimino");
+		}
+		limpiar();
+		listar();
 		
 		
 	}
-	protected void actionPerformedBtnConsultar(ActionEvent e) {
-		
-		
-		
+	
+	protected void actionPerformedBtnCancelar(ActionEvent e) {
+		setEnabledBtn(false);
+		limpiar();
+		jtTabla.getSelectedRow();
+		jtTabla.setRowSelectionAllowed(false);
+		listar();
 	}
 	
 	
@@ -364,6 +401,31 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		
 	}
 	
+	String obtenerIdCuenta(String a) {
+		String idCuenta="";
+		
+		CuentaDAO rdao=new CuentaDAO();
+		
+		List<CuentaDTO> listR=rdao.listar();
+		
+		for(CuentaDTO c:listR) {
+			if(a.equals(c.getIdEmp())) {
+				idCuenta=c.getId();
+			}
+		}
+		return idCuenta;
+	}
+	
+	void limpiar() {
+		txtApellidos.setText("");
+		txtNombres.setText("");
+		txtCelular.setText("");
+		txtCorreoElectronico.setText("");
+		txtDocIdentidad.setText("");
+		txtUsuario.setText("");
+		txtContrasena.setText("");
+	}
+	
 	void listar() {
 		dtmTabla.setRowCount(0);
 		
@@ -375,7 +437,7 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		}
 	}
 	
-	public String encontrarRol(String a) {
+	public String encontrarIdRol(String a) {
 		
 		String idRol="";
 		
@@ -391,12 +453,29 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 		return idRol;
 	}
 	
-	public void activarBotones(boolean a) {
-		btnanadir.setEnabled(a);
-		btnConsultar.setEnabled(a);
-		btnBuscar.setEnabled(a);
+	public String encontrarItemRol(String a) {
+		
+		String itRol="";
+		
+		RolDAO rdao=new RolDAO();
+		
+		List<RolDTO> listR=rdao.listar();
+		
+		for(RolDTO c:listR) {
+			if(a.equals(c.getId())) {
+				itRol=c.getNombre();
+			}
+		}
+		return itRol;
 	}
 	
+	private void setEnabledBtn(boolean a) {
+		btnEliminar.setEnabled(a);
+		btnModificar.setEnabled(a);
+		btnanadir.setEnabled(!a);
+		btnCancelar.setVisible(a);
+		
+	}
 	
 	public Object[] listarRoles() {
 		
@@ -410,6 +489,65 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener 
 			 o[i]= listR.get(i).getNombre();
 		}
 		return o; 
+		
+	}
+	
+	public void mousePressed(MouseEvent e) {
+		
+		// TODO Auto-generated method stub
+		int row = jtTabla.rowAtPoint(e.getPoint());
+		cboRol.setSelectedItem(encontrarItemRol(dtmTabla.getValueAt(row, 1).toString()));
+		txtNombres.setText(dtmTabla.getValueAt(row, 3).toString());
+		txtApellidos.setText(dtmTabla.getValueAt(row, 4).toString());
+		txtDocIdentidad.setText(dtmTabla.getValueAt(row, 2).toString());
+		txtCelular.setText(dtmTabla.getValueAt(row, 5).toString());
+		txtCorreoElectronico.setText(dtmTabla.getValueAt(row, 6).toString());
+		
+		txtUsuario.setText(devolverCuenta(dtmTabla.getValueAt(row, 0).toString())[0]);
+		txtContrasena.setText(devolverCuenta(dtmTabla.getValueAt(row, 0).toString())[1]);
+		
+		setEnabledBtn(true);
+		jtTabla.setRowSelectionAllowed(true);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	String[] devolverCuenta(String codigo) {
+		
+		String [] b=new String[2];
+		CuentaDAO a =new CuentaDAO();
+		List<CuentaDTO> cuenta=a.listar();
+		
+		for(int i=0;i<cuenta.size();i++) {
+			if(cuenta.get(i).getIdEmp().equals(codigo)) {
+				b[0]=cuenta.get(i).getUsername();
+				b[1]=cuenta.get(i).getPassword();
+				return b;
+			}
+		}
+		
+		return null;
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 	

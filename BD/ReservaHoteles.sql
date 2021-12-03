@@ -19,6 +19,7 @@ id_direccion char(8) not null,
 foreign key(id_direccion) references direccion(id_direccion)
 );
 
+
 create table habitacion(
 id_hab char(4) primary key not null,
 tipo_hab char(1) not null,
@@ -44,11 +45,13 @@ correo_emp varchar(60) not null,
 foreign key(id_rol) references rol(id_rol)
 );
 
+
+
 create table cuenta(
 id_cuenta char(4) primary key not null,
 id_emp char(3) not null,
-username_login varchar(30) not null,
-password_login varchar(30) not null,
+username_cuenta varchar(30) not null,
+password_cuenta varchar(30) not null,
 foreign key(id_emp) references empleado(id_emp)
 );
 
@@ -478,3 +481,4 @@ delimiter ;
 call GenerarCodigoCuenta();
 
 
+select * from cliente

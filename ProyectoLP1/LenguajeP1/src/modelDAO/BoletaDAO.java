@@ -35,7 +35,22 @@ public class BoletaDAO {
 		}
 
 		return null;
-	}	
+	}
+	public boolean eliminarPorEmp(String a) {
+		PreparedStatement ps;
+		try {
+			ps=conexion.conectBd().prepareStatement("Delete from Boleta where id_emp=?");
+			ps.setString(1, a);
+			if(ps.execute()) {
+				return true;
+			}
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			conexion.cerrarConexion();
+		}
+		return false;
+	}
 	
 	
 	

@@ -13,8 +13,11 @@ import util.Conexion;
 
 public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
 	
+	private static final String USP_MODIFICAR_EMPLEADO="call ModificarEmpleado(?,?,?,?,?,?,?)";
+	private static final String USP_ELIMINAR_EMPLEADO="call EliminarEmpleado(?)";
 	private static final String GENERAR_CODIGO="call GenerarCodigoEmp()";
-
+	
+	
 	public static Conexion conexion=Conexion.obtenerCone();
 	
 	public List<EmpleadoDTO> listar(){
@@ -67,14 +70,54 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
 
 	@Override
 	public boolean eliminar(String s) {
-		// TODO Auto-generated method stub
+		CallableStatement cs;
+		
+		try {
+			
+			cs=conexion.conectBd().prepareCall(USP_ELIMINAR_EMPLEADO);
+			cs.setString(1, s);
+			if(cs.execute()) {
+				return true;
+			}
+
+		} catch(Exception e) {
+			
+			System.out.println(e.getMessage());
+			
+		} finally {
+			conexion.cerrarConexion();
+		}
 		return false;
 	}
 
 	@Override
 	public boolean actualizar(EmpleadoDTO c) {
 		// TODO Auto-generated method stub
-		return false;
+		CallableStatement cs;
+		
+		try {
+			
+			cs=conexion.conectBd().prepareCall(USP_MODIFICAR_EMPLEADO);
+			cs.setString(1, c.getId());
+			cs.setString(2, c.getIdRol());
+			cs.setString(3, c.getDi());
+			cs.setString(4, c.getNombre());
+			cs.setString(5, c.getApellidos());
+			cs.setString(6, c.getTelefono());
+			cs.setString(7, c.getCorreo());
+
+			if(cs.execute()) {
+				return true;
+			}
+
+		} catch(Exception e) {
+			
+			System.out.println(e.getMessage());
+			
+		} finally {
+			conexion.cerrarConexion();
+		}
+		return false;	
 	}
 
 	public String generarCodigo() {

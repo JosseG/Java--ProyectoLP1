@@ -23,7 +23,7 @@ public class RolDAO implements ICrud<RolDTO> {
 		List<RolDTO> listRol=new ArrayList<RolDTO>();
 		
 		try {
-			System.out.println("LLEGO A LISTR");
+		
 			ps=con.conectBd().prepareStatement("select * from rol");
 			rs=ps.executeQuery();
 			
@@ -32,7 +32,6 @@ public class RolDAO implements ICrud<RolDTO> {
 			}
 			
 			rs.close();
-			System.out.println("LLEGO A LISTRaa");
 			return listRol;
 
 		} catch(Exception e) {
