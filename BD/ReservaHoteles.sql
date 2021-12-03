@@ -87,15 +87,41 @@ check( precioHabExtra_dBoleta= 50 or precioHabExtra_dBoleta=70 or precioHabExtra
 
 -- insert temporales
 insert into direccion values ('DIR00001', 'Peru'),
-('DIR00002', 'Brasil');
+('DIR00002', 'Brasil'),
+('DIR00003','Argentina'),
+('DIR00004','Colombia'),
+('DIR00005','Colombia'),
+('DIR00006','Uruguay'),
+('DIR00007','Paraguay'),
+('DIR00008','Bolivia'),
+('DIR00009','Bolivia');
 select * from direccion;
 
 insert into cliente values (1,'Luis', 'Torres Torres', '00012345678','998875643','luis@gmail.com', 'DIR00001'),
 (2,'Sebastian', 'Torres Cañari', '00012395678','998875223','sebastian@gmail.com', 'DIR00002');
+
+insert into cliente values
+('3','Yeder','Gonzales Garcia','00012391021','928912031','yeder@gmail.com','DIR00003'),
+('4','Angel','Castillo Quispe','00012301921','900182212','angel@gmail.com','DIR00004'),
+('5','Pedro','Gironda Armando','00012372191','974201245','pedro@gmail.com','DIR00005'),
+('6','Maria','Maldini Pastor','00012381021','998876421','maria@gmail.com','DIR00006'),
+('7','Fernanda','Alvarez Vazquez','00012300912','920182931','fernanda@gmail.com','DIR00007'),
+('8','Edith','Díaz Chávez','00012355915','920129310','edith@gmail.com','DIR00008'),
+('9','Nicole','Torres Jugo','00012319212','982201021','nicole@gmail.com','DIR00009');
+select * from cliente;
 select * from cliente;
 
 insert into habitacion values ('H001','1', '2021-03-23',3 ,'tv con cable' ),
 ('H002','1', '2021-03-29',3 ,'tv con cable');
+
+insert into habitacion values 
+('H003','1', '2021-05-23',3 ,'tv con cable y piscina' ),
+('H004','2', '2021-03-09',3 ,'tv sin cable'),
+('H005','1', '2021-01-25',3 ,'tv con cable y piscina' ),
+('H006','2', '2021-06-19',3 ,'tv sin cable'),
+('H007','1', '2021-07-28',3 ,'tv sin cable' ),
+('H008','1', '2021-07-22',3 ,'tv con cable'),
+('H009','2', '2021-07-21',3 ,'tv con cable y piscina' );
 select * from habitacion;
 
 insert into rol values ('R1','Administrador'),
@@ -106,12 +132,30 @@ select * from rol;
 
 insert into empleado values ('E01','R1', '00012395578', 'Maria', 'Castillo Parado', '987654321', 'maria@gmail.com'),
 ('E02','R1', '00019395578', 'Jorge', 'Castillo Cerca', '987659321', 'jorge@gmail.com');
+
+insert into empleado values 
+('E03','R1', '00012910211', 'Mara', 'Quispe León', '902102121', 'mara@gmail.com'),
+('E04','R2', '00012029102', 'Manuel', 'Garcia Quispe', '929201411', 'manuel@gmail.com'),
+('E05','R1', '00012038122', 'Manuela', 'Gutierrez Rosas', '987222012', 'manuela@gmail.com'),
+('E06','R1', '00012930120', 'Alex', 'Flores Cruz', '912031021', 'alex@gmail.com'),
+('E07','R1', '00012192031', 'Alejandra', 'Hakimi Chunta', '999212441', 'alejandra@gmail.com'),
+('E08','R2', '00010091291', 'Juan', 'Alvarado Perez', '987654001', 'juan@gmail.com'),
+('E09','R1', '00019920123', 'Alvaro', 'Castillo Perez', '912345001', 'alvaro@gmail.com');
 select * from empleado;
 
 
 
 insert into cuenta values ('CT01','E01', 'Maria', 'Maria1234'),
 ('CT02','E02', 'Milagros', 'Milagros1234');
+
+insert into cuenta values 
+('CT03','E03', 'Jose', 'Jose1234'),
+('CT04','E04', 'Andres', 'Andres1234'),
+('CT05','E05', 'Marco', 'Marco1234'),
+('CT06','E06', 'Alexandra', 'Alexandra1234'),
+('CT07','E07', 'Camila', 'Camila1234'),
+('CT08','E08', 'Mirta', 'Mirta1234'),
+('CT09','E09', 'Mariana', 'Mariana1234');
 select * from cuenta;
 
 insert into login values ('1','CT02', '2021-05-23'),
@@ -120,10 +164,28 @@ select * from login;
 
 insert into boleta values ('B00000001','E01', '2021-05-28', '2345678900', 'efectivo'),
 ('B00000002','E02', '2021-07-28', '2345678100', 'efectivo');
+
+insert into boleta values 
+('B00000003','E03', '2021-07-29', '2345678200', 'tarjeta'),
+('B00000004','E04', '2021-07-30', '2345678300', 'efectivo'),
+('B00000005','E05', '2021-08-02', '2345678400', 'efectivo'),
+('B00000006','E06', '2021-08-05', '2345678500', 'tarjeta'),
+('B00000007','E07', '2021-08-06', '2345678600', 'efectivo'),
+('B00000008','E08', '2021-08-07', '2345678130', 'tarjeta'),
+('B00000009','E09', '2021-09-10', '2345678120', 'efectivo');
 select * from boleta;
 
 insert into detalleboleta values ('B00000001',1, 'H001', '123', '70'),
 ('B00000001',2, 'H002', '234', '50');
+
+insert into detalleboleta values 
+('B00000002',3, 'H003', '230', '70'),
+('B00000003',4, 'H004', '200', '70'),
+('B00000004',5, 'H005', '150', '50'),
+('B00000005',6, 'H006', '180', '50'),
+('B00000006',7, 'H007', '123', '80'),
+('B00000007',8, 'H008', '205', '70'),
+('B00000008',9, 'H009', '126', '70');
 select * from detalleboleta;
 
 -- ----------------------------------------------------------------
