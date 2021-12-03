@@ -40,7 +40,6 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
 	
 	public boolean insertar(EmpleadoDTO emp) {
 
-		
 		CallableStatement ps;
 		try {
 			ps=conexion.conectBd().prepareCall("call AnadirEmpleado(?,?,?,?,?,?,?)");
@@ -55,7 +54,6 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
 				return true;
 			}
 			
-			
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -64,6 +62,7 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
 		}
 
 		return false;
+		
 	}
 
 	@Override

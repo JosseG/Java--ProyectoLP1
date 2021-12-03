@@ -232,6 +232,7 @@ end @@
 delimiter ;
 call ConsultarCliente('3');
 
+
 -- EliminarCliente
 drop procedure if exists EliminarCliente;
 delimiter @@

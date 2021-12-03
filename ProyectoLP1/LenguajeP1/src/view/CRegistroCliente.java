@@ -67,6 +67,7 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 	private JButton btnCancel;
 	private JProgressBar pbCarga;
 	
+	
 	private void CargarTabla() {
 		tabla = new DefaultTableModel();
 		for(int i=0; i<Columnas.length; i++)tabla.addColumn(Columnas[i]);
@@ -275,14 +276,15 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		limpiar();
 		listar();
 	}
+	
 	protected void actionPerformedBtnModificar(ActionEvent e) {
-		pbCarga.setVisible(true);
-		Carga carga=new Carga(pbCarga);
+		Carga carga = new Carga(pbCarga);
+		
 		
 		int row = jTabla.getSelectedRow();
 		ClienteDTO cldto=new ClienteDTO();
 		ClienteDAO cldao=new ClienteDAO();
-		
+		carga.start();
 		try {
 			
 			cldto.setId(Integer.parseInt(tabla.getValueAt(row, 0).toString()));
@@ -293,7 +295,8 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 			cldto.setCorreo(txtCorreoElectronico.getText());
 			cldto.setIdDireccion(tabla.getValueAt(row, 6).toString());
 			cldao.actualizar(cldto);
-			carga.start();
+			
+			
 			
 			
 			
@@ -301,11 +304,13 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		} catch(Exception ex) {
 			JOptionPane.showMessageDialog(null, "Seleccione una fila");
 		}
+
 		
 		listar();
 		limpiar();
 		setEnabledBtn(false);
 		pbCarga.setVisible(false);
+
 		
 	}
 	protected void actionPerformedBtnanadir(ActionEvent e) {
@@ -324,8 +329,7 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 			cldao.insertar(cldto);
 			
 		} catch(Exception ex) {
-			System.out.println(ex.getMessage()+"aa");
-			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "");
 		}
 		listar();
 		limpiar();

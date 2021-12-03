@@ -94,6 +94,9 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		mntmRegistEmplea.addActionListener(this);
 		mnRegistro.add(mntmRegistEmplea);
 		
+		mnTransaccion = new JMenu("Transacci\u00F3n");
+		menuBar.add(mnTransaccion);
+		
 		mnConsulta = new JMenu("Consulta");
 		menuBar.add(mnConsulta);
 		
@@ -104,9 +107,6 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		mntmConsultaBoleta = new JMenuItem("Consulta Boleta");
 		mntmConsultaBoleta.addActionListener(this);
 		mnConsulta.add(mntmConsultaBoleta);
-		
-		mnTransaccion = new JMenu("Transacci\u00F3n");
-		menuBar.add(mnTransaccion);
 		
 		mnReporte = new JMenu("Reporte");
 		menuBar.add(mnReporte);
@@ -285,6 +285,4 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		
 	}
 
-
-	
 }
