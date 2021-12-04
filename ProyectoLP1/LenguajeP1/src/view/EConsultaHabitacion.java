@@ -104,7 +104,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
-		panel.setBackground(new Color(175, 238, 238));
+		panel.setBackground(new Color(47, 79, 79));
 		panel.setBounds(46, 71, 220, 83);
 		getContentPane().add(panel);
 		panel.setLayout(null);
@@ -112,7 +112,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		lblNewLabel = new JLabel("HABITACI\u00D3N");
 		lblNewLabel.setBounds(64, 11, 91, 20);
 		panel.add(lblNewLabel);
-		lblNewLabel.setForeground(Color.BLACK);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 		
 		txtBusqueda = new JTextField();
@@ -125,28 +125,28 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		
 		panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(119, 136, 153), 2));
-		panel_1.setBackground(new Color(175, 238, 238));
+		panel_1.setBackground(new Color(47, 79, 79));
 		panel_1.setBounds(330, 76, 93, 78);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		
-		rdbtnTipo = new JRadioButton("Tipo");
+		rdbtnTipo = new JRadioButton("TIPO");
 		rdbtnTipo.setBounds(19, 40, 65, 23);
 		panel_1.add(rdbtnTipo);
-		rdbtnTipo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 11));
-		rdbtnTipo.setForeground(Color.BLACK);
+		rdbtnTipo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		rdbtnTipo.setForeground(new Color(255, 255, 255));
 		rdbtnTipo.addActionListener(this);
 		rdbtnTipo.setContentAreaFilled(false);
 		grupoRadio.add(rdbtnTipo);
 		
-		rdbtnId = new JRadioButton("id");
+		rdbtnId = new JRadioButton("ID");
 		rdbtnId.setBounds(19, 14, 40, 23);
 		panel_1.add(rdbtnId);
-		rdbtnId.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 11));
+		rdbtnId.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		rdbtnId.setSelected(true);
 		rdbtnId.addActionListener(this);
-		rdbtnId.setForeground(Color.BLACK);
+		rdbtnId.setForeground(new Color(255, 255, 255));
 		rdbtnId.setContentAreaFilled(false);
 		grupoRadio.add(rdbtnId);
 		

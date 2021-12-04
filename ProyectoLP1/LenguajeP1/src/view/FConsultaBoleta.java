@@ -92,10 +92,11 @@ public class FConsultaBoleta extends JInternalFrame implements ActionListener,Ke
 	
 		setTitle("Consulta Boleta");
 		setClosable(true);
-		setBounds(100, 100, 1083, 700);
+		setBounds(100, 100, 1083, 601);
+		setBackground(new Color(128, 128, 128));
 		getContentPane().setLayout(null);
 		//Color fondo
-		getContentPane().setBackground(new Color( 32, 18, 58 ));
+		getContentPane().setBackground(new Color( 114, 173, 168  ));
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 165, 1018, 331);
@@ -171,7 +172,7 @@ public class FConsultaBoleta extends JInternalFrame implements ActionListener,Ke
 	
 	private void tamanoColumnas() {
 		
-		int [] tamanio= {50,110,90,30,50,60,30,120,70};
+		int [] tamanio= {50,110,120,30,50,60,30,80,70};
 		
 		for(int i=0;i<tamanio.length;i++) {
 			miTabla.getColumnModel().getColumn(i).setPreferredWidth(tamanio[i]);

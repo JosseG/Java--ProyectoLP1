@@ -98,9 +98,10 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener,
 		setClosable(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Registro del empleado");
-		setBounds(100, 100, 720, 530);
+		setBounds(100, 100, 731, 541);
 		getContentPane().setLayout(null);
-		getContentPane().setBackground(new Color( 32, 18, 58 ));
+		setBackground(new Color( 114, 173, 168 ));
+		getContentPane().setBackground(new Color( 114, 173, 168  ));
 		
 		btnanadir = new JButton("A\u00F1adir");
 		btnanadir.setForeground(Color.WHITE);
@@ -212,7 +213,7 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener,
 		getContentPane().add(lblDocIdentidad);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(39, 270, 626, 166);
+		scrollPane.setBounds(49, 270, 626, 166);
 		getContentPane().add(scrollPane);
 		
 		dtmTabla=new DefaultTableModel(null,arreglos);
@@ -231,12 +232,12 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener,
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(this);
 		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnBuscar.setBounds(470, 466, 89, 23);
+		btnBuscar.setBounds(479, 466, 89, 23);
 		getContentPane().add(btnBuscar);
 		
 		txtBuscar = new JTextField();
 		
-		txtBuscar.setBounds(580, 467, 86, 20);
+		txtBuscar.setBounds(589, 467, 86, 20);
 		getContentPane().add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
@@ -254,7 +255,7 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener,
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(this);
-		btnCancelar.setBounds(339, 466, 89, 23);
+		btnCancelar.setBounds(348, 466, 89, 23);
 		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		getContentPane().add(btnCancelar);
 		tamanoColumnas();

@@ -220,6 +220,8 @@ begin
 end @@
 delimiter ;
 
+
+
 -- ConsultarHabitacionId
 drop procedure if exists ConsultarHabitacionId;
 delimiter @@

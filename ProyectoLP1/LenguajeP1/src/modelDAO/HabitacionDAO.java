@@ -73,16 +73,17 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 		try {
 			ps = conexion.conectBd().prepareCall("call ModificarHabitacion(?,?,?)");
 			
-			ps.setString(1, String.valueOf(c.getTipo()));
-			ps.setString(2, c.getDescripcion());
-			ps.setString(3, c.getId());
+			ps.setString(1, c.getId());
+			ps.setString(2, String.valueOf(c.getTipo()));
+			ps.setString(3, c.getDescripcion());
+			
 
 			if(ps.execute()) {
 				return true;
 			}
 			
 		} catch(Exception ex) {
-			System.out.println(ex.getMessage());
+			ex.printStackTrace();
 		} finally {
 			conexion.cerrarConexion();
 		}
