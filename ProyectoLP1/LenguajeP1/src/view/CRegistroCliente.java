@@ -144,6 +144,24 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		lblDocIdentidad.setBounds(31, 104, 94, 16);
 		getContentPane().add(lblDocIdentidad);
 		
+		//*******
+		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(this);
+		btnModificar.setForeground(Color.BLACK);
+		btnModificar.setBackground(new Color(11, 79, 108));
+		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnModificar.setBounds(576, 99, 89, 23);
+		getContentPane().add(btnModificar);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(this);
+		btnEliminar.setForeground(Color.WHITE);
+		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnEliminar.setBorder(new LineBorder(new Color(252, 80, 156), 1, true));
+		btnEliminar.setBackground(new Color(130, 73, 229));
+		btnEliminar.setBounds(576, 152, 89, 23);
+		getContentPane().add(btnEliminar);
+
 		lblCelular = new JLabel("Celular");
 		lblCelular.setForeground(Color.WHITE);
 		lblCelular.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 14));

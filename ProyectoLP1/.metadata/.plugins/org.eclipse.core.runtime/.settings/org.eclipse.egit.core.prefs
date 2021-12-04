@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 GitRepositoriesView.GitDirectories=C\:\\Users\\Sebastian\\Desktop\\Java--ProyectoLP1\\.git;C\:\\Users\\Jose\\Desktop\\CIBERTEC\\3erCiclo\\Lenguaje de programacion\\Java--ProyectoLP1\\.git;C\:\\Users\\Sebastian\\Desktop\\Probardescargar\\Java--ProyectoLP1\\.git;C\:\\Users\\Jose\\Desktop\\CIBERTEC\\3erCiclo\\Lenguaje de programacion\\Proyecto\\Java--ProyectoLP1\\.git;
 GitRepositoriesView.GitDirectories.relative=C\:\\Users\\Sebastian\\Desktop\\Java--ProyectoLP1\\.git;C\:\\Users\\Jose\\Desktop\\CIBERTEC\\3erCiclo\\Lenguaje de programacion\\Java--ProyectoLP1\\.git;C\:\\Users\\Sebastian\\Desktop\\Probardescargar\\Java--ProyectoLP1\\.git;C\:\\Users\\Jose\\Desktop\\CIBERTEC\\3erCiclo\\Lenguaje de programacion\\Proyecto\\Java--ProyectoLP1\\.git;
+=======
+GitRepositoriesView.GitDirectories=C\:\\Users\\Sebastian\\Desktop\\Java--ProyectoLP1\\.git;C\:\\Users\\Jose\\Desktop\\CIBERTEC\\3erCiclo\\Lenguaje de programacion\\Java--ProyectoLP1\\.git;C\:\\Users\\Jose\\Desktop\\CIBERTEC\\3erCiclo\\Lenguaje de programacion\\Proyecto\\Java--ProyectoLP1\\.git;C\:\\Users\\User\\Desktop\\Java--ProyectoLP1\\.git;
+GitRepositoriesView.GitDirectories.relative=C\:\\Users\\Sebastian\\Desktop\\Java--ProyectoLP1\\.git;C\:\\Users\\Jose\\Desktop\\CIBERTEC\\3erCiclo\\Lenguaje de programacion\\Java--ProyectoLP1\\.git;C\:\\Users\\Jose\\Desktop\\CIBERTEC\\3erCiclo\\Lenguaje de programacion\\Proyecto\\Java--ProyectoLP1\\.git;C\:\\Users\\User\\Desktop\\Java--ProyectoLP1\\.git;
+>>>>>>> 5828c4f927f3e042cf23bab2350697762aef7e22
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1

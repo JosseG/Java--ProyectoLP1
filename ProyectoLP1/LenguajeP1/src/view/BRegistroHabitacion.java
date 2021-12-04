@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -19,8 +21,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import modelDAO.ClienteDAO;
 import modelDAO.HabitacionDAO;
+import modelDTO.ClienteDTO;
 import modelDTO.HabitacionDTO;
+import util.ExpRegs;
 import util.GestionCeldas;
 import util.GestionEncabezadoTabla;
 
@@ -35,7 +40,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 	private JButton btnAnadir;
 	private JButton btnModificar;
 	private JButton btnBuscar;
-	private JComboBox cboTipo;
+	private JComboBox<Object> cboTipo;
 	private JTextField txtDescripcion;
 	private JLabel lblCodigoHabitacion;
 	private JTextField txtCodigoHabitacion;
@@ -71,6 +76,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 	 * Create the frame.
 	 */
 	public BRegistroHabitacion() {
+		
 		setClosable(true);
 		setTitle("Reserva de Habitaci\u00F3n");
 		setBounds(100, 100, 720, 507);
@@ -100,7 +106,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		getContentPane().add(btnBuscar);
 		
 		cboTipo = new JComboBox();
-		cboTipo.setModel(new DefaultComboBoxModel(new String[] {"Una persona", "Dos personas", "Matrimonial"}));
+		cboTipo.setModel(new DefaultComboBoxModel<Object>(new String[] {"Una persona", "Dos personas", "Matrimonial"}));
 		cboTipo.setBounds(246, 109, 119, 21);
 		getContentPane().add(cboTipo);
 		
@@ -118,7 +124,8 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		txtCodigoHabitacion = new JTextField();
 		txtCodigoHabitacion.setBounds(246, 72, 96, 19);
 		txtCodigoHabitacion.setColumns(10);
-		txtCodigoHabitacion.setText(new HabitacionDAO().generarCodigo());
+		
+		
 		txtCodigoHabitacion.setEditable(false);
 		getContentPane().add(txtCodigoHabitacion);
 		
@@ -197,6 +204,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		limpiar();
 		setEnabledBtn(false);
 		
+		
 	}
 
 	@Override
@@ -222,21 +230,72 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 	}
 	protected void actionPerformedBtnAnadir(ActionEvent e) {
 		
+		HabitacionDAO habdao=new HabitacionDAO();
+		HabitacionDTO habdto=new HabitacionDTO();
+		try {
+			
+			habdto.setId(txtCodigoHabitacion.getText());
+			habdto.setTipo(String.valueOf(cboTipo.getSelectedIndex()).charAt(0));
+			habdto.setDescripcion(txtDescripcion.getText());
+			habdao.insertar(habdto);
+			
+			
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "");
+		}
+
+		listar();
+		limpiar();
+		
+		
 	}
 	protected void actionPerformedBtnModificar(ActionEvent e) {
+		
+		HabitacionDAO habdao=new HabitacionDAO();
+		HabitacionDTO habdto=new HabitacionDTO();
+		try {
+			
+			habdto.setId(txtCodigoHabitacion.getText());
+			habdto.setTipo(String.valueOf(cboTipo.getSelectedIndex()).charAt(0));
+			habdto.setDescripcion(txtDescripcion.getText());
+			habdao.actualizar(habdto);
+
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error al modificar");
+		}
+
+		listar();
+		limpiar();
 		
 	}
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
 		
+		if(!txtBuscar.getText().isEmpty()) {
+			filtrarId(txtBuscar.getText());
+		}else {
+			JOptionPane.showMessageDialog(null, "Coloque un id");
+		}
+
 	}
 	protected void actionPerformedBtnEliminar(ActionEvent e) {
-		
+		int row = jtTabla.getSelectedRow();
+		int rpta=JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar?");
+		if(rpta==JOptionPane.OK_OPTION) {
+			HabitacionDAO habdao=new HabitacionDAO();
+			habdao.eliminar(dtmTabla.getValueAt(row, 0).toString());
+			JOptionPane.showMessageDialog(null, "Correcto");
+		}else {
+			JOptionPane.showMessageDialog(null, "incorrecto");
+		}
+		limpiar();
+		listar();
 	}
 	protected void actionPerformedBtnCancelar(ActionEvent e) {
 		setEnabledBtn(false);
-		limpiar();
+		
 		jtTabla.getSelectedRow();
 		jtTabla.setRowSelectionAllowed(false);
+		limpiar();
 		listar();
 	}
 	
@@ -256,10 +315,25 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		dtmTabla.setRowCount(0);
 		HabitacionDAO habdao=new HabitacionDAO();
 		List<HabitacionDTO> lhab=habdao.listar();
+		recorrerList(lhab);
 		
-		for(HabitacionDTO h:lhab) {
-			Object[] o = h.toString().split(";");
+	}
+	
+	void filtrarId(String a) {
+		dtmTabla.setRowCount(0);
+		HabitacionDAO habdao=new HabitacionDAO();	
+		List<HabitacionDTO> listhab=habdao.filtrarId(a);
+		recorrerList(listhab);
+	}
+	
+	private void recorrerList(List<HabitacionDTO> a) {
+		
+		for(HabitacionDTO b:a) {
+			
+			Object [] o = b.toString().split(";");
+			
 			dtmTabla.addRow(o);
+			
 		}
 		
 	}
@@ -287,8 +361,8 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		// TODO Auto-generated method stub
 		int row = jtTabla.rowAtPoint(e.getPoint());
 		txtCodigoHabitacion.setText(dtmTabla.getValueAt(row, 0).toString());
+		cboTipo.setSelectedIndex(Integer.parseInt(dtmTabla.getValueAt(row, 1).toString()));
 		txtDescripcion.setText(dtmTabla.getValueAt(row, 2).toString());
-		
 		setEnabledBtn(true);
 		jtTabla.setRowSelectionAllowed(true);
 	}
@@ -307,7 +381,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 	}
 	
 	private void limpiar() {
-		txtCodigoHabitacion.setText("");
+		txtCodigoHabitacion.setText(new HabitacionDAO().generarCodigo());
 		txtDescripcion.setText("");
 		txtBuscar.setText("");
 	}

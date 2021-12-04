@@ -21,11 +21,12 @@ import modelDAO.CuentaDAO;
 import modelDAO.EmpleadoDAO;
 import modelDAO.LoginDAO;
 import modelDAO.RolDAO;
-
+import modelDTO.ClienteDTO;
 import modelDTO.CuentaDTO;
 import modelDTO.EmpleadoDTO;
 
 import modelDTO.RolDTO;
+import util.ExpRegs;
 import util.GestionCeldas;
 import util.GestionEncabezadoTabla;
 
@@ -288,19 +289,79 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener,
 	public void actionPerformedBtnBuscar(ActionEvent e) {
 		
 		
-		System.out.println("se deshabilitaron");
+		if(!txtBuscar.getText().isEmpty() ) {
+			filtrarId(txtBuscar.getText());
+			btnCancelar.setVisible(true);
+		}else {
+			JOptionPane.showMessageDialog(null, "Coloca un id");
+			
+		}
 		
 	}
 	
 	public void actionPerformedBtnAnadir(ActionEvent e) {
-		EmpleadoDAO emp=new EmpleadoDAO();
+		
+		EmpleadoDAO empdao=new EmpleadoDAO();
 		EmpleadoDTO empdto=new EmpleadoDTO();
 		CuentaDTO cuentadto=new CuentaDTO();
 		CuentaDAO cuentadao=new CuentaDAO();
 		try {
+			if(txtNombres.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
+				empdto.setNombre(txtNombres.getText());
+				if(txtApellidos.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
+					empdto.setApellidos(txtApellidos.getText());
+					if(txtDocIdentidad.getText().matches(ExpRegs.REGULAREXP_DOCUMENTO)) {
+						empdto.setDi(txtDocIdentidad.getText());
+						if(txtCelular.getText().matches(ExpRegs.REGULAREXP_TELEFONO)) {
+							empdto.setTelefono(txtCelular.getText());
+							if(txtCorreoElectronico.getText().matches(ExpRegs.REGULAREXP_CORREO)) {
+								empdto.setIdRol(encontrarIdRol(cboRol.getSelectedItem().toString()));
+								empdto.setCorreo(txtCorreoElectronico.getText());
+								empdto.setId(empdao.generarCodigo());
+								
+							}else {
+								JOptionPane.showMessageDialog(null, "Correo incorrecto");
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Telefono incorrecto");
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Documento incorrecto");
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Apellido incorrecto");
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Nombre incorrecto");
+			}
 			
 			
-			empdto.setId(emp.generarCodigo());
+			if(txtUsuario.getText().matches(ExpRegs.REGULAREXP_USERNAME_PASSWORD)) {
+				cuentadto.setUsername(txtUsuario.getText());
+				if(txtContrasena.getText().matches(ExpRegs.REGULAREXP_USERNAME_PASSWORD)) {
+					cuentadto.setPassword(txtContrasena.getText());
+					cuentadto.setId(cuentadao.generarCodigo());
+					cuentadto.setIdEmp(empdto.getId());
+					empdao.insertar(empdto);
+					cuentadao.insertar(cuentadto);
+				}else {
+					JOptionPane.showMessageDialog(null, "La contraseña es incorrecta");
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "El correo es incorrecto");
+			}
+			
+			
+				
+			
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Seleccione una fila");
+		}
+		
+		listar();
+		limpiar();
+			/*
+			empdto.setId(empdao.generarCodigo());
 			empdto.setIdRol(encontrarIdRol(cboRol.getSelectedItem().toString()));
 			empdto.setDi(txtDocIdentidad.getText());
 			empdto.setNombre(txtNombres.getText());
@@ -313,29 +374,25 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener,
 			cuentadto.setPassword(txtContrasena.getText());
 			cuentadto.setIdEmp(empdto.getId());
 			
-			emp.insertar(empdto);
+			empdao.insertar(empdto);
 			cuentadao.insertar(cuentadto);
+			*/
 			
-			
-			System.out.println("Exitoso");
-		} catch(Exception ex) {
-			JOptionPane.showMessageDialog(null,"Muestre nuevamente");
-		}
 		
-		listar();
-		limpiar();
+		
+		
+
 	}
 	
 	protected void actionPerformedBtnModificar(ActionEvent e) {
 		
-		EmpleadoDAO emp=new EmpleadoDAO();
+		EmpleadoDAO empdao=new EmpleadoDAO();
 		EmpleadoDTO empdto=new EmpleadoDTO();
 		CuentaDTO cuentadto=new CuentaDTO();
 		CuentaDAO cuentadao=new CuentaDAO();
 		
 		
 		try {
-			System.out.println(jtTabla.getSelectedRow());
 			empdto.setId(dtmTabla.getValueAt(jtTabla.getSelectedRow(),0).toString());
 			empdto.setIdRol(encontrarIdRol(cboRol.getSelectedItem().toString()));
 			empdto.setDi(txtDocIdentidad.getText());
@@ -343,7 +400,7 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener,
 			empdto.setApellidos(txtApellidos.getText());
 			empdto.setCorreo(txtCorreoElectronico.getText());
 			empdto.setTelefono(txtCelular.getText());
-			emp.actualizar(empdto);
+			empdao.actualizar(empdto);
 			
 			cuentadto.setId(obtenerIdCuenta(dtmTabla.getValueAt(jtTabla.getSelectedRow(),0).toString()));
 			cuentadto.setIdEmp(empdto.getId());
@@ -424,6 +481,7 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener,
 		txtDocIdentidad.setText("");
 		txtUsuario.setText("");
 		txtContrasena.setText("");
+		txtBuscar.setText("");
 	}
 	
 	void listar() {
@@ -492,6 +550,24 @@ public class DRegistroEmpleado extends JInternalFrame implements ActionListener,
 		
 	}
 	
+	void filtrarId(String a) {
+		dtmTabla.setRowCount(0);
+		EmpleadoDAO cb=new EmpleadoDAO();	
+		List<EmpleadoDTO> listCB=cb.filtrarId(a);
+		recorrerList(listCB);
+	}
+	
+	private void recorrerList(List<EmpleadoDTO> a) {
+		
+		for(EmpleadoDTO b:a) {
+			
+			Object [] o = b.toString().split(";");
+			
+			dtmTabla.addRow(o);
+			
+		}
+		
+	}
 	public void mousePressed(MouseEvent e) {
 		
 		// TODO Auto-generated method stub

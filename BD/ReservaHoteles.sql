@@ -516,6 +516,35 @@ end @@
 delimiter ;
 
 call GenerarCodigoCuenta();
-
-
 select * from cliente
+
+/*--------------------------------------------------------*/
+drop procedure if exists verboleta
+delimiter @@
+create procedure verBoleta (boleta char(9))
+begin
+	select b.id_boleta as 'Cod_Boleta',
+             CONCAT (c.nombre_cliente, ' ' , c.apellido_cliente) AS 'Nombre Cliente',
+             c.celular_cliente as 'Tel. Cliente',
+             h.tipo_hab as 'Tipo Hab.',
+             h.descripcion_hab as' Descrip Hab.',
+             h.id_hab as 'Cod Hab.',
+             b.fecha_boleta as 'Fecha Boleta',
+             b.ruc_boleta as 'Ruc Boleta',
+             b.tipoPago_boleta as 'Tipo de pago',
+             db.NumDias_dBoleta as 'N°Dias',
+             db.precioHab_dBoleta as 'Precio X Dia',
+             db.precioHabExtra_dBoleta as 'Precio extra',
+             (db.NumDias_hab * db.precioHab_dBoleta) as 'Precio Total'
+    from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
+					  JOIN habitacion AS h ON h.id_hab = db.id_hab 
+                      JOIN boleta AS b ON b.id_boleta = db.id_boleta
+    where b.id_boleta like (Concat(concat('%',boleta),'%')) ;
+end @@
+delimiter ;
+call verBoleta('9000');
+
+precioHabExtra_dBoleta double not null,
+
+
+

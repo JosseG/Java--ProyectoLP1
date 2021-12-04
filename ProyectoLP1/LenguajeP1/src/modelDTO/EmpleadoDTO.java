@@ -9,9 +9,6 @@ public class EmpleadoDTO {
 
 	private String id,idRol,di,nombre,apellidos,telefono,correo;
 
-	private RolDTO rol=new RolDTO();
-	private EmpleadoDAO empdao=new EmpleadoDAO();
-	
 	public EmpleadoDTO() {
 		
 	}
@@ -34,9 +31,7 @@ public class EmpleadoDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public RolDTO getRol() {
-		return rol;
-	}
+
 	public void setIdRol(String idRol) {
 		this.idRol=idRol;
 	}
@@ -74,14 +69,7 @@ public class EmpleadoDTO {
 		this.correo = correo;
 	}
 
-	
-	public List<EmpleadoDTO> listar(){
-		return empdao.listar();
-	}
-	
-	public boolean insert(EmpleadoDTO emp) {
-		return empdao.insertar(emp);
-	}
+
 	
 	@Override
 	public String toString() {

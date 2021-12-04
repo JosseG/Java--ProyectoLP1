@@ -11,7 +11,9 @@ public class HabitacionDTO {
 	public char tipo;
 	public String descripcion;
 	
-	
+	public HabitacionDTO() {
+		
+	}
 	
 
 	public HabitacionDTO(String id, char tipo, String descripcion) {
@@ -22,13 +24,9 @@ public class HabitacionDTO {
 	}
 
 
-
-
 	public String getId() {
 		return id;
 	}
-
-
 
 
 	public void setId(String id) {
@@ -36,13 +34,9 @@ public class HabitacionDTO {
 	}
 
 
-
-
 	public char getTipo() {
 		return tipo;
 	}
-
-
 
 
 	public void setTipo(char tipo) {
@@ -50,20 +44,14 @@ public class HabitacionDTO {
 	}
 
 
-
-
 	public String getDescripcion() {
 		return descripcion;
 	}
 
 
-
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-
 
 
 	@Override
