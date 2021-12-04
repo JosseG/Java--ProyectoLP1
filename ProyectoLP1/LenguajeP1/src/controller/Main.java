@@ -7,7 +7,7 @@ import javax.swing.UIManager;
 import modelDTO.EmpleadoDTO;
 import modelDTO.HabitacionDTO;
 import view.AMenuPrincipal;
-import view.Prueba;
+
 
 public class Main {
 
