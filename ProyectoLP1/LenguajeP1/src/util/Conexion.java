@@ -16,7 +16,7 @@ public class Conexion {
 
 			//connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/reservahotel", "root", "mysql");
 
-			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/reservahotel", "root", "user");
+			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/reservahotel", "root", "ciber12345");
 
 		} catch(SQLException e) {
 			e.printStackTrace();

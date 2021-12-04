@@ -52,6 +52,133 @@ FROM reservahotel.cliente]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
 		</field>
 	</subDataset>
+	<subDataset name="Dataset2" uuid="60d9d4a5-0fca-4286-92a2-f2dcfc8d00a8">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="src\reportes\DataAdapter.xml"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<subDataset name="Dataset3" uuid="58709f72-8847-4b97-af99-4ae2e3143dab">
+		<property name="com.jaspersoft.studio.data.sql.tables">
+			<![CDATA[cmVzZXJ2YWhvdGVsLmhhYml0YWNpb24gQVMgLDQ2LDIxMiw1YWYyNjRmMC1iMDEwLTRhNGItOGUz
+NC1iYmIwODQwOWFlZGE7cmVzZXJ2YWhvdGVsLmNsaWVudGUgQVMgLDI1OCwxOCw1MWM3MzRkMC0z
+OTU3LTRlYWUtOTk2ZC00ZWRjZDI5ZDA1ZDY7cmVzZXJ2YWhvdGVsLmRldGFsbGVib2xldGEgQVMg
+LDE4OCwxOTQsYzEwZGYyYWYtOTI2MC00NTlkLWFkZDEtZjEwZmZjZDQzMGNhO3Jlc2VydmFob3Rl
+bC5ib2xldGEgQVMgLDQyLDI0LDVhMGYwMjNkLWFlZTgtNGVlZS1hZmQ4LWY5YWU5YmMxNzU4Yzs=]]>
+		</property>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="src\reportes\DataAdapter.xml"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT reservahotel.boleta.fecha_boleta,
+	reservahotel.boleta.id_boleta,
+	reservahotel.boleta.ruc_boleta,
+	reservahotel.boleta.`tipoPago_boleta`,
+	reservahotel.cliente.id_cliente,
+	reservahotel.cliente.nombre_cliente,
+	reservahotel.cliente.apellido_cliente,
+	reservahotel.cliente.celular_cliente,
+	reservahotel.habitacion.descripcion_hab,
+	reservahotel.habitacion.tipo_hab,
+	reservahotel.habitacion.id_hab,
+	reservahotel.detalleboleta.id_boleta,
+	reservahotel.detalleboleta.id_cliente,
+	reservahotel.detalleboleta.id_hab,
+	reservahotel.detalleboleta.`NumDias_dBoleta`,
+	reservahotel.detalleboleta.`precioHab_dBoleta`,
+	reservahotel.detalleboleta.`precioHabExtra_dBoleta`
+FROM reservahotel.detalleboleta
+	INNER JOIN reservahotel.boleta ON 
+	 reservahotel.detalleboleta.id_boleta = reservahotel.boleta.id_boleta 
+	INNER JOIN reservahotel.cliente ON 
+	 reservahotel.detalleboleta.id_cliente = reservahotel.cliente.id_cliente 
+	INNER JOIN reservahotel.habitacion ON 
+	 reservahotel.detalleboleta.id_hab = reservahotel.habitacion.id_hab]]>
+		</queryString>
+		<field name="fecha_boleta" class="java.sql.Date">
+			<property name="com.jaspersoft.studio.field.name" value="fecha_boleta"/>
+			<property name="com.jaspersoft.studio.field.label" value="fecha_boleta"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="boleta"/>
+		</field>
+		<field name="id_boleta" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="id_boleta"/>
+			<property name="com.jaspersoft.studio.field.label" value="id_boleta"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="boleta"/>
+		</field>
+		<field name="ruc_boleta" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="ruc_boleta"/>
+			<property name="com.jaspersoft.studio.field.label" value="ruc_boleta"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="boleta"/>
+		</field>
+		<field name="tipoPago_boleta" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="tipoPago_boleta"/>
+			<property name="com.jaspersoft.studio.field.label" value="tipoPago_boleta"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="boleta"/>
+		</field>
+		<field name="id_cliente" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="id_cliente"/>
+			<property name="com.jaspersoft.studio.field.label" value="id_cliente"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		</field>
+		<field name="nombre_cliente" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="nombre_cliente"/>
+			<property name="com.jaspersoft.studio.field.label" value="nombre_cliente"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		</field>
+		<field name="apellido_cliente" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="apellido_cliente"/>
+			<property name="com.jaspersoft.studio.field.label" value="apellido_cliente"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		</field>
+		<field name="celular_cliente" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="celular_cliente"/>
+			<property name="com.jaspersoft.studio.field.label" value="celular_cliente"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		</field>
+		<field name="descripcion_hab" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="descripcion_hab"/>
+			<property name="com.jaspersoft.studio.field.label" value="descripcion_hab"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="habitacion"/>
+		</field>
+		<field name="tipo_hab" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="tipo_hab"/>
+			<property name="com.jaspersoft.studio.field.label" value="tipo_hab"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="habitacion"/>
+		</field>
+		<field name="id_hab" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="id_hab"/>
+			<property name="com.jaspersoft.studio.field.label" value="id_hab"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="habitacion"/>
+		</field>
+		<field name="COLUMN_12" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="id_boleta"/>
+			<property name="com.jaspersoft.studio.field.label" value="id_boleta"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="detalleboleta"/>
+		</field>
+		<field name="COLUMN_13" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="id_cliente"/>
+			<property name="com.jaspersoft.studio.field.label" value="id_cliente"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="detalleboleta"/>
+		</field>
+		<field name="COLUMN_14" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="id_hab"/>
+			<property name="com.jaspersoft.studio.field.label" value="id_hab"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="detalleboleta"/>
+		</field>
+		<field name="NumDias_dBoleta" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="NumDias_dBoleta"/>
+			<property name="com.jaspersoft.studio.field.label" value="NumDias_dBoleta"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="detalleboleta"/>
+		</field>
+		<field name="precioHab_dBoleta" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.name" value="precioHab_dBoleta"/>
+			<property name="com.jaspersoft.studio.field.label" value="precioHab_dBoleta"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="detalleboleta"/>
+		</field>
+		<field name="precioHabExtra_dBoleta" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.name" value="precioHabExtra_dBoleta"/>
+			<property name="com.jaspersoft.studio.field.label" value="precioHabExtra_dBoleta"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="detalleboleta"/>
+		</field>
+	</subDataset>
 	<queryString language="SQL">
 		<![CDATA[SELECT *
 FROM reservahotel.boleta]]>
@@ -85,19 +212,123 @@ FROM reservahotel.boleta]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="81" splitType="Stretch">
+			<rectangle>
+				<reportElement x="360" y="0" width="191" height="81" uuid="93d12df4-3848-4544-b7c2-ec1313bfc844"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="390" y="50" width="131" height="21" forecolor="#E62767" uuid="9bd9a788-0dcd-4146-a449-319cb343e147"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACTURA ELECTRONICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="20" width="30" height="21" forecolor="#F2225D" uuid="09e77a6e-780e-4ae8-90f0-94386579d1e7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[R.U.T.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="440" y="20" width="71" height="21" uuid="83bf205c-d5ec-4b7c-97dc-549d1d26dd6a"/>
+				<textFieldExpression><![CDATA[$F{ruc_boleta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="0" width="121" height="21" uuid="b4ffff9c-3ee9-408f-9b15-3c49d5c3ed9c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[HOTEL REALEZA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="20" width="121" height="61" uuid="f7a3db73-fad4-4f40-b110-a4c2543ced77"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[La Quebrada 1005           Puerto Varas           hotelrealeza@gmail.com]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="48" splitType="Stretch"/>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="9" width="51" height="21" uuid="17a00a16-8c70-4405-87cd-6a0ae42fd85b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="9" width="111" height="21" uuid="3b3f9e2a-7472-4edd-9094-b9117c191468"/>
+				<textFieldExpression><![CDATA[$F{CONCAT (nombre_cliente, ' ' , apellido_cliente)}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="30" width="61" height="21" uuid="46fa083a-e7e7-4c23-924f-f02767a065ed"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="29" width="111" height="21" uuid="aa06a6a3-e28f-4ab3-9bc9-a1df34592844"/>
+				<textFieldExpression><![CDATA[$F{celular_cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="9" width="50" height="21" uuid="5576c80e-21a1-4c34-8ccf-dac03006b77e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="10" width="121" height="21" uuid="0b659055-50ce-46ec-b1f5-6fd4abf46db8"/>
+				<textFieldExpression><![CDATA[$F{fecha_boleta}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="12" width="90" height="21" uuid="81f5ac1c-a5ef-4ef4-a2ab-61b4cc3452a6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO HABITACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="31" width="91" height="21" uuid="d53f10fb-c533-4d1d-aadd-decb7b305830"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIP HAB.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="9" width="121" height="21" uuid="7719fa7c-2cec-48a1-8061-f8115ac1bd0f"/>
+				<textFieldExpression><![CDATA[$F{tipo_hab}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="30" width="121" height="21" uuid="d07d0b93-b867-4b78-a9c0-ae35cc71971c"/>
+				<textFieldExpression><![CDATA[$F{descripcion_hab}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="13" width="61" height="21" uuid="eba34dc9-8a91-4071-950f-cb4c1a4dfe46"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO PAGO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="12" width="111" height="21" uuid="7d4a710c-e8de-4ccb-b15a-2925c23aff7c"/>
+				<textFieldExpression><![CDATA[$F{tipoPago_boleta}]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="41" splitType="Stretch"/>
+		<band height="78" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
-		<band height="56" splitType="Stretch"/>
+		<band height="81" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="96" splitType="Stretch"/>
