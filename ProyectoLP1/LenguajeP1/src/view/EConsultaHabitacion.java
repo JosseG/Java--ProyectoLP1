@@ -31,9 +31,9 @@ import util.GestionEncabezadoTabla;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JRadioButton;
+import javax.swing.JPanel;
 
 public class EConsultaHabitacion extends JInternalFrame implements ActionListener,KeyListener {
-	private JButton btnBuscar;
 	private JLabel lblNewLabel;
 	private JTextField txtBusqueda;
 	private JScrollPane scrollPane;
@@ -43,6 +43,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 	private ButtonGroup grupoRadio;
 	private JRadioButton rdbtnId;
 	private JRadioButton rdbtnTipo;
+	private JPanel panel_1;
 
 	
 	//Cargar tabla
@@ -74,39 +75,17 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 	public EConsultaHabitacion() {
 		setClosable(true);
 		setTitle("Consulta Habitaci\u00F3n");
-		setBounds(100, 100, 720, 491);
+		setBounds(100, 100, 738, 437);
 		getContentPane().setLayout(null);
 		//Color fondo
-		getContentPane().setBackground(new Color( 32, 18, 58 ));
-		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setEnabled(false);
-		btnBuscar.setForeground(Color.WHITE);
-		btnBuscar.addActionListener(this);
-		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnBuscar.setBackground(new Color(130,73,229));
-		btnBuscar.setBounds(298, 52, 110, 43);
-		getContentPane().add(btnBuscar);
-		
-		lblNewLabel = new JLabel("Habitaci\u00F3n");
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		lblNewLabel.setBounds(159, 149, 68, 20);
-		getContentPane().add(lblNewLabel);
-		
-		txtBusqueda = new JTextField();
-
-		txtBusqueda.setColumns(10);
-		txtBusqueda.addKeyListener(this);
-		txtBusqueda.setBackground(new Color(204, 204, 204));
-		txtBusqueda.setBounds(251, 148, 200, 22);
-		getContentPane().add(txtBusqueda);
+		getContentPane().setBackground(new Color(224, 255, 255));
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(68, 241, 575, 147);
+		scrollPane.setBounds(46, 187, 630, 147);
 		getContentPane().add(scrollPane);
 		
 		miTabla = new JTable();
+		scrollPane.setViewportView(miTabla);
 		miTabla.setDefaultEditor(Object.class, null);
 		miTabla.setRowHeight(30);
 		miTabla.getTableHeader().setReorderingAllowed(false);
@@ -116,32 +95,59 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		
 		
 		JTableHeader header=miTabla.getTableHeader();
-		header.setDefaultRenderer(new GestionEncabezadoTabla(new Color(55,55,0)));
 		
 		miTabla.setTableHeader(header);
-		scrollPane.setViewportView(miTabla);
+		header.setDefaultRenderer(new GestionEncabezadoTabla(new Color(55,55,0)));
 		
 		grupoRadio=new ButtonGroup();
 		
-		rdbtnId = new JRadioButton("id");
-		rdbtnId.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 11));
-		rdbtnId.setSelected(true);
-		rdbtnId.addActionListener(this);
-		rdbtnId.setForeground(Color.WHITE);
-		rdbtnId.setContentAreaFilled(false);
-		rdbtnId.setBounds(468, 148, 40, 23);
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
+		panel.setBackground(new Color(175, 238, 238));
+		panel.setBounds(46, 71, 220, 83);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		lblNewLabel = new JLabel("HABITACI\u00D3N");
+		lblNewLabel.setBounds(64, 11, 91, 20);
+		panel.add(lblNewLabel);
+		lblNewLabel.setForeground(Color.BLACK);
+		lblNewLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+		
+		txtBusqueda = new JTextField();
+		txtBusqueda.setBounds(10, 50, 200, 22);
+		panel.add(txtBusqueda);
+		
+				txtBusqueda.setColumns(10);
+				txtBusqueda.addKeyListener(this);
+				txtBusqueda.setBackground(new Color(204, 204, 204));
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(119, 136, 153), 2));
+		panel_1.setBackground(new Color(175, 238, 238));
+		panel_1.setBounds(330, 76, 93, 78);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
 		
 		
 		rdbtnTipo = new JRadioButton("Tipo");
+		rdbtnTipo.setBounds(19, 40, 65, 23);
+		panel_1.add(rdbtnTipo);
 		rdbtnTipo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 11));
-		rdbtnTipo.setForeground(Color.WHITE);
+		rdbtnTipo.setForeground(Color.BLACK);
 		rdbtnTipo.addActionListener(this);
 		rdbtnTipo.setContentAreaFilled(false);
-		rdbtnTipo.setBounds(520, 148, 65, 23);
 		grupoRadio.add(rdbtnTipo);
+		
+		rdbtnId = new JRadioButton("id");
+		rdbtnId.setBounds(19, 14, 40, 23);
+		panel_1.add(rdbtnId);
+		rdbtnId.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 11));
+		rdbtnId.setSelected(true);
+		rdbtnId.addActionListener(this);
+		rdbtnId.setForeground(Color.BLACK);
+		rdbtnId.setContentAreaFilled(false);
 		grupoRadio.add(rdbtnId);
-		getContentPane().add(rdbtnTipo);
-		getContentPane().add(rdbtnId);
 		
 		CargarTabla();
 		tamanoColumnas();
@@ -231,7 +237,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 
 	private void tamanoColumnas() {
 		
-		int [] tamanio= {20,10,30,80,80};
+		int [] tamanio= {40,50,10,80,80};
 		
 		for(int i=0;i<tamanio.length;i++) {
 			miTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));

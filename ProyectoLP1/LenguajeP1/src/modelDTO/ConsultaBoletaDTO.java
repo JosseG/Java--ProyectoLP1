@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class ConsultaBoletaDTO {
 
-	private int idBol;
+	private String idBol;
 	private String nomEmp,nomCli;
 	private Date fechaBol;
 	private String rucBol,tipoPago;
@@ -16,7 +16,7 @@ public class ConsultaBoletaDTO {
 		
 	}
 	
-	public ConsultaBoletaDTO(int idBol, String nomEmp, String nomCli, Date fechaBol, String rucBol, String tipoPago,
+	public ConsultaBoletaDTO(String idBol, String nomEmp, String nomCli, Date fechaBol, String rucBol, String tipoPago,
 			int nDias, double precioDia, double precioTotal) {
 		super();
 		this.idBol = idBol;
@@ -30,11 +30,11 @@ public class ConsultaBoletaDTO {
 		this.precioTotal = precioTotal;
 	}
 
-	public int getIdBol() {
+	public String getIdBol() {
 		return idBol;
 	}
 
-	public void setIdBol(int idBol) {
+	public void setIdBol(String idBol) {
 		this.idBol = idBol;
 	}
 

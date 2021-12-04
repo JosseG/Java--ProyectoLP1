@@ -24,8 +24,7 @@ public class ConsultaBoletaDAO implements ICrud<ConsultaBoletaDTO> {
 			ps=con.conectBd().prepareStatement("call ConsultaBuscarBoleta()");
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				System.out.println("aa");
-				cBol.add(new ConsultaBoletaDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getString(5),rs.getString(6),rs.getInt(7),rs.getDouble(8),rs.getDouble(9)));
+				cBol.add(new ConsultaBoletaDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getString(5),rs.getString(6),rs.getInt(7),rs.getDouble(8),rs.getDouble(9)));
 			}
 			rs.close();
 			return cBol;
@@ -67,7 +66,7 @@ public class ConsultaBoletaDAO implements ICrud<ConsultaBoletaDTO> {
 			ps.setString(1, a);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				cBol.add(new ConsultaBoletaDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getString(5),rs.getString(6),rs.getInt(7),rs.getDouble(8),rs.getDouble(9)));
+				cBol.add(new ConsultaBoletaDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getString(5),rs.getString(6),rs.getInt(7),rs.getDouble(8),rs.getDouble(9)));
 			}
 			rs.close();
 			return cBol;
@@ -91,7 +90,7 @@ public class ConsultaBoletaDAO implements ICrud<ConsultaBoletaDTO> {
 			ps.setInt(1, Integer.parseInt(a.toString()));
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				cBol.add(new ConsultaBoletaDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getString(5),rs.getString(6),rs.getInt(7),rs.getDouble(8),rs.getDouble(9)));
+				cBol.add(new ConsultaBoletaDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getString(5),rs.getString(6),rs.getInt(7),rs.getDouble(8),rs.getDouble(9)));
 			}
 			rs.close();
 			return cBol;

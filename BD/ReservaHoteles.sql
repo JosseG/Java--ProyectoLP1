@@ -452,7 +452,6 @@ delimiter ;
 
 
 
-
 drop procedure if exists ConsultaBuscarBoletaIdBoleta;
 delimiter @@
 create procedure ConsultaBuscarBoletaIdBoleta (boleta varchar(9))
@@ -465,14 +464,16 @@ begin
              b.tipoPago_boleta as 'Tipo de pago',
              db.NumDias_dBoleta as 'N°Dias',
              db.precioHab_dBoleta as 'Precio X Dia',
-             (db.NumDias_hab * db.precioHab_dBoleta) as 'Precio Total'
+             (db.NumDias_dBoleta * db.precioHab_dBoleta) as 'Precio Total'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
 					  JOIN habitacion AS h ON h.id_hab = db.id_hab 
                       JOIN boleta AS b ON b.id_boleta = db.id_boleta
                       JOIN empleado AS e ON e.id_emp = b.id_emp
-    where b.id_boleta like (Concat(concat('%',boleta),'%')) ;
+    where b.id_boleta like (concat(concat('%',boleta),'%')) ;
 end @@
 delimiter ;
+
+call ConsultaBuscarBoletaIdBoleta('B00')
 
 
 /*Generar Codigo*/
@@ -555,7 +556,7 @@ end @@
 delimiter ;
 call verBoleta('9000');
 
-precioHabExtra_dBoleta double not null,
+
 
 
 

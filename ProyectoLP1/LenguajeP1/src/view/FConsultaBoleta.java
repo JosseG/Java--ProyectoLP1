@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 import java.awt.Font;
@@ -44,6 +45,8 @@ import javax.swing.JTable;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+import javax.swing.JPanel;
+import java.awt.SystemColor;
 
 public class FConsultaBoleta extends JInternalFrame implements ActionListener,KeyListener {
 	private static final long serialVersionUID = 1L;
@@ -54,10 +57,10 @@ public class FConsultaBoleta extends JInternalFrame implements ActionListener,Ke
 	private JTable miTabla;
 	private DefaultTableModel tabla;
 	private String Columnas[] = {"ID","NOMBRE-EMPLEADO","NOMBRE-CLIENTE","FECHA","RUC","TIPO DE PAGO","N° DIAS","PRECIO-HABITACION","PRECIO TOTAL"};
-	private JButton btnBuscar;
 	private ButtonGroup grupoRadio;
 	private JRadioButton rdbtnIdCliente;
 	private JRadioButton rdbtnIdBoleta;
+	private JPanel panel_1;
 	
 	//Cargar tabla
 	private void CargarTabla() {
@@ -89,23 +92,10 @@ public class FConsultaBoleta extends JInternalFrame implements ActionListener,Ke
 	
 		setTitle("Consulta Boleta");
 		setClosable(true);
-		setBounds(100, 100, 1100, 700);
+		setBounds(100, 100, 1083, 700);
 		getContentPane().setLayout(null);
 		//Color fondo
 		getContentPane().setBackground(new Color( 32, 18, 58 ));
-		
-		lblIdCliente = new JLabel("Cliente");
-		lblIdCliente.setForeground(Color.WHITE);
-		lblIdCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblIdCliente.setBounds(269, 92, 47, 17);
-		getContentPane().add(lblIdCliente);	
-		
-		txtBusqueda = new JTextField();
-		txtBusqueda.setColumns(10);
-		txtBusqueda.addKeyListener(this);
-		txtBusqueda.setBackground(new Color(204, 204, 204));
-		txtBusqueda.setBounds(367, 91, 200, 22);
-		getContentPane().add(txtBusqueda);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 165, 1018, 331);
@@ -126,41 +116,57 @@ public class FConsultaBoleta extends JInternalFrame implements ActionListener,Ke
 
 		scrollPane.setViewportView(miTabla);
 		
-
-		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setForeground(Color.WHITE);
-		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnBuscar.setBackground(new Color(130, 73, 229));
-		btnBuscar.setBounds(419, 25, 110, 43);
-		getContentPane().add(btnBuscar);
-		
 		
 		grupoRadio=new ButtonGroup();
 		
+		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.menu);
+		panel.setBounds(25, 60, 336, 73);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		lblIdCliente = new JLabel("Cliente");
+		lblIdCliente.setBounds(20, 28, 47, 17);
+		panel.add(lblIdCliente);
+		lblIdCliente.setForeground(Color.BLACK);
+		lblIdCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		txtBusqueda = new JTextField();
+		txtBusqueda.setBounds(104, 27, 200, 22);
+		panel.add(txtBusqueda);
+		txtBusqueda.setColumns(10);
+		txtBusqueda.addKeyListener(this);
+		txtBusqueda.setBackground(new Color(204, 204, 204));
+		
+		panel_1 = new JPanel();
+		panel_1.setBounds(431, 60, 138, 73);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
 		rdbtnIdCliente = new JRadioButton("Id-Cliente");
+		rdbtnIdCliente.setBounds(27, 7, 83, 27);
+		panel_1.add(rdbtnIdCliente);
 		rdbtnIdCliente.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		rdbtnIdCliente.setSelected(true);
 		rdbtnIdCliente.addActionListener(this);
-		rdbtnIdCliente.setForeground(Color.WHITE);
+		rdbtnIdCliente.setForeground(SystemColor.desktop);
 		rdbtnIdCliente.setContentAreaFilled(false);
-		rdbtnIdCliente.setBounds(647, 87, 83, 27);
+		grupoRadio.add(rdbtnIdCliente);
 		
 		
 		rdbtnIdBoleta = new JRadioButton("Id-Boleta");
+		rdbtnIdBoleta.setBounds(27, 39, 81, 27);
+		panel_1.add(rdbtnIdBoleta);
 		rdbtnIdBoleta.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
-		rdbtnIdBoleta.setForeground(Color.WHITE);
+		rdbtnIdBoleta.setForeground(SystemColor.desktop);
 		rdbtnIdBoleta.addActionListener(this);
 		rdbtnIdBoleta.setContentAreaFilled(false);
-		rdbtnIdBoleta.setBounds(736, 86, 81, 27);
 		grupoRadio.add(rdbtnIdBoleta);
-		grupoRadio.add(rdbtnIdCliente);
-		getContentPane().add(rdbtnIdBoleta);
-		getContentPane().add(rdbtnIdCliente);
 		
 		
 		CargarTabla();
 		tamanoColumnas();
+		listar();
 	}
 	
 	private void tamanoColumnas() {
@@ -184,16 +190,21 @@ public class FConsultaBoleta extends JInternalFrame implements ActionListener,Ke
 	
 	public void keyReleasedTxtBusqueda(KeyEvent e) {
 		
-		if(txtBusqueda.getText().isEmpty()) {
-			listar();
-		}else {
-			if(rdbtnIdCliente.isSelected()) {
-				filtrarIdCliente(txtBusqueda.getText());
-			} else if (rdbtnIdBoleta.isSelected()) {
-				filtrarIdBoleta(txtBusqueda.getText());
+		try {
+			if(txtBusqueda.getText().isEmpty()) {
+				listar();
+			}else {
+				if(rdbtnIdCliente.isSelected()) {
+					filtrarIdCliente(txtBusqueda.getText());
+				} else if (rdbtnIdBoleta.isSelected()) {
+					filtrarIdBoleta(txtBusqueda.getText());
+				}
+				
 			}
-			
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Codigo incorrecto");
 		}
+		
 	}
 	
 	protected void filtrarIdCliente(String a) {
@@ -234,9 +245,6 @@ public class FConsultaBoleta extends JInternalFrame implements ActionListener,Ke
 	
 	
 	
-	
-	
-	
 	@Override
 	public void keyPressed(KeyEvent e) {
 	
@@ -257,8 +265,5 @@ public class FConsultaBoleta extends JInternalFrame implements ActionListener,Ke
 		// TODO Auto-generated method stub
 		
 	}
-
-	
-	
 }
 
