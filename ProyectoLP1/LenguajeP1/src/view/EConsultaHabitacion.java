@@ -39,7 +39,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 	private JScrollPane scrollPane;
 	private JTable miTabla;
 	private DefaultTableModel tabla;
-	private String Columnas[] = {"COD-CLIENTE","NOMBRES","APELLIDOS","COD_HAB","DESCRIPCION-HABITACION","TIPO DE HABITACION"};
+	private String Columnas[] = {"COD-CLIENTE","NOMBRES","APELLIDOS","COD_HAB","DESCRIPCION","TIPO DE HABITACION"};
 	private ButtonGroup grupoRadio;
 	private JRadioButton rdbtnId;
 	private JRadioButton rdbtnTipo;
@@ -75,14 +75,14 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 	public EConsultaHabitacion() {
 		setClosable(true);
 		setTitle("Consulta Habitaci\u00F3n");
-		setBounds(100, 100, 738, 437);
+		setBounds(100, 100, 749, 437);
 		setBackground(new Color(128, 128, 128));
 		getContentPane().setLayout(null);
 		//Color fondo
 		getContentPane().setBackground(new Color( 114, 173, 168  ));
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(46, 187, 630, 147);
+		scrollPane.setBounds(31, 187, 667, 147);
 		getContentPane().add(scrollPane);
 		
 		miTabla = new JTable();
@@ -105,7 +105,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 		panel.setBackground(new Color(47, 79, 79));
-		panel.setBounds(46, 71, 220, 83);
+		panel.setBounds(31, 76, 220, 83);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -126,7 +126,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(119, 136, 153), 2));
 		panel_1.setBackground(new Color(47, 79, 79));
-		panel_1.setBounds(330, 76, 93, 78);
+		panel_1.setBounds(314, 81, 93, 78);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -235,10 +235,10 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		}
 		
 	}
-
+ 
 	private void tamanoColumnas() {
 		
-		int [] tamanio= {40,50,10,80,80};
+		int [] tamanio= {40,30,60,60,80,80};
 		
 		for(int i=0;i<tamanio.length;i++) {
 			miTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));

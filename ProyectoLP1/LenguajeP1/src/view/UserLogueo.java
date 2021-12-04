@@ -46,6 +46,7 @@ public class UserLogueo extends JFrame {
 		setTitle("IngresoLogueo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 542, 267);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -85,4 +86,7 @@ public class UserLogueo extends JFrame {
 		lblContrasea.setBounds(37, 125, 100, 24);
 		contentPane.add(lblContrasea);
 	}
+	
+	
+	
 }

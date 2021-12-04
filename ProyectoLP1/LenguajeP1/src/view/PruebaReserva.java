@@ -7,14 +7,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+
+import modelDAO.ClienteDAO;
+import modelDTO.ClienteDTO;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class PruebaReserva extends JInternalFrame implements ActionListener {
@@ -39,7 +46,6 @@ public class PruebaReserva extends JInternalFrame implements ActionListener {
 	/**
 	 * Launch the application.
 	 */
-
 
 	/**
 	 * Create the frame.
@@ -243,7 +249,12 @@ public class PruebaReserva extends JInternalFrame implements ActionListener {
 		
 	}
 	protected void actionPerformedBtnBuscarCliente(ActionEvent e) {
-		
+		try {
+			
+			
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Nombre incorreo");
+		}
 	}
 	protected void actionPerformedBtnBuscarHab(ActionEvent e) {
 		
@@ -253,5 +264,22 @@ public class PruebaReserva extends JInternalFrame implements ActionListener {
 	protected void actionPerformedBtnReservar(ActionEvent e) {
 		
 	}
+	
+	
+	List<ClienteDTO> listCli(int lado){
+		ClienteDAO cldao=new ClienteDAO();
+		List<ClienteDTO> listCliData =new ArrayList<ClienteDTO>();
+		List<ClienteDTO> listCli=cldao.listar();
+		
+		for(ClienteDTO a :  listCli ) {
+			if(a.getId()==lado) {
+				listCliData.add(a);
+				return listCli;
+			}
+		}
+		
+		return null;
+	}
+	
 	
 }
