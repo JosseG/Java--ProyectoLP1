@@ -12,7 +12,7 @@ public class Conexion {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/reservahotel", "root", "mysql");
-			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/reservahotel", "root", "user");
+			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/reservahotel", "root", "ciber12345");
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} catch(Exception ex) {
