@@ -84,7 +84,6 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			System.out.println("Se cerro");
 			conexion.cerrarConexion();
 		}
 		return false;

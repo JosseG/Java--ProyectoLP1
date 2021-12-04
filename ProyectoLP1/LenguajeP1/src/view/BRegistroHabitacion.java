@@ -231,7 +231,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		HabitacionDAO habdao=new HabitacionDAO();
 		HabitacionDTO habdto=new HabitacionDTO();
 		try {
-			
+			System.out.println(cboTipo.getSelectedIndex());
 			habdto.setId(txtCodigoHabitacion.getText());
 			habdto.setTipo(String.valueOf(cboTipo.getSelectedIndex()).charAt(0));
 			habdto.setDescripcion(txtDescripcion.getText());
