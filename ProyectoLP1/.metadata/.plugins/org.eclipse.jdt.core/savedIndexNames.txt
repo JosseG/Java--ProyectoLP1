@@ -1,24 +1,7 @@
-INDEX VERSION 1.131+C:\Users\User\Desktop\Java--ProyectoLP1\ProyectoLP1\.metadata\.plugins\org.eclipse.jdt.core
-2791142761.index
-2864340005.index
-3971979813.index
-1226872563.index
-1016326084.index
-2501888427.index
+INDEX VERSION 1.131+C:\Users\51956\Desktop\te-odio-java\Java--ProyectoLP1\ProyectoLP1\.metadata\.plugins\org.eclipse.jdt.core
 2820782706.index
-582516514.index
-891677779.index
-2172089526.index
-766581317.index
-4025952489.index
-2777521038.index
-2268871027.index
-1353845752.index
-3481696397.index
-3184608985.index
-2018034821.index
-4154421007.index
-243178597.index
-4264256154.index
-4188695693.index
+3101682778.index
 1865797976.index
+2501888427.index
+243178597.index
+3481696397.index

@@ -7,6 +7,7 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\51956\Desktop\te-odio-java\Java--ProyectoLP1\ProyectoLP1"/>
 			<item value="C:\Users\User\Desktop\Java--ProyectoLP1\ProyectoLP1"/>
 			<item value="C:\Users\Sebastian\Desktop\Para borrar\Gutierrez_1Dicembre\ProyectoLP1\LenguajeP1"/>
 			<item value="C:\Users\Jose\Desktop\CIBERTEC\3erCiclo\Lenguaje de programacion\Java--ProyectoLP1\ProyectoLP1"/>
@@ -17,6 +18,14 @@
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>
+		</list>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="619"/>
+		<item key="DIALOG_Y_ORIGIN" value="274"/>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
 		</list>
 	</section>
 </section>

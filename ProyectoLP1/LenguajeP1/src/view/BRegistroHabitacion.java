@@ -32,6 +32,7 @@ import util.GestionEncabezadoTabla;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 
 public class BRegistroHabitacion extends JInternalFrame implements ActionListener,MouseListener {
 	private JLabel lblTipoHabitacin;
@@ -39,7 +40,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 	private JButton btnAnadir;
 	private JButton btnModificar;
 	private JButton btnBuscar;
-	private JComboBox cboTipo;
+	private JComboBox<Object> cboTipo;
 	private JTextField txtDescripcion;
 	private JLabel lblCodigoHabitacion;
 	private JTextField txtCodigoHabitacion;
@@ -51,6 +52,9 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 	private DefaultTableModel dtmTabla;
 	private JTableHeader header;
 	private JButton btnCancel;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
 	
 	/**
 	 * Launch the application.
@@ -77,7 +81,9 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		setTitle("Reserva de Habitaci\u00F3n");
 		setBounds(100, 100, 720, 507);
 		getContentPane().setLayout(null);
-		setBackground(new Color( 32, 18, 58 ));
+		//setBackground(new Color( 32, 18, 58 ));
+		setBackground(new Color( 114, 173, 168 ));
+		getContentPane().setBackground(new Color( 114, 173, 168  ));
 		
 		lblTipoHabitacin = new JLabel("Tipo de habitaci\u00F3n");
 		lblTipoHabitacin.setForeground(Color.WHITE);
@@ -100,7 +106,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		getContentPane().add(btnBuscar);
 		
 		cboTipo = new JComboBox();
-		cboTipo.setModel(new DefaultComboBoxModel(new String[] {"Una persona", "Dos personas", "Matrimonial"}));
+		cboTipo.setModel(new DefaultComboBoxModel<Object>(new String[] {"Una persona", "Dos personas", "Matrimonial"}));
 		cboTipo.setBounds(246, 109, 119, 21);
 		getContentPane().add(cboTipo);
 		
@@ -146,7 +152,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		scrollPane.setViewportView(jtTabla);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(580, 143, 89, 23);
+		btnEliminar.setBounds(538, 148, 111, 28);
 		getContentPane().add(btnEliminar);
 		btnEliminar.addActionListener(this);
 		btnEliminar.setForeground(Color.WHITE);
@@ -155,7 +161,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		btnEliminar.setBackground(new Color(130, 73, 229));
 		
 		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(580, 110, 89, 23);
+		btnModificar.setBounds(538, 110, 111, 28);
 		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		getContentPane().add(btnModificar);
 		btnModificar.addActionListener(this);
@@ -163,18 +169,35 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		btnModificar.setBackground(new Color(130, 73, 229));
 		
 		btnAnadir = new JButton("A\u00F1adir");
-		btnAnadir.setBounds(580, 77, 89, 23);
+		btnAnadir.setBounds(538, 73, 111, 28);
 		getContentPane().add(btnAnadir);
 		btnAnadir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAnadir.addActionListener(this);
-		btnAnadir.setForeground(Color.WHITE);
+		btnAnadir.setForeground(Color.BLACK);
 		btnAnadir.setBackground(new Color(130, 73, 229));
 		
-		btnCancel = new JButton("Cancelar");
+		btnCancel = new JButton("");
+		btnCancel.setContentAreaFilled(false);
+		btnCancel.setIcon(new ImageIcon(BRegistroHabitacion.class.getResource("/img/cancelar.png")));
 		btnCancel.addActionListener(this);
 		btnCancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCancel.setBounds(341, 419, 89, 23);
+		btnCancel.setBounds(283, 419, 28, 28);
 		getContentPane().add(btnCancel);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(BRegistroHabitacion.class.getResource("/img/add.png")));
+		lblNewLabel.setBounds(660, 74, 24, 24);
+		getContentPane().add(lblNewLabel);
+		
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(BRegistroHabitacion.class.getResource("/img/iconmodify.png")));
+		lblNewLabel_1.setBounds(660, 112, 24, 24);
+		getContentPane().add(lblNewLabel_1);
+		
+		lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(BRegistroHabitacion.class.getResource("/img/icondelete.png")));
+		lblNewLabel_2.setBounds(660, 150, 24, 24);
+		getContentPane().add(lblNewLabel_2);
 		
 		tamanoColumnas();
 		listar();
@@ -354,7 +377,6 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		btnEliminar.setEnabled(a);
 		btnModificar.setEnabled(a);
 		btnAnadir.setEnabled(!a);
-		btnCancel.setVisible(a);
 		
 	}
 	
@@ -363,6 +385,4 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		txtDescripcion.setText("");
 		txtBuscar.setText("");
 	}
-	
-	
 }
