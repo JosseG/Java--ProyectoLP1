@@ -210,7 +210,6 @@ begin
 	insert into habitacion values(id, tipo, descrip);
 end @@
 delimiter ;
-/*call AnadirHabitacion('1113','2', '2021-05-23',3 ,'agua caliente');*/
 
 -- ModificarHabitacion
 drop procedure if exists ModificarHabitacion;
@@ -220,7 +219,6 @@ begin
 	update habitacion set  tipo_hab = tipo, descripcion_hab= descrip  where id_hab = id;
 end @@
 delimiter ;
-/*call ModificarHabitacion('1112','2', '2021-03-29',3 ,'tv con cable');*/
 
 -- ConsultarHabitacionId
 drop procedure if exists ConsultarHabitacionId;
@@ -240,8 +238,6 @@ begin
 	select * from Habitacion where tipo_hab like (Concat(concat('%',tipo),'%'));
 end @@
 delimiter ;
-/*call ConsultarHabitacionTipo('2');*/
-
 
 
 -- EliminarHabitacion
@@ -252,7 +248,6 @@ begin
 	delete from habitacion where id_hab = id;
 end @@
 delimiter ;
-/*call EliminarHabitacion('1113');*/
 
 
 -- REGISTRO DE CLIENTE----------------------------------
@@ -274,7 +269,6 @@ begin
 	insert into cliente values(id_cli, nom_cli, ape_cli, doc_cli, celular_cli, co_cli, dir_cli);
 end @@
 delimiter ;
-/*call AnadirCliente(3,'sebastian', 'Torres Cañari', '00012395678','998875223','sebastian@gmail.com', 'DIR00002');*/
 
 -- ModificarCliente
 drop procedure if exists ModificarCliente;
@@ -284,7 +278,6 @@ begin
 	update cliente set  nombre_cliente= nom_cli, apellido_cliente = ape_cli, docIndentidad_cliente=doc_cli ,celular_cliente = celular_cli, correo_cliente= co_cli, id_direccion = dir_cli where id_cliente = id_cli;
 end @@
 delimiter ;
-/*call ModificarCliente(3,'Juan', 'torres cañari', '00012395678','998875223','sebastian@gmail.com', '10000001');*/
 
 -- ConsultarCliente
 drop procedure if exists ConsultarCliente;
@@ -294,7 +287,6 @@ begin
 	select * from cliente where id_cliente = id_cli;
 end @@
 delimiter ;
-/*call ConsultarCliente('3');*/
 
 
 -- EliminarCliente
@@ -305,7 +297,6 @@ begin
 	delete from cliente where id_cliente = id_cli;
 end @@
 delimiter ;
-/*call EliminarCliente(3);*/
 
 -- REGISTRO DEl EMPLEADO-----------------------------------------------------
 -- ListarEmpleado
@@ -326,7 +317,6 @@ begin
 	insert into empleado values(id_em, id_rol, di_emp, nom_em, ape_em, celular_em, correo_em);
 end @@
 delimiter ;
-/*call AnadirEmpleado('103','12', '00019311578', 'Carlos', 'Martel Cerca', '987611321', 'Carlos@gmail.com');*/
 
 -- ModificarEmpleado
 drop procedure if exists ModificarEmpleado;
@@ -336,7 +326,6 @@ begin
 	update empleado set  id_rol = id_rol, docIndentidad_emp=di_emp, nombre_emp=nom_em, apellido_emp=ape_em, celular_emp= celular_em, correo_emp=correo_em where id_emp = id_em;
 end @@
 delimiter ;
-/*call ModificarEmpleado('103','12', '00019311578', 'Pedro', 'Martel Cerca', '987611321', 'Pedro@gmail.com');*/
 
 -- ConsultarEmpleado
 drop procedure if exists ConsultarEmpleado;
@@ -346,7 +335,6 @@ begin
 	select * from empleado where id_emp = id_em;
 end @@
 delimiter ;
-/*call ConsultarEmpleado('102');*/
 
 -- EliminarEmpleado
 drop procedure if exists EliminarEmpleado;
@@ -356,7 +344,6 @@ begin
 	delete from empleado where id_emp = id_em;
 end @@
 delimiter ;
-/*call EliminarEmpleado('103');*/
 
 select * from empleado;
 
@@ -389,7 +376,6 @@ begin
     where h.id_hab like (Concat(concat('%',id),'%')) ;
 end @@
 delimiter ;
-/*call ConsultaBuscarHabitacionId('1112');*/
 
 
 drop procedure if exists ConsultaBuscarHabitacionTipo;
@@ -404,7 +390,6 @@ begin
     where h.tipo_hab like (Concat(concat('%',tipo),'%')) ;
 end @@
 delimiter ;
-/*call ConsultaBuscarHabitacionTipo('1');*/
 
 
 
@@ -455,8 +440,6 @@ begin
     where c.id_cliente like (Concat(concat('%',cliente),'%')) ;
 end @@
 delimiter ;
-/*call ConsultaBuscarBoletaIdCliente(1);*/
-
 
 
 drop procedure if exists ConsultaBuscarBoletaIdBoleta;
@@ -479,7 +462,6 @@ begin
     where b.id_boleta like (Concat(concat('%',boleta),'%')) ;
 end @@
 delimiter ;
-/*call ConsultaBuscarBoletaIdBoleta('9000');*/
 
 
 /*Generar Codigo*/
