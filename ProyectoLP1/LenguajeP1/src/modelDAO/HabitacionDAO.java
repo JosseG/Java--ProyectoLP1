@@ -26,7 +26,7 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 			ps=conexion.conectBd().prepareStatement(SQL_CONSULTAR);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				inventario.add(new HabitacionDTO(rs.getString(1),rs.getString(2).charAt(0),rs.getDate(3),rs.getInt(4),rs.getString(5)));
+				inventario.add(new HabitacionDTO(rs.getString(1),rs.getString(2).charAt(0),rs.getString(3)));
 				
 			}
 			rs.close();
@@ -48,18 +48,14 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 		
 		CallableStatement ps;
 		try {
-			ps=conexion.conectBd().prepareCall("call AnadirHabitacion(?,?,?,?,?)");
-			ps.setString(1, c.getId_hab());
-			ps.setString(2, String.valueOf(c.getTipo_hab()));
-			ps.setDate(3, c.getFecha_reserva());
-			ps.setInt(4, c.getNum_dias());
-			ps.setString(5, c.getDescripcion_hab());
+			ps=conexion.conectBd().prepareCall("call AnadirHabitacion(?,?,?)");
+			ps.setString(1, c.getId());
+			ps.setString(2, String.valueOf(c.getTipo()));
+			ps.setString(3, c.getDescripcion());
 
 			if(ps.execute()){
-				System.out.println("Exitoso agregado");
+				return true;
 			}
-
-			return true;
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
 		} finally {
@@ -75,17 +71,16 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 
 		CallableStatement ps;
 		try {
-			ps = conexion.conectBd().prepareCall("call ModificarHabitacion(?,?,?,?,?)");
-			ps.setString(1, c.getId_hab());
-			ps.setString(2, String.valueOf(c.getTipo_hab()));
-			ps.setDate(3, c.getFecha_reserva());
-			ps.setInt(4, c.getNum_dias());
-			ps.setString(5, c.getDescripcion_hab());
+			ps = conexion.conectBd().prepareCall("call ModificarHabitacion(?,?,?)");
+			
+			ps.setString(1, String.valueOf(c.getTipo()));
+			ps.setString(2, c.getDescripcion());
+			ps.setString(3, c.getId());
 
 			if(ps.execute()) {
-				System.out.println("Modificación Exitosa");
+				return true;
 			}
-			return true;
+			
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
 		} finally {
@@ -105,9 +100,8 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 			ps = conexion.conectBd().prepareCall("call EliminarHabitacion(?)");
 			ps.setString(1, s);
 			if(ps.execute()) {
-				System.out.println("Eliminación Exitosa");
+				return true;
 			}
-			return true;
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -129,7 +123,7 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 			ps.setString(1, f);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				hab.add(new HabitacionDTO(rs.getString(1),rs.getString(2).charAt(0),rs.getDate(3),rs.getInt(4),rs.getString(5)));
+				hab.add(new HabitacionDTO(rs.getString(1),rs.getString(2).charAt(0),rs.getString(3)));
 			}
 			rs.close();
 			return hab;			
@@ -153,8 +147,7 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 			ps.setString(1, f);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				hab.add(new HabitacionDTO(rs.getString(1),rs.getString(2).charAt(0),rs.getDate(3),rs.getInt(4),rs.getString(5)));
-				
+				hab.add(new HabitacionDTO(rs.getString(1),rs.getString(2).charAt(0),rs.getString(3)));
 			}
 			return hab;
 			
@@ -192,14 +185,6 @@ public class HabitacionDAO implements ICrud<HabitacionDTO> {
 		return nuevoCod;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }

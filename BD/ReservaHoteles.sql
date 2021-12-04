@@ -23,8 +23,6 @@ foreign key(id_direccion) references direccion(id_direccion)
 create table habitacion(
 id_hab char(4) primary key not null,
 tipo_hab char(1) not null,
-FechaReserva_hab date  not null,
-NumDias_hab int not null,
 descripcion_hab varchar(90) not null,
 check(tipo_hab in ('0','1', '2'))
 );
@@ -76,6 +74,7 @@ create table detalleboleta(
 id_boleta char(9) not null,
 id_cliente int not null,
 id_hab char(4) not null,
+NumDias_dBoleta int not null, 
 precioHab_dBoleta double not null,
 precioHabExtra_dBoleta double not null,
 foreign key(id_boleta) references boleta(id_boleta),
@@ -111,17 +110,17 @@ insert into cliente values
 select * from cliente;
 select * from cliente;
 
-insert into habitacion values ('H001','1', '2021-03-23',3 ,'tv con cable' ),
-('H002','1', '2021-03-29',3 ,'tv con cable');
+insert into habitacion values ('H001','1', 'tv con cable' ),
+('H002','1','tv con cable');
 
 insert into habitacion values 
-('H003','1', '2021-05-23',3 ,'tv con cable y piscina' ),
-('H004','2', '2021-03-09',3 ,'tv sin cable'),
-('H005','1', '2021-01-25',3 ,'tv con cable y piscina' ),
-('H006','2', '2021-06-19',3 ,'tv sin cable'),
-('H007','1', '2021-07-28',3 ,'tv sin cable' ),
-('H008','1', '2021-07-22',3 ,'tv con cable'),
-('H009','2', '2021-07-21',3 ,'tv con cable y piscina' );
+('H003','1', 'tv con cable y piscina' ),
+('H004','2', 'tv sin cable'),
+('H005','1', 'tv con cable y piscina' ),
+('H006','2', 'tv sin cable'),
+('H007','1', 'tv sin cable' ),
+('H008','1', 'tv con cable'),
+('H009','2','tv con cable y piscina' );
 select * from habitacion;
 
 insert into rol values ('R1','Administrador'),
@@ -175,17 +174,17 @@ insert into boleta values
 ('B00000009','E09', '2021-09-10', '2345678120', 'efectivo');
 select * from boleta;
 
-insert into detalleboleta values ('B00000001',1, 'H001', '123', '70'),
-('B00000001',2, 'H002', '234', '50');
+insert into detalleboleta values ('B00000001',1, 'H008',4, 123, 70),
+('B00000001',2, 'H009',8, 234, 50);
 
 insert into detalleboleta values 
-('B00000002',3, 'H003', '230', '70'),
-('B00000003',4, 'H004', '200', '70'),
-('B00000004',5, 'H005', '150', '50'),
-('B00000005',6, 'H006', '180', '50'),
-('B00000006',7, 'H007', '123', '80'),
-('B00000007',8, 'H008', '205', '70'),
-('B00000008',9, 'H009', '126', '70');
+('B00000002',3,'H001',7,  230, 70),
+('B00000003',4,'H002',6, 200, 70),
+('B00000004',5,'H003',5, 150, 50),
+('B00000005',6,'H004',5, 180, 50),
+('B00000006',7,'H005',4, 123, 80),
+('B00000007',8,'H006',6, 205, 70),
+('B00000008',9,'H007',4, 126, 70);
 select * from detalleboleta;
 
 -- ----------------------------------------------------------------
@@ -206,9 +205,9 @@ call listarHabitacion();
 -- AñadirHabitacion
 drop procedure if exists AnadirHabitacion;
 delimiter @@
-create procedure AnadirHabitacion(id char(4), tipo char(1), fechareserva date, numdias int, descrip varchar(90))
+create procedure AnadirHabitacion(id char(4), tipo char(1), descrip varchar(90))
 begin
-	insert into habitacion values(id, tipo, fechareserva, numdias, descrip);
+	insert into habitacion values(id, tipo, descrip);
 end @@
 delimiter ;
 /*call AnadirHabitacion('1113','2', '2021-05-23',3 ,'agua caliente');*/
@@ -216,9 +215,9 @@ delimiter ;
 -- ModificarHabitacion
 drop procedure if exists ModificarHabitacion;
 delimiter @@
-create procedure ModificarHabitacion(id char(4), tipo char(1), fechareserva date, numdias int, descrip varchar(90))
+create procedure ModificarHabitacion(id char(4), tipo char(1), descrip varchar(90))
 begin
-	update habitacion set  tipo_hab = tipo, FechaReserva_hab = fechareserva, NumDias_hab=numdias, descripcion_hab= descrip  where id_hab = id;
+	update habitacion set  tipo_hab = tipo, descripcion_hab= descrip  where id_hab = id;
 end @@
 delimiter ;
 /*call ModificarHabitacion('1112','2', '2021-03-29',3 ,'tv con cable');*/
@@ -295,7 +294,7 @@ begin
 	select * from cliente where id_cliente = id_cli;
 end @@
 delimiter ;
-call ConsultarCliente('3');
+/*call ConsultarCliente('3');*/
 
 
 -- EliminarCliente
@@ -306,7 +305,7 @@ begin
 	delete from cliente where id_cliente = id_cli;
 end @@
 delimiter ;
-call EliminarCliente(3);
+/*call EliminarCliente(3);*/
 
 -- REGISTRO DEl EMPLEADO-----------------------------------------------------
 -- ListarEmpleado
@@ -370,10 +369,8 @@ delimiter @@
 create procedure ConsultaBuscarHabitacion ()
 begin
 	select c.id_cliente as 'Cod_Ciente',
-		     h.NumDias_hab as 'N°Dias',
              h.descripcion_hab as 'Descripción',
-             h.tipo_hab as 'Tipo de Habitación',
-             db.precioHab_dBoleta as 'Precio X Dia'
+             h.tipo_hab as 'Tipo de Habitación'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
 					  JOIN habitacion AS h ON h.id_hab = db.id_hab ;
 end @@
@@ -385,10 +382,8 @@ delimiter @@
 create procedure ConsultaBuscarHabitacionId (id char(4))
 begin
 	select c.id_cliente as 'Cod_Ciente',
-		     h.NumDias_hab as 'N°Dias',
              h.descripcion_hab as 'Descripción',
-             h.tipo_hab as 'Tipo de Habitación',
-             db.precioHab_dBoleta as 'Precio X Dia'
+             h.tipo_hab as 'Tipo de Habitación'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
 					  JOIN habitacion AS h ON h.id_hab = db.id_hab 
     where h.id_hab like (Concat(concat('%',id),'%')) ;
@@ -402,10 +397,8 @@ delimiter @@
 create procedure ConsultaBuscarHabitacionTipo (tipo char(1))
 begin
 	select c.id_cliente as 'Cod_Ciente',
-		     h.NumDias_hab as 'N°Dias',
              h.descripcion_hab as 'Descripción',
-             h.tipo_hab as 'Tipo de Habitación',
-             db.precioHab_dBoleta as 'Precio X Dia'
+             h.tipo_hab as 'Tipo de Habitación'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
 					  JOIN habitacion AS h ON h.id_hab = db.id_hab 
     where h.tipo_hab like (Concat(concat('%',tipo),'%')) ;
@@ -429,9 +422,9 @@ begin
              b.fecha_boleta as 'Fecha Boleta',
              b.ruc_boleta as 'Ruc Boleta',
              b.tipoPago_boleta as 'Tipo de pago',
-             h.NumDias_hab as 'N°Dias',
+             db.NumDias_dBoleta as 'N°Dias',
              db.precioHab_dBoleta as 'Precio X Dia',
-             (h.NumDias_hab * db.precioHab_dBoleta) as 'Precio Total'
+             (db.NumDias_dBoleta * db.precioHab_dBoleta) as 'Precio Total'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
 					  JOIN habitacion AS h ON h.id_hab = db.id_hab 
                       JOIN boleta AS b ON b.id_boleta = db.id_boleta
@@ -452,9 +445,9 @@ begin
              b.fecha_boleta as 'Fecha Boleta',
              b.ruc_boleta as 'Ruc Boleta',
              b.tipoPago_boleta as 'Tipo de pago',
-             h.NumDias_hab as 'N°Dias',
+             db.NumDias_dBoleta as 'N°Dias',
              db.precioHab_dBoleta as 'Precio X Dia',
-             (h.NumDias_hab * db.precioHab_dBoleta) as 'Precio Total'
+             (db.NumDias_dBoleta * db.precioHab_dBoleta) as 'Precio Total'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
 					  JOIN habitacion AS h ON h.id_hab = db.id_hab 
                       JOIN boleta AS b ON b.id_boleta = db.id_boleta
@@ -476,9 +469,9 @@ begin
              b.fecha_boleta as 'Fecha Boleta',
              b.ruc_boleta as 'Ruc Boleta',
              b.tipoPago_boleta as 'Tipo de pago',
-             h.NumDias_hab as 'N°Dias',
+             db.NumDias_dBoleta as 'N°Dias',
              db.precioHab_dBoleta as 'Precio X Dia',
-             (h.NumDias_hab * db.precioHab_dBoleta) as 'Precio Total'
+             (db.NumDias_hab * db.precioHab_dBoleta) as 'Precio Total'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
 					  JOIN habitacion AS h ON h.id_hab = db.id_hab 
                       JOIN boleta AS b ON b.id_boleta = db.id_boleta

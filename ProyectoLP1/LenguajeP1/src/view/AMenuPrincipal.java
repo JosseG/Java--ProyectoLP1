@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JDesktopPane;
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.event.ActionListener;
 
 import java.awt.event.ComponentEvent;
@@ -34,8 +35,9 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 	private JMenu mnConsulta;
 	private JMenu mnReporte;
 	private JMenuItem mntmSalir;
-	private JMenuItem mntmReservHabita;
+	private JMenuItem mntmRegistroHab;
 	private JMenuItem mntmRegistCliente;
+	
 	private JMenuItem mntmConsultHabita;
 	private JMenuItem mntmConsultaBoleta;
 	private JMenuItem mntmDatosHabita;
@@ -58,6 +60,7 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 	 */
 
 	public AMenuPrincipal() {
+		
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setTitle("Men\u00FA Principal");
 		addComponentListener(this);
@@ -77,35 +80,46 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		
 		mntmSalir = new JMenuItem("Salir");
 		mntmSalir.addActionListener(this);
+		mntmSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnArchivo.add(mntmSalir);
 		
 		mnRegistro = new JMenu("Mantenimiento");
 		menuBar.add(mnRegistro);
 		
-		mntmReservHabita = new JMenuItem("Reserva de Habitaci\u00F3n");
-		mntmReservHabita.addActionListener(this);
-		mnRegistro.add(mntmReservHabita);
+		mntmRegistroHab = new JMenuItem("Registro de Habitaci\u00F3n");
+		mntmRegistroHab.addActionListener(this);
+		mntmRegistroHab.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		mnRegistro.add(mntmRegistroHab);
 		
 		mntmRegistCliente = new JMenuItem("Registro del Cliente");
 		mntmRegistCliente.addActionListener(this);
+		mntmRegistCliente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnRegistro.add(mntmRegistCliente);
 		
 		mntmRegistEmplea = new JMenuItem("Registro del Empleado");
 		mntmRegistEmplea.addActionListener(this);
+		mntmRegistEmplea.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnRegistro.add(mntmRegistEmplea);
 		
 		mnTransaccion = new JMenu("Transacci\u00F3n");
 		menuBar.add(mnTransaccion);
+		
+		mntmReservaHabitacion = new JMenuItem("Reserva de Habitaci\u00F3n");
+		mntmReservaHabitacion.addActionListener(this);
+		mntmReservaHabitacion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		mnTransaccion.add(mntmReservaHabitacion);
 		
 		mnConsulta = new JMenu("Consulta");
 		menuBar.add(mnConsulta);
 		
 		mntmConsultHabita = new JMenuItem("Consulta Habitaci\u00F3n");
 		mntmConsultHabita.addActionListener(this);
+		mntmConsultHabita.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnConsulta.add(mntmConsultHabita);
 		
 		mntmConsultaBoleta = new JMenuItem("Consulta Boleta");
 		mntmConsultaBoleta.addActionListener(this);
+		mntmConsultaBoleta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnConsulta.add(mntmConsultaBoleta);
 		
 		mnReporte = new JMenu("Reporte");
@@ -113,14 +127,17 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		
 		mntmDatosCliente = new JMenuItem("Datos del cliente");
 		mntmDatosCliente.addActionListener(this);
+		mntmDatosCliente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnReporte.add(mntmDatosCliente);
 		
 		mntmDatosHabita = new JMenuItem("Datos de las Habitaciones");
 		mntmDatosHabita.addActionListener(this);
+		mntmDatosHabita.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnReporte.add(mntmDatosHabita);
 		
 		mntmDatosEmplea = new JMenuItem("Datos del Empleado");
 		mntmDatosEmplea.addActionListener(this);
+		mntmDatosEmplea.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnReporte.add(mntmDatosEmplea);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -150,6 +167,9 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
     
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmReservaHabitacion) {
+			actionPerformedMntmReservaHabitacion(e);
+		}
 		if (e.getSource() == mntmDatosEmplea) {
 			actionPerformedMntmDatosEmplea(e);
 		}
@@ -171,7 +191,7 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		if (e.getSource() == mntmRegistCliente) {
 			actionPerformedMntmRegistCliente(e);
 		}
-		if (e.getSource() == mntmReservHabita) {
+		if (e.getSource() == mntmRegistroHab) {
 			actionPerformedMntmReservHabita(e);
 		}
 		if (e.getSource() == mntmSalir) {
@@ -187,7 +207,7 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		}
 	}
 	
-	BReservaHabitacion Res11 = new BReservaHabitacion();
+	BRegistroHabitacion Res11 = new BRegistroHabitacion();
 	protected void actionPerformedMntmReservHabita(ActionEvent e) {
 		
 		Res11.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-491)/2);
@@ -195,6 +215,12 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		Res11.setVisible(true);		
 	}
 
+	PruebaReserva TranReserva=new PruebaReserva(fondo1);
+	protected void actionPerformedMntmReservaHabitacion(ActionEvent e) {
+		TranReserva.setLocation((contentPane.getWidth()-720)/2,(contentPane.getHeight()-490)/2);
+		fondo1.add(TranReserva);
+		TranReserva.setVisible(true);
+	}
 
 	
 	CRegistroCliente Res12 = new CRegistroCliente();	
@@ -245,6 +271,7 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 	
 	
 	IDatosEmpleados Rep33 = new IDatosEmpleados();
+	private JMenuItem mntmReservaHabitacion;
 	protected void actionPerformedMntmDatosEmplea(ActionEvent e) {
 				
 		fondo1.add(Rep33);
@@ -285,4 +312,5 @@ public class AMenuPrincipal extends JFrame implements ActionListener,ComponentLi
 		
 	}
 
+	
 }

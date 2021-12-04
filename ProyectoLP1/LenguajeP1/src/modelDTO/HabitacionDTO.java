@@ -7,75 +7,68 @@ import modelDAO.HabitacionDAO;
 
 public class HabitacionDTO {
 
-	public String id_hab;
-	public Date fecha_reserva;
-	public int num_dias;
-	public String descripcion_hab;
-	public char tipo_hab;
+	public String id;
+	public char tipo;
+	public String descripcion;
 	
-	public HabitacionDAO dao=new HabitacionDAO();
 	
-	public HabitacionDTO() {
-		
-	}
 	
-	public HabitacionDTO(String id_hab,char tipo_hab,Date fecha_reserva, int num_dias, String descripcion_hab) {
+
+	public HabitacionDTO(String id, char tipo, String descripcion) {
 		super();
-		this.id_hab = id_hab;
-		this.tipo_hab = tipo_hab;
-		this.fecha_reserva=fecha_reserva;
-		this.num_dias=num_dias;
-		this.descripcion_hab = descripcion_hab;
-
-	}
-	
-	public int getNum_dias() {
-		return num_dias;
+		this.id = id;
+		this.tipo = tipo;
+		this.descripcion = descripcion;
 	}
 
-	public void setNum_dias(int num_dias) {
-		this.num_dias = num_dias;
+
+
+
+	public String getId() {
+		return id;
 	}
 
-	public Date getFecha_reserva() {
-		return fecha_reserva;
+
+
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public void setFecha_reserva(Date fecha_reserva) {
-		this.fecha_reserva = fecha_reserva;
+
+
+
+	public char getTipo() {
+		return tipo;
 	}
 
-	public String getId_hab() {
-		return id_hab;
+
+
+
+	public void setTipo(char tipo) {
+		this.tipo = tipo;
 	}
-	
-	public void setId_hab(String id_hab) {
-		this.id_hab = id_hab;
+
+
+
+
+	public String getDescripcion() {
+		return descripcion;
 	}
-	
-	public String getDescripcion_hab() {
-		return descripcion_hab;
+
+
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-	
-	public void setDescripcion_hab(String descripcion_hab) {
-		this.descripcion_hab = descripcion_hab;
-	}
-	
-	public char getTipo_hab() {
-		return tipo_hab;
-	}
-	
-	public void setTipo_hab(char tipo_hab) {
-		this.tipo_hab = tipo_hab;
-	}
-	
-	public List<HabitacionDTO> listar(){
-		return dao.listar();
-	}
-	
+
+
+
+
 	@Override
 	public String toString() {
-		return getId_hab()+";"+getNum_dias()+";"+getDescripcion_hab()+";"+getTipo_hab()+";"+getFecha_reserva();
+		return getId()+";"+getTipo()+";"+getDescripcion();
 	}
 	
 }

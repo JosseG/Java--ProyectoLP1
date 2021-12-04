@@ -57,22 +57,22 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 	private JLabel lblPais;
 	private JTextField txtPais;
 	private JScrollPane scrollPane;
-	private JTable jTabla;
-	private DefaultTableModel tabla;
+	private JTable jtTabla;
+	private DefaultTableModel dtmTabla;
 
 	private String Columnas[] = {"CODIGO","NOMBRE","APELLIDOS","DOCUMENTO IDENTIDAD", "TELEFONO", "CORREO","DIRECCION"};
 	private JTextField txtBuscar;
 	private JButton btnBuscar;
 	
-	JTableHeader header;
+	private JTableHeader header;
 	private JButton btnCancel;
 	private JProgressBar pbCarga;
 	
 	
 	private void CargarTabla() {
-		tabla = new DefaultTableModel();
-		for(int i=0; i<Columnas.length; i++)tabla.addColumn(Columnas[i]);
-		jTabla.setModel(tabla);
+		dtmTabla = new DefaultTableModel();
+		for(int i=0; i<Columnas.length; i++)dtmTabla.addColumn(Columnas[i]);
+		jtTabla.setModel(dtmTabla);
 	}
 	
 	/**
@@ -150,12 +150,14 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		btnModificar.addActionListener(this);
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setBackground(new Color(130, 73, 229));
+		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnModificar.setBounds(576, 99, 89, 23);
 		getContentPane().add(btnModificar);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(this);
 		btnEliminar.setForeground(Color.WHITE);
+		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setBorder(new LineBorder(new Color(252, 80, 156), 1, true));
 		btnEliminar.setBackground(new Color(130, 73, 229));
 		btnEliminar.setBounds(576, 152, 89, 23);
@@ -203,16 +205,16 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		
 
 		
-		jTabla = new JTable();
-		jTabla.getTableHeader().setReorderingAllowed(false);
-		jTabla.getTableHeader().setResizingAllowed(false);
-		jTabla.addMouseListener(this);
-		jTabla.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		jtTabla = new JTable();
+		jtTabla.getTableHeader().setReorderingAllowed(false);
+		jtTabla.getTableHeader().setResizingAllowed(false);
+		jtTabla.addMouseListener(this);
+		jtTabla.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		header=jTabla.getTableHeader();
+		header=jtTabla.getTableHeader();
 		header.setDefaultRenderer(new GestionEncabezadoTabla(new Color(35,200,70)));
-		jTabla.setTableHeader(header);
-		scrollPane.setViewportView(jTabla);
+		jtTabla.setTableHeader(header);
+		scrollPane.setViewportView(jtTabla);
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(this);
@@ -234,6 +236,7 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		pbCarga = new JProgressBar();
 		pbCarga.setForeground(new Color(50, 205, 50));
 		pbCarga.setBounds(165, 469, 146, 14);
+		pbCarga.setVisible(false);
 		getContentPane().add(pbCarga);
 		CargarTabla();
 		tamanoColumnas();
@@ -265,11 +268,11 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 	}
 	protected void actionPerformedBtnEliminar(ActionEvent e) {
 		
-		int row = jTabla.getSelectedRow();
+		int row = jtTabla.getSelectedRow();
 		int rpta=JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar?");
 		if(rpta==JOptionPane.OK_OPTION) {
 			ClienteDAO cldao=new ClienteDAO();
-			cldao.eliminar(tabla.getValueAt(row, 0).toString());
+			cldao.eliminar(dtmTabla.getValueAt(row, 0).toString());
 			JOptionPane.showMessageDialog(null, "Correcto");
 		}else {
 			JOptionPane.showMessageDialog(null, "incorrecto");
@@ -282,83 +285,101 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		Carga carga = new Carga(pbCarga);
 		
 		
-		int row = jTabla.getSelectedRow();
+		int row = jtTabla.getSelectedRow();
 		ClienteDTO cldto=new ClienteDTO();
 		ClienteDAO cldao=new ClienteDAO();
 		carga.start();
 		try {
 			
-			cldto.setId(Integer.parseInt(tabla.getValueAt(row, 0).toString()));
+			cldto.setId(Integer.parseInt(dtmTabla.getValueAt(row, 0).toString()));
 			if(txtNombres.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
 				cldto.setNombre(txtNombres.getText());
 				if(txtApellidos.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
 					cldto.setApellidos(txtApellidos.getText());
-					if(txtDocIdentidad.getText().matches("")) {
+					if(txtDocIdentidad.getText().matches(ExpRegs.REGULAREXP_DOCUMENTO)) {
 						cldto.setDi(txtDocIdentidad.getText());
 						if(txtCelular.getText().matches(ExpRegs.REGULAREXP_TELEFONO)) {
 							cldto.setTelefono(txtCelular.getText());
 							if(txtCorreoElectronico.getText().matches(ExpRegs.REGULAREXP_CORREO)) {
 								cldto.setCorreo(txtCorreoElectronico.getText());
-							}else {
 								
+								cldto.setIdDireccion(dtmTabla.getValueAt(row, 6).toString());
+								cldao.actualizar(cldto);
+							}else {
+								JOptionPane.showMessageDialog(null, "Correo incorrecto");
 							}
 						}else {
-							System.out.println("Telefono incorrecto");
+							JOptionPane.showMessageDialog(null, "Telefono incorrecto");
 						}
 					}else {
-						System.out.println("Documento incorrecto");
+						JOptionPane.showMessageDialog(null, "Documento incorrecto");
 					}
 				}else {
-					System.out.println("Apellido incorrecto");
+					JOptionPane.showMessageDialog(null, "Apellido incorrecto");
 				}
-					
 			}else {
-				System.out.println("Nombre incorrecto");
+				JOptionPane.showMessageDialog(null, "Nombre incorrecto");
 			}
-			
-			
-			cldto.setIdDireccion(tabla.getValueAt(row, 6).toString());
-			cldao.actualizar(cldto);
-			
-			
-			
-			
-			
+				
 			
 		} catch(Exception ex) {
 			JOptionPane.showMessageDialog(null, "Seleccione una fila");
 		}
 
-		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		listar();
 		limpiar();
 		setEnabledBtn(false);
-		pbCarga.setVisible(false);
+		
 
 		
 	}
 	protected void actionPerformedBtnanadir(ActionEvent e) {
-		long time_start, time_end;
-		time_start = System.currentTimeMillis();
 		ClienteDAO cldao=new ClienteDAO();
 		ClienteDTO cldto=new ClienteDTO();
 		try {
-			
-			cldto.setDi(txtDocIdentidad.getText());
-			cldto.setNombre(txtNombres.getText());
-			cldto.setApellidos(txtApellidos.getText());
-			cldto.setTelefono(txtCelular.getText());
-			cldto.setCorreo(txtCorreoElectronico.getText());
-			cldto.setIdDireccion(encontrariPais(txtPais.getText()));
-			cldao.insertar(cldto);
+			if(txtNombres.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
+				cldto.setNombre(txtNombres.getText());
+				if(txtApellidos.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
+					cldto.setApellidos(txtApellidos.getText());
+					if(txtDocIdentidad.getText().matches(ExpRegs.REGULAREXP_DOCUMENTO)) {
+						cldto.setDi(txtDocIdentidad.getText());
+						if(txtCelular.getText().matches(ExpRegs.REGULAREXP_TELEFONO)) {
+							cldto.setTelefono(txtCelular.getText());
+							if(txtCorreoElectronico.getText().matches(ExpRegs.REGULAREXP_CORREO)) {
+								cldto.setCorreo(txtCorreoElectronico.getText());
+								
+								cldto.setIdDireccion(encontrariPais(txtPais.getText()));
+								cldao.insertar(cldto);
+							}else {
+								JOptionPane.showMessageDialog(null, "Correo incorrecto");
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Telefono incorrecto");
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Documento incorrecto");
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Apellido incorrecto");
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Nombre incorrecto");
+			}
+
 			
 		} catch(Exception ex) {
 			JOptionPane.showMessageDialog(null, "");
 		}
+
 		listar();
 		limpiar();
-		time_end = System.currentTimeMillis();
-		System.out.println("the task has taken "+ ( time_end - time_start ) +" milliseconds");
+
 	}
 	
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
@@ -375,20 +396,20 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 	protected void btnCancelActionPerformed(ActionEvent e) {
 		setEnabledBtn(false);
 		limpiar();
-		jTabla.getSelectedRow();
-		jTabla.setRowSelectionAllowed(false);
+		jtTabla.getSelectedRow();
+		jtTabla.setRowSelectionAllowed(false);
 		listar();
 	}
 	
 	void listar() {
-		tabla.setRowCount(0);
+		dtmTabla.setRowCount(0);
 		ClienteDAO hab=new ClienteDAO();
 		List<ClienteDTO> habit=hab.listar();
 		recorrerList(habit);
 	}
 	
 	void filtrarId(int a) {
-		tabla.setRowCount(0);
+		dtmTabla.setRowCount(0);
 		ClienteDAO cb=new ClienteDAO();	
 		List<ClienteDTO> listCB=cb.filtrarId(a);
 		recorrerList(listCB);
@@ -433,7 +454,7 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 			
 			Object [] o = b.toString().split(";");
 			
-			tabla.addRow(o);
+			dtmTabla.addRow(o);
 			
 		}
 		
@@ -444,8 +465,8 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		int [] tamanio= {30,50,80,80,60,80,60};
 		
 		for(int i=0;i<tamanio.length;i++) {
-			jTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
-			jTabla.getColumnModel().getColumn(i).setPreferredWidth(tamanio[i]);
+			jtTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
+			jtTabla.getColumnModel().getColumn(i).setPreferredWidth(tamanio[i]);
 			
 		}
 		
@@ -489,16 +510,16 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		int row = jTabla.rowAtPoint(e.getPoint());
-		txtNombres.setText(tabla.getValueAt(row, 1).toString());
-		txtApellidos.setText(tabla.getValueAt(row, 2).toString());
-		txtDocIdentidad.setText(tabla.getValueAt(row, 3).toString());
-		txtCelular.setText(tabla.getValueAt(row, 4).toString());
-		txtCorreoElectronico.setText(tabla.getValueAt(row, 5).toString());
-		txtPais.setText(encontrarnPais(tabla.getValueAt(row, 6).toString()));
+		int row = jtTabla.rowAtPoint(e.getPoint());
+		txtNombres.setText(dtmTabla.getValueAt(row, 1).toString());
+		txtApellidos.setText(dtmTabla.getValueAt(row, 2).toString());
+		txtDocIdentidad.setText(dtmTabla.getValueAt(row, 3).toString());
+		txtCelular.setText(dtmTabla.getValueAt(row, 4).toString());
+		txtCorreoElectronico.setText(dtmTabla.getValueAt(row, 5).toString());
+		txtPais.setText(encontrarnPais(dtmTabla.getValueAt(row, 6).toString()));
 		
 		setEnabledBtn(true);
-		jTabla.setRowSelectionAllowed(true);
+		jtTabla.setRowSelectionAllowed(true);
 	}
 
 	@Override
