@@ -69,14 +69,10 @@ public class ConsultaHabitacionDTO {
 	}
 
 
-
-
 	public void setDescripcionHab(String descripcionHab) {
 		this.descripcionHab = descripcionHab;
 	}
-
-
-
+	
 
 	public char getTipoHab() {
 		return tipoHab;

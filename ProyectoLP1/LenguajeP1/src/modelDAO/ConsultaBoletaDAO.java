@@ -24,6 +24,7 @@ public class ConsultaBoletaDAO implements ICrud<ConsultaBoletaDTO> {
 			ps=con.conectBd().prepareStatement("call ConsultaBuscarBoleta()");
 			rs=ps.executeQuery();
 			while(rs.next()) {
+				System.out.println("aa");
 				cBol.add(new ConsultaBoletaDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getString(5),rs.getString(6),rs.getInt(7),rs.getDouble(8),rs.getDouble(9)));
 			}
 			rs.close();

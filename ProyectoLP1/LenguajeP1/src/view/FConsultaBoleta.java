@@ -230,8 +230,6 @@ public class FConsultaBoleta extends JInternalFrame implements ActionListener,Ke
 			Object[] o= x.toString().split(";");
 			tabla.addRow(o);
 		}
-
-		
 	}
 	
 	

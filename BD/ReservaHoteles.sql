@@ -374,6 +374,7 @@ begin
 	select   c.id_cliente as 'Cod_Cliente',
 			 c.nombre_cliente as 'Nombre_Cliente',
 			 c.apellido_cliente as 'Apellidos_Cliente',
+             h.id_hab as 'Id_Habitacion',
              h.descripcion_hab as 'Descripción',
              h.tipo_hab as 'Tipo de Habitación'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
@@ -390,6 +391,7 @@ begin
 	select   c.id_cliente as 'Cod_Cliente',
 			 c.nombre_cliente as 'Nombre_Cliente',
 			 c.apellido_cliente as 'Apellidos_Cliente',
+             h.id_hab as 'Id_Habitacion',
              h.descripcion_hab as 'Descripción',
              h.tipo_hab as 'Tipo de Habitación'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
@@ -447,6 +449,8 @@ begin
     where c.id_cliente like (Concat(concat('%',cliente),'%')) ;
 end @@
 delimiter ;
+
+
 
 
 drop procedure if exists ConsultaBuscarBoletaIdBoleta;
