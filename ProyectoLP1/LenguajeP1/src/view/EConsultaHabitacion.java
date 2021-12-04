@@ -76,9 +76,10 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		setClosable(true);
 		setTitle("Consulta Habitaci\u00F3n");
 		setBounds(100, 100, 738, 437);
+		setBackground(new Color(128, 128, 128));
 		getContentPane().setLayout(null);
 		//Color fondo
-		getContentPane().setBackground(new Color(224, 255, 255));
+		getContentPane().setBackground(new Color( 114, 173, 168  ));
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(46, 187, 630, 147);

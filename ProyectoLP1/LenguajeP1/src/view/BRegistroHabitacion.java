@@ -181,7 +181,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		btnCancel.setIcon(new ImageIcon(BRegistroHabitacion.class.getResource("/img/cancelar.png")));
 		btnCancel.addActionListener(this);
 		btnCancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCancel.setBounds(283, 419, 28, 28);
+		btnCancel.setBounds(389, 419, 28, 28);
 		getContentPane().add(btnCancel);
 		
 		lblNewLabel = new JLabel("");
@@ -241,7 +241,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 			
 			
 		} catch(Exception ex) {
-			JOptionPane.showMessageDialog(null, "");
+			JOptionPane.showMessageDialog(null, "Error al añadir");
 		}
 
 		listar();
@@ -377,7 +377,7 @@ public class BRegistroHabitacion extends JInternalFrame implements ActionListene
 		btnEliminar.setEnabled(a);
 		btnModificar.setEnabled(a);
 		btnAnadir.setEnabled(!a);
-		
+		btnCancel.setEnabled(a);
 	}
 	
 	private void limpiar() {

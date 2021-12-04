@@ -473,7 +473,7 @@ begin
 end @@
 delimiter ;
 
-call ConsultaBuscarBoletaIdBoleta('B00')
+
 
 
 /*Generar Codigo*/
@@ -554,7 +554,7 @@ begin
     where b.id_boleta like (Concat(concat('%',boleta),'%')) ;
 end @@
 delimiter ;
-call verBoleta('9000');
+
 
 
 

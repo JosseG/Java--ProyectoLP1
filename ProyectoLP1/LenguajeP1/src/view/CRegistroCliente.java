@@ -220,7 +220,9 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		getContentPane().add(pbCarga);
 		
 		btnAnadir = new JButton("A\u00F1adir");
+		btnAnadir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAnadir.setFont(new Font("Dubai Medium", Font.PLAIN, 14));
+		btnAnadir.addActionListener(this);
 		btnAnadir.setForeground(Color.BLACK);
 		btnAnadir.setEnabled(true);
 		btnAnadir.setBackground(new Color(130, 73, 229));
@@ -228,17 +230,21 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		getContentPane().add(btnAnadir);
 		
 		btnModificar = new JButton("Modificar");
+		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnModificar.setFont(new Font("Dubai Medium", Font.PLAIN, 14));
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setEnabled(false);
+		btnModificar.addActionListener(this);
 		btnModificar.setBackground(new Color(130, 73, 229));
 		btnModificar.setBounds(608, 117, 111, 28);
 		getContentPane().add(btnModificar);
 		
 		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setFont(new Font("Dubai Medium", Font.PLAIN, 14));
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setEnabled(false);
+		btnEliminar.addActionListener(this);
 		btnEliminar.setBorder(new LineBorder(new Color(252, 80, 156), 1, true));
 		btnEliminar.setBackground(new Color(130, 73, 229));
 		btnEliminar.setBounds(608, 155, 111, 28);
@@ -263,6 +269,7 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		listar();
 		limpiar();
 		setEnabledBtn(false);
+		pbCarga.setVisible(false);
 
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -274,6 +281,59 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 			actionPerformedBtnBuscar(e);
 		}
 		
+		if(e.getSource() == btnAnadir) {
+			actionPerformedBtnanadir(e);
+		}
+		
+		if (e.getSource() == btnModificar) {
+			actionPerformedBtnModificar(e);
+		}
+
+		if (e.getSource() == btnEliminar) {
+			actionPerformedBtnEliminar(e);
+		}
+		
+	}
+	protected void actionPerformedBtnanadir(ActionEvent e) {
+		ClienteDAO cldao=new ClienteDAO();
+		ClienteDTO cldto=new ClienteDTO();
+		try {
+			if(txtNombres.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
+				cldto.setNombre(txtNombres.getText());
+				if(txtApellidos.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
+					cldto.setApellidos(txtApellidos.getText());
+					if(txtDocIdentidad.getText().matches(ExpRegs.REGULAREXP_DOCUMENTO)) {
+						cldto.setDi(txtDocIdentidad.getText());
+						if(txtCelular.getText().matches(ExpRegs.REGULAREXP_TELEFONO)) {
+							cldto.setTelefono(txtCelular.getText());
+							if(txtCorreoElectronico.getText().matches(ExpRegs.REGULAREXP_CORREO)) {
+								cldto.setCorreo(txtCorreoElectronico.getText());
+
+								cldto.setIdDireccion(encontrariPais(txtPais.getText()));
+								cldao.insertar(cldto);
+							}else {
+								JOptionPane.showMessageDialog(null, "Correo incorrecto");
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Telefono incorrecto");
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Documento incorrecto");
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Apellido incorrecto");
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Nombre incorrecto");
+			}
+
+
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "");
+		}
+
+		listar();
+		limpiar();
 	}
 	
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
@@ -286,6 +346,79 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		
 		
 	}
+	
+	protected void actionPerformedBtnEliminar(ActionEvent e) {
+
+		int row = jtTabla.getSelectedRow();
+		int rpta=JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar?");
+		if(rpta==JOptionPane.OK_OPTION) {
+			ClienteDAO cldao=new ClienteDAO();
+			cldao.eliminar(dtmTabla.getValueAt(row, 0).toString());
+			JOptionPane.showMessageDialog(null, "Correcto");
+		}else {
+			JOptionPane.showMessageDialog(null, "incorrecto");
+		}
+		limpiar();
+		listar();
+	}
+
+	protected void actionPerformedBtnModificar(ActionEvent e) {
+		Carga carga = new Carga(pbCarga);
+
+
+		int row = jtTabla.getSelectedRow();
+		ClienteDTO cldto=new ClienteDTO();
+		ClienteDAO cldao=new ClienteDAO();
+		carga.start();
+		try {
+
+			cldto.setId(Integer.parseInt(dtmTabla.getValueAt(row, 0).toString()));
+			if(txtNombres.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
+				cldto.setNombre(txtNombres.getText());
+				if(txtApellidos.getText().matches(ExpRegs.REGULAREXP_NOMBRE_APELLIDO)) {
+					cldto.setApellidos(txtApellidos.getText());
+					if(txtDocIdentidad.getText().matches(ExpRegs.REGULAREXP_DOCUMENTO)) {
+						cldto.setDi(txtDocIdentidad.getText());
+						if(txtCelular.getText().matches(ExpRegs.REGULAREXP_TELEFONO)) {
+							cldto.setTelefono(txtCelular.getText());
+							if(txtCorreoElectronico.getText().matches(ExpRegs.REGULAREXP_CORREO)) {
+								cldto.setCorreo(txtCorreoElectronico.getText());
+
+								cldto.setIdDireccion(dtmTabla.getValueAt(row, 6).toString());
+								cldao.actualizar(cldto);
+							}else {
+								JOptionPane.showMessageDialog(null, "Correo incorrecto");
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Telefono incorrecto");
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Documento incorrecto");
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Apellido incorrecto");
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Nombre incorrecto");
+			}
+
+
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Seleccione una fila");
+		}
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		listar();
+		limpiar();
+		setEnabledBtn(false);
+
+	}
+
 	
 	protected void btnCancelActionPerformed(ActionEvent e) {
 		setEnabledBtn(false);
@@ -367,7 +500,11 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 	}
 	
 	private void setEnabledBtn(boolean a) {
-		
+		btnEliminar.setEnabled(a);
+		btnModificar.setEnabled(a);
+		btnAnadir.setEnabled(!a);
+		btnCancel.setVisible(a);
+
 	}
 	
 	private void limpiar() {
