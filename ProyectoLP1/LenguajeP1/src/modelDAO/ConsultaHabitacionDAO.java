@@ -23,7 +23,7 @@ public class ConsultaHabitacionDAO implements ICrud<ConsultaHabitacionDTO> {
 			ps=con.conectBd().prepareStatement("call ConsultaBuscarHabitacion()");
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				cHab.add(new ConsultaHabitacionDTO(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getString(4).charAt(0),rs.getDouble(5)));
+				cHab.add(new ConsultaHabitacionDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6).charAt(0)));
 			}
 			rs.close();
 			return cHab;
@@ -65,7 +65,7 @@ public class ConsultaHabitacionDAO implements ICrud<ConsultaHabitacionDTO> {
 			ps.setString(1, a);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				cHab.add(new ConsultaHabitacionDTO(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getString(4).charAt(0),rs.getDouble(5)));
+				cHab.add(new ConsultaHabitacionDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6).charAt(0)));
 			}
 			rs.close();
 			return cHab;
@@ -89,7 +89,7 @@ public class ConsultaHabitacionDAO implements ICrud<ConsultaHabitacionDTO> {
 			ps.setString(1, a);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				cHab.add(new ConsultaHabitacionDTO(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getString(4).charAt(0),rs.getDouble(5)));
+				cHab.add(new ConsultaHabitacionDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6).charAt(0)));
 			}
 			rs.close();
 			return cHab;
@@ -98,7 +98,6 @@ public class ConsultaHabitacionDAO implements ICrud<ConsultaHabitacionDTO> {
 		} finally {
 			con.cerrarConexion();
 		}
-		
 		return null;
 	}
 	

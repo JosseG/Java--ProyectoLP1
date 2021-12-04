@@ -39,11 +39,11 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 	private JScrollPane scrollPane;
 	private JTable miTabla;
 	private DefaultTableModel tabla;
-	private String Columnas[] = {"COD-CLIENTE","N°DIAS","DESCRIPCION","TIPO DE HABITACION", "PRECIO X D"};
+	private String Columnas[] = {"COD-CLIENTE","NOMBRES","APELLIDOS","COD_HAB","DESCRIPCION-HABITACION","TIPO DE HABITACION"};
 	private ButtonGroup grupoRadio;
 	private JRadioButton rdbtnId;
 	private JRadioButton rdbtnTipo;
-	private TextAutoCompleter ac;
+
 	
 	//Cargar tabla
 		private void CargarTabla() {
@@ -95,10 +95,7 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 		getContentPane().add(lblNewLabel);
 		
 		txtBusqueda = new JTextField();
-		ac = new TextAutoCompleter(txtBusqueda);
-		ac.addItem("1111");
-		ac.addItem("1112");
-		ac.addItem("11115");
+
 		txtBusqueda.setColumns(10);
 		txtBusqueda.addKeyListener(this);
 		txtBusqueda.setBackground(new Color(204, 204, 204));
@@ -234,9 +231,9 @@ public class EConsultaHabitacion extends JInternalFrame implements ActionListene
 
 	private void tamanoColumnas() {
 		
-		int [] tamanio= {20,5,30,80,80};
+		int [] tamanio= {20,10,30,80,80};
 		
-		for(int i=0;i<5;i++) {
+		for(int i=0;i<tamanio.length;i++) {
 			miTabla.getColumnModel().getColumn(i).setCellRenderer(new GestionCeldas("texto"));
 			miTabla.getColumnModel().getColumn(i).setPreferredWidth(tamanio[i]);
 			

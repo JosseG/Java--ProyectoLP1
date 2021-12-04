@@ -3,66 +3,110 @@ package modelDTO;
 public class ConsultaHabitacionDTO {
 
 	private String codCliente;
-	private int nDias;
-	private String descHab;
+	private String nombreCliente;
+	private String apellidCliente;
+	private String idHab;
+	private String descripcionHab;
 	private char tipoHab;
-	private double precioDia;
 	
 	public ConsultaHabitacionDTO() {
 		
 	}
-	public ConsultaHabitacionDTO(String codCliente, int nDias, String descHab, char tipoHab, double precioDia) {
+	
+
+	public ConsultaHabitacionDTO(String codCliente, String nombreCliente, String apellidCliente, String idHab ,String descripcionHab,
+			char tipoHab) {
 		super();
 		this.codCliente = codCliente;
-		this.nDias = nDias;
-		this.descHab = descHab;
+		this.nombreCliente = nombreCliente;
+		this.apellidCliente = apellidCliente;
+		this.idHab = idHab;
+		this.descripcionHab = descripcionHab;
 		this.tipoHab = tipoHab;
-		this.precioDia = precioDia;
 	}
+
 
 	public String getCodCliente() {
 		return codCliente;
 	}
 
+
 	public void setCodCliente(String codCliente) {
 		this.codCliente = codCliente;
 	}
 
-	public int getnDias() {
-		return nDias;
+
+	public String getNombreCliente() {
+		return nombreCliente;
 	}
 
-	public void setnDias(int nDias) {
-		this.nDias = nDias;
+
+
+
+	public void setNombreCliente(String nombreCliente) {
+		this.nombreCliente = nombreCliente;
 	}
 
-	public String getDescHab() {
-		return descHab;
+
+
+
+	public String getApellidCliente() {
+		return apellidCliente;
 	}
 
-	public void setDescHab(String descHab) {
-		this.descHab = descHab;
+
+
+
+	public void setApellidCliente(String apellidCliente) {
+		this.apellidCliente = apellidCliente;
 	}
+
+
+
+
+	public String getDescripcionHab() {
+		return descripcionHab;
+	}
+
+
+
+
+	public void setDescripcionHab(String descripcionHab) {
+		this.descripcionHab = descripcionHab;
+	}
+
+
+
 
 	public char getTipoHab() {
 		return tipoHab;
 	}
 
+
+
+
 	public void setTipoHab(char tipoHab) {
 		this.tipoHab = tipoHab;
 	}
 
-	public double getPrecioDia() {
-		return precioDia;
+
+
+
+
+
+	public String getIdHab() {
+		return idHab;
 	}
 
-	public void setPrecioDia(double precioDia) {
-		this.precioDia = precioDia;
+
+	public void setIdHab(String idHab) {
+		this.idHab = idHab;
 	}
 	
 	public String toString() {
-		return getCodCliente()+";"+getnDias()+";"+getDescHab()+";"+getTipoHab()+";"+getPrecioDia();
+		return getCodCliente()+";"+getNombreCliente()+";"+getApellidCliente()+";"+getIdHab()+";"+getDescripcionHab()+";"+getTipoHab();
 	}
+
 	
 	
 }

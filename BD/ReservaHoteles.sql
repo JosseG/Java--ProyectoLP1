@@ -355,7 +355,10 @@ drop procedure if exists ConsultaBuscarHabitacion;
 delimiter @@
 create procedure ConsultaBuscarHabitacion ()
 begin
-	select c.id_cliente as 'Cod_Ciente',
+	select   c.id_cliente as 'Cod_Cliente',
+			 c.nombre_cliente as 'Nombre_Cliente',
+			 c.apellido_cliente as 'Apellidos_Cliente',
+             h.id_hab as 'Id_Habitacion',
              h.descripcion_hab as 'Descripción',
              h.tipo_hab as 'Tipo de Habitación'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
@@ -368,7 +371,9 @@ drop procedure if exists ConsultaBuscarHabitacionId;
 delimiter @@
 create procedure ConsultaBuscarHabitacionId (id char(4))
 begin
-	select c.id_cliente as 'Cod_Ciente',
+	select   c.id_cliente as 'Cod_Cliente',
+			 c.nombre_cliente as 'Nombre_Cliente',
+			 c.apellido_cliente as 'Apellidos_Cliente',
              h.descripcion_hab as 'Descripción',
              h.tipo_hab as 'Tipo de Habitación'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
@@ -382,7 +387,9 @@ drop procedure if exists ConsultaBuscarHabitacionTipo;
 delimiter @@
 create procedure ConsultaBuscarHabitacionTipo (tipo char(1))
 begin
-	select c.id_cliente as 'Cod_Ciente',
+	select   c.id_cliente as 'Cod_Cliente',
+			 c.nombre_cliente as 'Nombre_Cliente',
+			 c.apellido_cliente as 'Apellidos_Cliente',
              h.descripcion_hab as 'Descripción',
              h.tipo_hab as 'Tipo de Habitación'
     from cliente AS c JOIN detalleboleta AS db ON  c.id_cliente= db.id_cliente 
