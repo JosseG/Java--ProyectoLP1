@@ -9,6 +9,7 @@ import java.util.List;
 
 import interfaces.ICrud;
 import modelDTO.EmpleadoDTO;
+import modelDTO.HabitacionDTO;
 import util.Conexion;
 
 public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
@@ -120,6 +121,37 @@ public class EmpleadoDAO implements ICrud<EmpleadoDTO> {
 		return false;	
 	}
 
+	
+	
+	
+	
+	public List<EmpleadoDTO> filtrarId(String f){
+		
+		ResultSet rs;
+		PreparedStatement ps;
+		List<EmpleadoDTO> lista=new ArrayList<EmpleadoDTO>();
+		
+		try {
+			ps=conexion.conectBd().prepareStatement("Select * from empleado where id_emp=?");
+			ps.setString(1, f);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				lista.add(new EmpleadoDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)));
+			}
+			rs.close();
+			return lista;
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	
+	
+	
+	
+	
 	public String generarCodigo() {
 		String nuevoCod="";
 		CallableStatement cs;

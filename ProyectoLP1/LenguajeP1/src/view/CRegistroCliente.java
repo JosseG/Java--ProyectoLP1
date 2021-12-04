@@ -148,8 +148,8 @@ public class CRegistroCliente extends JInternalFrame implements ActionListener,M
 		
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(this);
-		btnModificar.setForeground(Color.WHITE);
-		btnModificar.setBackground(new Color(130, 73, 229));
+		btnModificar.setForeground(Color.BLACK);
+		btnModificar.setBackground(new Color(11, 79, 108));
 		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnModificar.setBounds(576, 99, 89, 23);
 		getContentPane().add(btnModificar);

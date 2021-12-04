@@ -8,10 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import modelDAO.EmpleadoDAO;
 import modelDTO.EmpleadoDTO;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.List;
 
 public class IDatosEmpleados extends JInternalFrame {
 	private JScrollPane scrollPane;
@@ -64,9 +66,11 @@ public class IDatosEmpleados extends JInternalFrame {
 	
 	public void mostrarDatos() {
 		EmpleadoDTO emp=new EmpleadoDTO();
+		EmpleadoDAO empdao=new EmpleadoDAO();
+		List<EmpleadoDTO> lisemp=empdao.listar();
 		txtS.setFont(new Font("JetBrains Mono",3,15));
 		txtS.setText("\t\t\tDATOS \n\n");
-		for(EmpleadoDTO e:emp.listar() ) {
+		for(EmpleadoDTO e: lisemp) {
 			txtS.append(e.getNombre()+" ");
 			txtS.append(e.getApellidos()+" ");
 			txtS.append(e.getCorreo()+" ");
